@@ -1,10 +1,11 @@
+package com.aws.JavaG1;
 
-public class timeslot {
+public class Timeslot {
 	private int timeSlotID;
 	private String timeStart;
 	private String timeEnd;
 	
-	public timeslot(int num, String ts, String te){
+	public Timeslot(int num, String ts, String te){
 		this.timeSlotID = num;
 		this.setTimeStart(ts);
 		this.setTimeEnd(te);

@@ -1,3 +1,5 @@
+package com.aws.JavaG1;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -12,11 +14,10 @@ import java.sql.Statement;
  * @author kristiane.paradela
  *
  */
-public class Movies {
+public class Movie {
 
-	/**
-	 * 
-	 */
+
+
 		
 	public static void main(String[] args){
 		Connection conn = null;

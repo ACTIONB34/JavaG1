@@ -1,3 +1,5 @@
+import com.aws.JavaG1.Customer;
+import com.aws.JavaG1.Reservation;
 import com.aws.JavaG1.Screens;
 
 public class Screen {
@@ -7,12 +9,15 @@ public class Screen {
         String Name = "";
         int choice = -1;
         Name = Screens.Screen1A();
+        Customer customer = new Customer(123, Name);
+        Reservation reservation;
 
         while (choice != 0) {
-            choice = Screens.Screen1B(Name);
+            choice = Screens.Screen1B(customer.getCustomerName());
             switch (choice) {
                 case 1:
-                    System.out.println("1");
+                    //Screen 2
+                    Screens.Screen2(Name);
                     break;
                 case 2:
                     System.out.println("2");

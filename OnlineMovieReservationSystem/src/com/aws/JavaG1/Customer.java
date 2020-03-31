@@ -1,3 +1,5 @@
+package com.aws.JavaG1;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -13,14 +15,31 @@ import java.util.Scanner;
  * @author andre.maraton
  *
  */
-public class customer {
+public class Customer {
 	
-	int customerID;
-	String customerName;
+	private int customerID;
+	private Reservation reservations;
+	private String customerName;
+
+	public Reservation getReservations() {
+		return reservations;
+	}
+
+	public void setReservations(Reservation reservation) {
+		this.reservations = reservation;
+	}
+
+
 	
-	public customer(int customerID, String customerName){
+	public Customer(int customerID, String customerName){
 		this.customerID = customerID;
 		this.customerName = customerName;
+	}
+
+	public Customer(int customerID, String customerName, Reservation reservation){
+		this.customerID = customerID;
+		this.customerName = customerName;
+		setReservations(reservation);
 	}
 	
 	public int getCustomerID(){
