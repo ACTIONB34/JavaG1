@@ -16,6 +16,9 @@ public class Reservation {
 	private int noOfSeniors;
 	private int totalAmount;
 
+	public Reservation() {
+	}
+
 	public Reservation getReservation() {
 		return reservation;
 	}

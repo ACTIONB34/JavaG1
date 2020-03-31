@@ -15,6 +15,9 @@ public class Cinema {
 	private int noOfSeats;
 	private String status;
 
+	public Cinema() {
+	}
+
 	public Cinema(Movie movie, ArrayList<Timeslot> timeslots, int noOfSeats, String status) {
 		this.movie = movie;
 		this.timeslots = timeslots;

@@ -5,6 +5,9 @@ public class Seat {
     private Cinema cinema;
     private String status;
 
+    public Seat() {
+    }
+
     public Seat(int seatId, Cinema cinema, String status) {
         this.seatId = seatId;
         this.cinema = cinema;

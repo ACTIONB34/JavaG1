@@ -17,6 +17,9 @@ public class Movie {
 	private String movieLength;
 	private String movieRating;
 
+	public Movie() {
+	}
+
 	public Movie(int movieID, String movieName, String movieGenre, String movieLength, String movieRating) {
 		this.movieID = movieID;
 		this.movieName = movieName;

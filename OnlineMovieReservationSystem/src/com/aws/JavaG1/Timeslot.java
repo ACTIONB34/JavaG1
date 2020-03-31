@@ -4,13 +4,16 @@ public class Timeslot {
 	private int timeSlotID;
 	private String timeStart;
 	private String timeEnd;
-	
-	public Timeslot(int num, String ts, String te){
-		this.timeSlotID = num;
-		this.setTimeStart(ts);
-		this.setTimeEnd(te);
+
+	public Timeslot() {
 	}
-	
+
+	public Timeslot(int timeSlotID, String timeStart, String timeEnd) {
+		this.timeSlotID = timeSlotID;
+		this.timeStart = timeStart;
+		this.timeEnd = timeEnd;
+	}
+
 	public int getTimeSlotID() {
 		return timeSlotID;
 	}
@@ -34,5 +37,4 @@ public class Timeslot {
 	public void setTimeEnd(String timeEnd) {
 		this.timeEnd = timeEnd;
 	}
-	
 }

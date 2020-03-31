@@ -18,15 +18,15 @@ import java.util.Scanner;
 public class Customer {
 	
 	private int customerID;
-	private Reservation reservations;
+	private Reservation reservation;
 	private String customerName;
 
-	public Reservation getReservations() {
-		return reservations;
+	public Reservation getReservation() {
+		return reservation;
 	}
 
-	public void setReservations(Reservation reservation) {
-		this.reservations = reservation;
+	public void setReservation(Reservation reservation) {
+		this.reservation = reservation;
 	}
 
 
@@ -39,7 +39,7 @@ public class Customer {
 	public Customer(int customerID, String customerName, Reservation reservation){
 		this.customerID = customerID;
 		this.customerName = customerName;
-		setReservations(reservation);
+		setReservation(reservation);
 	}
 	
 	public int getCustomerID(){
