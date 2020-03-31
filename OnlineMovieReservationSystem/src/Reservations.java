@@ -73,7 +73,7 @@ public class Reservations {
 	}
 
 
-	public void updateReservation() {
+	public void updateReservation(int reservationID) {
 		
 	}
 
