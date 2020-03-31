@@ -3,5 +3,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/CDC-1.1%Foundation-1.1"/>
 	<classpathentry kind="lib" path="lib/mysql-connector-java-8.0.19.jar"/>
+	<classpathentry kind="lib" path="C:/Users/andre.maraton/AppData/Local/Microsoft/Windows/INetCache/IE/0P3B63KJ/mysql-connector-java-8.0.19[1].jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
