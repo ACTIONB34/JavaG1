@@ -51,9 +51,5 @@ public class Cinema {
 	public void setStatus(int status) {
 		this.status = status;
 	}
-	
-	
-	
-	
 
 }
