@@ -10,24 +10,30 @@ import java.util.ArrayList;
  */
 public class Cinema {
 
-	private Movie movies;
+	private Movie movie;
 	private ArrayList<Timeslot> timeslots;
 	private int noOfSeats;
 	private String status;
 
-	public Cinema(Movie movies, ArrayList<Timeslot> timeslots, int noOfSeats, String status) {
-		this.movies = movies;
+	public Cinema(Movie movie, ArrayList<Timeslot> timeslots, int noOfSeats, String status) {
+		this.movie = movie;
 		this.timeslots = timeslots;
 		this.noOfSeats = noOfSeats;
 		this.status = status;
 	}
 
-	public Movie getMovies() {
-		return movies;
+	public Movie getMovie() {
+		return movie;
 	}
 
-	public void setMovies(Movie movies) {
-		this.movies = movies;
+	public void setMovie(Movie movie) {
+		this.movie = movie;
+	}
+
+	public void addTimeSlot(Timeslot timeslot){
+		if(this.timeslots == null)
+			this.timeslots = new ArrayList<Timeslot>();
+		this.timeslots.add(timeslot);
 	}
 
 	public ArrayList<Timeslot> getTimeslots() {
