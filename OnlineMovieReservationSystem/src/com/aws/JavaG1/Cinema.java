@@ -1,5 +1,5 @@
 package com.aws.JavaG1; /**
- * 
+ *
  */
 
 import java.util.ArrayList;
@@ -10,56 +10,83 @@ import java.util.ArrayList;
  */
 public class Cinema {
 
-	private Movie movie;
-	private ArrayList<Timeslot> timeslots;
-	private int noOfSeats;
-	private String status;
+    private int cinemaId;
+    private Movie movie;
+    private ArrayList<Timeslot> timeslots;
+    private int noOfSeats;
+    private String status;
 
-	public Cinema() {
-	}
+    public Cinema() {
+    }
 
-	public Cinema(Movie movie, ArrayList<Timeslot> timeslots, int noOfSeats, String status) {
-		this.movie = movie;
-		this.timeslots = timeslots;
-		this.noOfSeats = noOfSeats;
-		this.status = status;
-	}
+    public Cinema(int cinemaId, Movie movie, ArrayList<Timeslot> timeslots, int noOfSeats, String status) {
+        this.cinemaId = cinemaId;
+        this.movie = movie;
+        this.timeslots = timeslots;
+        this.noOfSeats = noOfSeats;
+        this.status = status;
+    }
 
-	public Movie getMovie() {
-		return movie;
-	}
+    public int getCinemaId() {
+        return cinemaId;
+    }
 
-	public void setMovie(Movie movie) {
-		this.movie = movie;
-	}
+    public void setCinemaId(int cinemaId) {
+        this.cinemaId = cinemaId;
+    }
 
-	public void addTimeSlot(Timeslot timeslot){
-		if(this.timeslots == null)
-			this.timeslots = new ArrayList<Timeslot>();
-		this.timeslots.add(timeslot);
-	}
+    public Movie getMovie() {
+        return movie;
+    }
 
-	public ArrayList<Timeslot> getTimeslots() {
-		return timeslots;
-	}
+    public void setMovie(Movie movie) {
+        this.movie = movie;
+    }
 
-	public void setTimeslots(ArrayList<Timeslot> timeslots) {
-		this.timeslots = timeslots;
-	}
+    public void addTimeSlot(Timeslot timeslot) {
+        if (this.timeslots == null)
+            this.timeslots = new ArrayList<Timeslot>();
+        this.timeslots.add(timeslot);
+    }
 
-	public int getNoOfSeats() {
-		return noOfSeats;
-	}
+    public ArrayList<Timeslot> getTimeslots() {
+        return timeslots;
+    }
 
-	public void setNoOfSeats(int noOfSeats) {
-		this.noOfSeats = noOfSeats;
-	}
+    public void setTimeslots(ArrayList<Timeslot> timeslots) {
+        this.timeslots = timeslots;
+    }
 
-	public String getStatus() {
-		return status;
-	}
+    public int getNoOfSeats() {
+        return noOfSeats;
+    }
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
+    public void setNoOfSeats(int noOfSeats) {
+        this.noOfSeats = noOfSeats;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        String info = "\n==========================================\n";
+				info += "Cinema " + this.getCinemaId() + "\n\n";
+        info += this.getMovie().getMovieName() + "\n";
+        info += this.getMovie().getMovieGenre() + "\n";
+        info += this.getMovie().getMovieRating() + "\n";
+
+        for (Timeslot timeslot : this.getTimeslots()) {
+            info += "Show " + timeslot.getTimeSlotID() + ": " + timeslot.getTimeStart() + "\n";
+        }
+
+		info += "==========================================";
+        return info;
+
+    }
 }
