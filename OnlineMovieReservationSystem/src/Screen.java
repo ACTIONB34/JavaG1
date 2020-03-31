@@ -24,8 +24,6 @@ public class Screen {
 	
 	}
 	
-	
-	
 	public static void main(String[] args){
 		String username;
 		int choice;
@@ -35,9 +33,19 @@ public class Screen {
 		username = s.Screen1A();
 		choice = s.Screen1B(username);
 		
-//		if (choice = "1"){
-//			
-//		}
+		switch (choice){
+		case 1:
+			System.out.println("1");
+			break;
+		case 2:
+			System.out.println("2");
+			break;
+		case 3:
+			System.out.println("3");
+			break;
+		case 0:
+			System.out.println("Bye!");
+		}
 		
 		
 		/*for checking*/
