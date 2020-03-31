@@ -8,22 +8,22 @@ package com.aws.JavaG1; /**
  */
 public class Cinema {
 
-	private Movie[] movies;
+	private Timeslot[] timeslots;
 	private int noOfSeats;
 	private String status;
 
-	public Cinema(Movie[] movies, int noOfSeats, String status) {
-		this.movies = movies;
+	public Cinema(Timeslot[] timeslots, int noOfSeats, String status) {
+		this.timeslots = timeslots;
 		this.noOfSeats = noOfSeats;
 		this.status = status;
 	}
 
-	public Movie[] getMovies() {
-		return movies;
+	public Timeslot[] getTimeslots() {
+		return timeslots;
 	}
 
-	public void setMovies(Movie[] movies) {
-		this.movies = movies;
+	public void setTimeslots(Timeslot[] timeslots) {
+		this.timeslots = timeslots;
 	}
 
 	public int getNoOfSeats() {
