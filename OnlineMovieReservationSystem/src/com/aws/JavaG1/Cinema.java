@@ -2,6 +2,8 @@ package com.aws.JavaG1; /**
  * 
  */
 
+import java.util.ArrayList;
+
 /**
  * @author chanel.baluyos
  *
@@ -9,12 +11,11 @@ package com.aws.JavaG1; /**
 public class Cinema {
 
 	private Movie movies;
-	private Timeslot[] timeslots;
+	private ArrayList<Timeslot> timeslots;
 	private int noOfSeats;
 	private String status;
 
-
-	public Cinema(Movie movies, Timeslot[] timeslots, int noOfSeats, String status) {
+	public Cinema(Movie movies, ArrayList<Timeslot> timeslots, int noOfSeats, String status) {
 		this.movies = movies;
 		this.timeslots = timeslots;
 		this.noOfSeats = noOfSeats;
@@ -29,11 +30,11 @@ public class Cinema {
 		this.movies = movies;
 	}
 
-	public Timeslot[] getTimeslots() {
+	public ArrayList<Timeslot> getTimeslots() {
 		return timeslots;
 	}
 
-	public void setTimeslots(Timeslot[] timeslots) {
+	public void setTimeslots(ArrayList<Timeslot> timeslots) {
 		this.timeslots = timeslots;
 	}
 
