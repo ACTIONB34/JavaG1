@@ -1,16 +1,17 @@
 package com.aws.JavaG1;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Screens {
-    private static Scanner obj = new Scanner(System.in);
+    private static Scanner scanner = new Scanner(System.in);
 
     public static String Screen1A() {
 
         System.out.print("ONLINE MOVIE RESERVATION\n\n"
                 + "Please enter your name: ");
-        return obj.nextLine();
+        return scanner.nextLine();
     }
 
     public static byte Screen1B(String name) {
@@ -22,17 +23,25 @@ public class Screens {
         System.out.println("Press 0 to Exit\n");
         System.out.print("Choice: ");
         try {
-            return obj.nextByte();
+            return scanner.nextByte();
         } catch (InputMismatchException e) {
             return -1;
         }
     }
 
-    public static void Screen2(String name) {
+    public static void Screen2(ArrayList<Cinema> cinemas){
+        for(Cinema cinema: cinemas){
+            System.out.println(cinema.toString());
+        }
+        System.out.println("\nPress Anykey to Continue!");
+        String sy = scanner.nextLine();
+    }
+
+    public static void Screen3(String name) {
         byte choice = -1;
 
         while (choice != 3) {
-            choice = Screen2Menu(name);
+            choice = Screen3Menu(name);
         switch(choice){
             case 1:
                 break;
@@ -51,7 +60,7 @@ public class Screens {
         }
     }
 
-    private static byte Screen2Menu(String name) {
+    private static byte Screen3Menu(String name) {
 
         System.out.println("Press 1 to Reserve a Movie");
         System.out.println("Press 2 to Edit Existing Reservation");
@@ -59,7 +68,7 @@ public class Screens {
         System.out.println("Press 0 to Exit\n");
         System.out.print("Choice: ");
         try {
-            return obj.nextByte();
+            return scanner.nextByte();
         } catch (InputMismatchException e) {
             return -1;
         }
