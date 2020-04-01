@@ -44,8 +44,9 @@ public class Cinema {
     }
 
     public void addTimeSlot(Timeslot timeslot) {
-        if (this.timeslots == null)
+        if (this.timeslots == null){
             this.timeslots = new ArrayList<Timeslot>();
+        }
         this.timeslots.add(timeslot);
     }
 
