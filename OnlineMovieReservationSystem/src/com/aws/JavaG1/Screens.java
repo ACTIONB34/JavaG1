@@ -178,7 +178,7 @@ public class Screens {
             switch (choice) {
                 case 1:
                 	//to do
-                    Screen3C(customer, reservation, seats);
+                    Screen3C(customer, reservation, seats, cinemas);
                     choice = 0;
                     break;
                 case 2:
@@ -201,6 +201,7 @@ public class Screens {
 
     private static byte Screen3BMenu() {
 
+    	System.out.println("\n");
         System.out.println("Press 1 to Continue to checkout");
         System.out.println("Press 2 to go back to Reservation screen");
         System.out.println("Press 0 to Viewing Movie Screen\n");
@@ -213,13 +214,14 @@ public class Screens {
 
     }
     
-    public static void Screen3C(Customer customer, Reservation reservation, ArrayList<Seat> seats) {
+    public static void Screen3C(Customer customer, Reservation reservations, ArrayList<Seat> seats, ArrayList<Cinema> cinemas) {
+    	byte choice = -1;
     	int[] numberOfSeats = new int[]{1,2,3,4,5,6,7,8,9,10,
     									11,12,13,14,15,16,17,18,19,20,
     									21,22,23,24,25,26,27,28,29,30,
     									31,32,33,34,35,36,37,38,39,40};
     
-    	if(!reservation.isCinemaFull()) {
+    	if(!reservations.isCinemaFull()) {
     		System.out.println("\nSeat Selection Info");
     		System.out.println("\n\nPlease choose your seats from the available seats below: ");
     		
@@ -230,7 +232,30 @@ public class Screens {
     	}
     	
     	System.out.println("\nYour Choice: ");
-    	reservation.setSeatId(scanner.nextInt());
+    	reservations.setSeatId(scanner.nextInt());
+    	
+    	while (choice != 0) {
+            choice = Screen3BMenu();
+            switch (choice) {
+                case 1:
+                	Screen4(customer, cinemas, reservations);
+                    choice = 0;
+                    break;
+                case 2:
+                	Screen3C(customer, reservations, seats, cinemas);
+                    choice = 0;
+                    break;
+                case 0:
+                	Screen2(cinemas);
+                	choice = 0;
+                    break;
+                default:
+                    System.out.println("Invalid input!");
+                    break;
+
+            }
+        }
+    	
     	
     	
     	
