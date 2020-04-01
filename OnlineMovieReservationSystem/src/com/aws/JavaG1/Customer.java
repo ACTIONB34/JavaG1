@@ -21,11 +21,11 @@ public class Customer {
 	private Reservation reservations;
 	private String customerName;
 
-	public Reservation getReservations() {
+	public Reservation getReservation() {
 		return reservations;
 	}
 
-	public void setReservations(Reservation reservation) {
+	public void setReservation(Reservation reservation) {
 		this.reservations = reservation;
 	}
 	
@@ -37,7 +37,7 @@ public class Customer {
 	public Customer(int customerID, String customerName, Reservation reservation){
 		this.customerID = customerID;
 		this.customerName = customerName;
-		setReservations(reservation);
+		setReservation(reservation);
 	}
 	
 	public int getCustomerID(){
@@ -105,7 +105,31 @@ public class Customer {
 		}
 	}
 	
-	public static void main(String[] args){
+	public static void main(String[] args) throws ClassNotFoundException, SQLException{
+		int cinemaID = 1;
+		String time = "10:00 AM - 12:00 PM, Nov-20-2020";
+		int customerID = 1;
+		double totalPayment = 1150.00;
+		int noOfKids = 5;
+		int noOfAdults = 5;
+		int noOfSeniors = 5;
 		
+		try {
+			Connection conn = null;
+			Statement stmt = null;
+			
+			conn = DriverManager.getConnection("jdbc:mysql://localhost/pet_clinic?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
+		    		   "root", "awsys+123");
+			
+			stmt = conn.createStatement();
+			stmt.executeUpdate("INSERT INTO `reservation`(cinemaID,time,customerID,totalPayment,noOfKids,noOfAdults,noOfSeniors) "
+		    		+ "VALUE ('"+cinemaID+"','"+time+"','"+customerID+"',"+totalPayment+",'"+noOfKids+"','"+noOfAdults+"','"+noOfSeniors+"')");
+
+		} catch (SQLException ex) {
+		    // handle any errors
+		    System.out.println("SQLException: " + ex.getMessage());
+		    System.out.println("SQLState: " + ex.getSQLState());
+		    System.out.println("VendorError: " + ex.getErrorCode());
+		}
 	}
 }
