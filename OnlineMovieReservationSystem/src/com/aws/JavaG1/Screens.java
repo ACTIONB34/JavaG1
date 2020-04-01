@@ -106,10 +106,10 @@ public class Screens {
     public static void Screen3A(Customer customer, ArrayList<Cinema> cinemas) {
         byte choice = -1;
         Reservation reservation;
-        if(customer.getReservation() == null)
+        if(customer.getReservations() == null)
               reservation = new Reservation();
         else
-              reservation = customer.getReservation();
+              reservation = customer.getReservations();
 
         do {
             System.out.print("\nEnter Cinema ID:");
@@ -140,7 +140,6 @@ public class Screens {
                     System.out.println("Invalid Choice");
                     break;
             }
-
         }
 
     }
