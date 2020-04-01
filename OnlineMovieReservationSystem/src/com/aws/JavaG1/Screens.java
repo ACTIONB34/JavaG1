@@ -51,10 +51,10 @@ public class Screens {
                     choice = 0;
                     break;
                 case 2:
-                    if (customer.getReservations() == null)
+                    if (customer.getReservation() == null)
                         Screen3D(customer, cinemas);
                     else
-                       Screen3B(customer, cinemas, customer.getReservations(), null);
+                       Screen3B(customer, cinemas, customer.getReservation(), null);
 
                     choice = 0;
                     break;
@@ -106,10 +106,10 @@ public class Screens {
     public static void Screen3A(Customer customer, ArrayList<Cinema> cinemas) {
         byte choice = -1;
         Reservation reservation;
-        if(customer.getReservations() == null)
+        if(customer.getReservation() == null)
               reservation = new Reservation();
         else
-              reservation = customer.getReservations();
+              reservation = customer.getReservation();
 
         do {
             System.out.print("\nEnter Cinema ID:");
@@ -311,7 +311,7 @@ public class Screens {
             switch (choice) {
 
                 case 1:
-                    customer.setReservations(reservation);
+                    customer.setReservation(reservation);
                     ScreenC();
                     choice = 0;
                     break;
