@@ -1,0 +1,27 @@
+Instruction for schema
+1) Run Create statement (SQL)
+2) then Run Data (SQL)
+
+**you can view the model (db_model) at workbench
+
+for queries_for_screens
+[NOTE] don't execute as a whole, execute per query (please look at the comments)
+
+
+==================================================
+D  E  T  A  I  L  S 
+
+[QUERIES] -- STATUS: ONGOING
+
+select
+- /*cinemas and movies*/
+- /*timeslots*/
+- /*unreserved seats*/
+
+insert
+-/*reservations*/ [NOTE!!]
+-/*customer*/ [CURRENT STATUS: Will not include, instead add the customer details to the reservation]
+
+update
+-/*reservations*/
+- [NOTE!!] /*seats*/ (we need to update seats because of the reservation ONCE MAG CHECKOUT, DIRETSO UPDATE PUD KANG SEAT)
