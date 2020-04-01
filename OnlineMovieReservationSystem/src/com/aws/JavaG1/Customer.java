@@ -80,32 +80,7 @@ public class Customer {
 		}
 	}
 	
-	public void reserveTicket(int cinema_id, String time, int customer_id, double total_payment,int noOfKids, int noOfAdults, int noOfSeniors){
-		//create database connection
-		Connection conn = null;
-		Statement stmt = null;
-		
-		try {
-			//open database 
-		    conn = DriverManager.getConnection("jdbc:mysql://localhost/movie?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
-		    		   "root", "awsys+123");
-		    
-		    //Saving data into the database
-		    stmt = conn.createStatement();
-		    stmt.executeUpdate("INSERT INTO reservation (cinema_id,time,customer_id,total_payment, no_of_kid, no_of_adult, no_of_senior)"
-		            +"VALUES (cinema_id, time, customer_id,total_payment, noOfKids, noOfAdults, noOfSeniors)");
-
-		    //close database
-		    conn.close();
-		} catch (SQLException ex) {
-		    // handle any errors
-		    System.out.println("SQLException: " + ex.getMessage());
-		    System.out.println("SQLState: " + ex.getSQLState());
-		    System.out.println("VendorError: " + ex.getErrorCode());
-		}
-	}
-	
-	public static void main(String[] args) throws ClassNotFoundException, SQLException{
+	public void reserveTicket(){
 		int cinemaID = 1;
 		String time = "10:00 AM - 12:00 PM, Nov-20-2020";
 		int customerID = 1;
@@ -132,4 +107,62 @@ public class Customer {
 		    System.out.println("VendorError: " + ex.getErrorCode());
 		}
 	}
+	
+	public static void viewSeats(){
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		try {
+		    conn =
+		       DriverManager.getConnection("jdbc:mysql://localhost/pet_clinic?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
+		    		   "root", "awsys+123");
+
+		    stmt = conn.createStatement();
+		    rs = stmt.executeQuery("SELECT * FROM seats;");
+		    
+		    int i = 0;
+		    while(rs.next()) {
+		    	if(i < 4){
+		    		if(rs.getInt(3) == 0)
+			    	{
+			    		System.out.print(rs.getInt(1));
+			    	}
+			    	else{
+			    		System.out.print("-");
+			    	}
+		    		i++;
+		    	}
+		    	else{
+		    		if(rs.getInt(3) == 0)
+			    	{
+			    		System.out.println(rs.getInt(1));
+			    	}
+			    	else{
+			    		System.out.println("-");
+			    	}
+		    		
+		    		i = 0;
+		    	}
+		    }
+		} catch (SQLException ex) {
+		    // handle any errors
+		    System.out.println("SQLException: " + ex.getMessage());
+		    System.out.println("SQLState: " + ex.getSQLState());
+		    System.out.println("VendorError: " + ex.getErrorCode());
+		}
+	}
+	
+	public static void main(String[] args) throws ClassNotFoundException, SQLException{
+		viewSeats();
+	}
 }
+
+
+
+
+
+
+
+
+
+
