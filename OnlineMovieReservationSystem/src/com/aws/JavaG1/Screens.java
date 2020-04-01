@@ -162,11 +162,11 @@ public class Screens {
     private static void Screen3B(Customer customer, ArrayList<Cinema> cinemas, Reservation reservation, ArrayList<Seat> seats) {
         byte choice = -1;
         do {
-            System.out.print("\nEnter # of Childrens:");
+            System.out.println("Enter # of Kids:");
             reservation.setNoOfChildrens(scanner.nextInt());
-            System.out.print("\nEnter # of Adults:");
+            System.out.print("Enter # of Adults:");
             reservation.setNoOfAdults(scanner.nextInt());
-            System.out.print("\nEnter # of Senior:");
+            System.out.print("Enter # of Senior:");
             reservation.setNoOfSeniors(scanner.nextInt());
 
             if (reservation.isCinemaFull())
@@ -304,6 +304,7 @@ public class Screens {
         System.out.println("Movie: " + reservation.getCinema().getMovie().getMovieName() + " @" + "Cinema " + reservation.getCinema().getCinemaId() + " " + reservation.getTimeslot().getTimeStart());
         System.out.println("Total no. of people: " + reservation.getTotalPeople());
         System.out.println("Total amount: P" + reservation.getTotalAmount());
+        System.out.println("Seat: ");  // to add
 
 
         while (choice != 0) {
