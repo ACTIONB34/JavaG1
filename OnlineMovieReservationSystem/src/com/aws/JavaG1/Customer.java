@@ -66,7 +66,7 @@ public class Customer {
 		    		   "root", "awsys+123");
 
 		    stmt = conn.createStatement();
-		    rs = stmt.executeQuery("select * from movie.movies;");
+		    rs = stmt.executeQuery("Select * from movie.movies");
 		    
 		    while(rs.next()) {
 		    	System.out.println(rs.getString(2));
@@ -79,6 +79,7 @@ public class Customer {
 		    System.out.println("VendorError: " + ex.getErrorCode());
 		}
 	}
+	
 	
 	public void reserveTicket(int cinema_id, String time, int customer_id, double total_payment,int noOfKids, int noOfAdults, int noOfSeniors){
 		//create database connection
