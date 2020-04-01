@@ -16,7 +16,7 @@ public class Screens {
     }
 
     public static byte Screen1B(String name) {
-        System.out.print("Welcome, hello " + name + "!\n\n");
+        System.out.print("\nWelcome, hello " + name + "!\n\n");
         System.out.println("What would you like to do?");
         System.out.println("Press 1 to View Now Showing! Screen");
         System.out.println("Press 2 to View Reservation");
@@ -54,7 +54,7 @@ public class Screens {
                     if (customer.getReservation() == null)
                         Screen3D(customer, cinemas);
                     else
-                       Screen3B(customer, cinemas, customer.getReservation());
+                       Screen3B(customer, cinemas, customer.getReservation(), null);
 
                     choice = 0;
                     break;
@@ -127,7 +127,7 @@ public class Screens {
             choice = Screen3AMenu();
             switch (choice) {
                 case 1:
-                    Screen3B(customer, cinemas, reservation);
+                    Screen3B(customer, cinemas, reservation, null);
                     choice = 0;
                     break;
                 case 2:
@@ -159,7 +159,7 @@ public class Screens {
 
     }
 
-    private static void Screen3B(Customer customer, ArrayList<Cinema> cinemas, Reservation reservation) {
+    private static void Screen3B(Customer customer, ArrayList<Cinema> cinemas, Reservation reservation, ArrayList<Seat> seats) {
         byte choice = -1;
         do {
             System.out.print("\nEnter # of Childrens:");
@@ -177,14 +177,17 @@ public class Screens {
             choice = Screen3BMenu();
             switch (choice) {
                 case 1:
-                    Screen4(customer, cinemas, reservation);
+                	//to do
+                    Screen3C(customer, reservation, seats);
                     choice = 0;
                     break;
                 case 2:
+                	//to do
                     Screen3A(customer, cinemas);
                     choice = 0;
                     break;
                 case 0:
+                	//to do
                     Screen2(cinemas);
                     break;
                 default:
@@ -208,6 +211,29 @@ public class Screens {
             return -1;
         }
 
+    }
+    
+    public static void Screen3C(Customer customer, Reservation reservation, ArrayList<Seat> seats) {
+    	int[] numberOfSeats = new int[]{1,2,3,4,5,6,7,8,9,10,
+    									11,12,13,14,15,16,17,18,19,20,
+    									21,22,23,24,25,26,27,28,29,30,
+    									31,32,33,34,35,36,37,38,39,40};
+    
+    	if(!reservation.isCinemaFull()) {
+    		System.out.println("\nSeat Selection Info");
+    		System.out.println("\n\nPlease choose your seats from the available seats below: ");
+    		
+    		for(int i = 1; i < numberOfSeats.length + 1; i++) {    
+    		     System.out.print(i+((i%10==0) ? "\n" : " "));
+    		}
+    		
+    	}
+    	
+    	System.out.println("\nYour Choice: ");
+    	reservation.setSeatId(scanner.nextInt());
+    	
+    	
+    	
     }
 
     public static void Screen3D(Customer customer, ArrayList<Cinema> cinemas) {
@@ -294,6 +320,7 @@ public class Screens {
     public static void ScreenC() {
         byte choice = -1;
         System.out.println("Seats reserved!");
+    
 
     }
 
