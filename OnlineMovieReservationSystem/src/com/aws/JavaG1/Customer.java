@@ -28,8 +28,6 @@ public class Customer {
 	public void setReservation(Reservation reservation) {
 		this.reservation = reservation;
 	}
-
-
 	
 	public Customer(int customerID, String customerName){
 		this.customerID = customerID;
@@ -68,7 +66,7 @@ public class Customer {
 		    		   "root", "awsys+123");
 
 		    stmt = conn.createStatement();
-		    rs = stmt.executeQuery("select * from movie.customers;");
+		    rs = stmt.executeQuery("select * from movie.movies;");
 		    
 		    while(rs.next()) {
 		    	System.out.println(rs.getString(2));
@@ -82,31 +80,19 @@ public class Customer {
 		}
 	}
 	
-	public void addCustomer(){
-		
-	}
-	
-	public void reserveTicket(){
-		String custName;
-		
-		Scanner input = new	Scanner(System.in);
-		System.out.print("N: ");
-		System.out.println("");
-		custName = input.next();
-		
+	public void checkOut(String customer){
 		Connection conn = null;
 		Statement stmt = null;
-		
+		ResultSet rs = null;
 		try {
 		    conn =
 		       DriverManager.getConnection("jdbc:mysql://localhost/movie?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
 		    		   "root", "awsys+123");
 
 		    stmt = conn.createStatement();
-		    stmt.executeUpdate("INSERT INTO customer (customerName)"
-		            +"VALUES (custName)");
+		    stmt.executeUpdate("INSERT INTO reservation ('')"
+		            +"VALUES ()");
 
-		    
 		} catch (SQLException ex) {
 		    // handle any errors
 		    System.out.println("SQLException: " + ex.getMessage());
@@ -115,7 +101,7 @@ public class Customer {
 		}
 	}
 	
-	public void checkOut(){
+	public static void main(String[] args){
 		
 	}
 }
