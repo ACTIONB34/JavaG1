@@ -49,10 +49,10 @@ DROP TABLE IF EXISTS `customers`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `customers` (
-  `customer_id` int(11) NOT NULL AUTO_INCREMENT,
+  `customer_id` int(11) NOT NULL,
   `customer_name` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`customer_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -101,11 +101,11 @@ DROP TABLE IF EXISTS `reservations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `reservations` (
-  `reservation_id` int(11) NOT NULL AUTO_INCREMENT,
-  `date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `reservation_id` int(11) NOT NULL,
+  `date` date DEFAULT NULL,
   `cinema_id` int(11) DEFAULT NULL,
   `time` varchar(20) DEFAULT NULL,
-  `customer_name` varchar(20) DEFAULT NULL,
+  `customer_id` int(11) DEFAULT NULL,
   `total_payment` int(11) DEFAULT NULL,
   `no_of_kid` int(11) DEFAULT NULL,
   `no_of_adult` int(11) DEFAULT NULL,
@@ -113,11 +113,12 @@ CREATE TABLE `reservations` (
   `timeslot_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`reservation_id`),
   KEY `cinemaR_id_idx` (`cinema_id`),
+  KEY `customerR_id_idx` (`customer_id`),
   KEY `timeslotR_id_idx` (`timeslot_id`),
-  KEY `customerR_id_idx` (`customer_name`),
   CONSTRAINT `cinemaR_id` FOREIGN KEY (`cinema_id`) REFERENCES `cinemas` (`cinema_id`),
+  CONSTRAINT `customerR_id` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`customer_id`),
   CONSTRAINT `timeslotR_id` FOREIGN KEY (`timeslot_id`) REFERENCES `timeslots` (`timeslot_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -126,7 +127,7 @@ CREATE TABLE `reservations` (
 
 LOCK TABLES `reservations` WRITE;
 /*!40000 ALTER TABLE `reservations` DISABLE KEYS */;
-INSERT INTO `reservations` VALUES (1,'2020-04-01 08:26:26',1,'12:00PM','Johnny Test',150,0,1,0,1);
+INSERT INTO `reservations` VALUES (1,'2020-03-31',1,'12:00PM',1,150,NULL,1,NULL,1);
 /*!40000 ALTER TABLE `reservations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -145,8 +146,8 @@ CREATE TABLE `seats` (
   `timeslot_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`seat_id`),
   KEY `cinemaS_id_idx` (`cinema_id`),
-  KEY `timeslotS_id_idx` (`timeslot_id`),
   KEY `reservationS_id_idx` (`reservation_id`),
+  KEY `timeslotS_id_idx` (`timeslot_id`),
   CONSTRAINT `cinemaS_id` FOREIGN KEY (`cinema_id`) REFERENCES `cinemas` (`cinema_id`),
   CONSTRAINT `reservationS_id` FOREIGN KEY (`reservation_id`) REFERENCES `reservations` (`reservation_id`),
   CONSTRAINT `timeslotS_id` FOREIGN KEY (`timeslot_id`) REFERENCES `timeslots` (`timeslot_id`)
@@ -207,4 +208,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-04-01 21:54:30
+-- Dump completed on 2020-04-01 15:08:25
