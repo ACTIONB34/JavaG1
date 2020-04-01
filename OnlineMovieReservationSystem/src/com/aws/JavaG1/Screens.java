@@ -1,6 +1,7 @@
 package com.aws.JavaG1;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -47,8 +48,15 @@ public class Screens {
                 case 1:
                     // Screen 3A - Make reservation
                     Screen3A(customer, cinemas);
+                    choice = 0;
                     break;
                 case 2:
+                    if (customer.getReservation() == null)
+                        Screen3D(customer, cinemas);
+                    else
+                       Screen3B(customer, cinemas, customer.getReservation());
+
+                    choice = 0;
                     break;
                 case 3:
                     break;
@@ -97,7 +105,11 @@ public class Screens {
 
     public static void Screen3A(Customer customer, ArrayList<Cinema> cinemas) {
         byte choice = -1;
-        Reservation reservation = new Reservation();
+        Reservation reservation;
+        if(customer.getReservation() == null)
+              reservation = new Reservation();
+        else
+              reservation = customer.getReservation();
 
         do {
             System.out.print("\nEnter Cinema ID:");
@@ -116,6 +128,7 @@ public class Screens {
             switch (choice) {
                 case 1:
                     Screen3B(customer, cinemas, reservation);
+                    choice = 0;
                     break;
                 case 2:
                     Screen3A(customer, cinemas);
@@ -160,12 +173,16 @@ public class Screens {
                 System.out.println("Cinema is Full, please lessen the no of attendees");
         } while (reservation.isCinemaFull());
 
-        while (choice != 0 && choice != 2) {
+        while (choice != 0) {
             choice = Screen3BMenu();
             switch (choice) {
                 case 1:
+                    Screen4(customer, cinemas, reservation);
+                    choice = 0;
                     break;
                 case 2:
+                    Screen3A(customer, cinemas);
+                    choice = 0;
                     break;
                 case 0:
                     Screen2(cinemas);
@@ -181,8 +198,8 @@ public class Screens {
 
     private static byte Screen3BMenu() {
 
-        System.out.println("Press 1 to Continue to seat selection");
-        System.out.println("Press 2 to go back to reservation screen");
+        System.out.println("Press 1 to Continue to checkout");
+        System.out.println("Press 2 to go back to Reservation screen");
         System.out.println("Press 0 to Viewing Movie Screen\n");
         System.out.print("Choice: ");
         try {
@@ -202,6 +219,7 @@ public class Screens {
             switch (choice) {
                 case 1:
                     Screen3A(customer, cinemas);
+                    choice = 0;
                     break;
                 case 0:
                     break;
@@ -227,8 +245,68 @@ public class Screens {
 
     }
 
-    public static void Screen4(Customer customer, ArrayList<Cinema> cinemas){
+    public static void Screen4(Customer customer, ArrayList<Cinema> cinemas, Reservation reservation) {
+        byte choice = -1;
+        System.out.println("Ticket info");
+        System.out.println("Date: " + new Date());
+        System.out.println("Movie: " + reservation.getCinema().getMovie().getMovieName() + " @" + "Cinema " + reservation.getCinema().getCinemaId() + " " + reservation.getTimeslot().getTimeStart());
+        System.out.println("Total no. of people: " + reservation.getTotalPeople());
+        System.out.println("Total amount: P" + reservation.getTotalAmount());
 
+
+        while (choice != 0) {
+            choice = Screen4Menu();
+            switch (choice) {
+
+                case 1:
+                    customer.setReservation(reservation);
+                    ScreenC();
+                    choice = 0;
+                    break;
+                case 2:
+                    Screen3A(customer, cinemas);
+                    choice = 0;
+                    break;
+                case 0:
+                    break;
+                default:
+                    System.out.println("Invalid input!");
+                    break;
+            }
+        }
+
+    }
+
+
+    public static byte Screen4Menu() {
+
+        System.out.println("Press 1 to Confirm");
+        System.out.println("Press 2 to Edit Reservation");
+        System.out.println("Press 0 to cancel");
+        System.out.print("Choice: ");
+        try {
+            return scanner.nextByte();
+        } catch (InputMismatchException e) {
+            return -1;
+        }
+    }
+
+    public static void ScreenC() {
+        byte choice = -1;
+        System.out.println("Seats reserved!");
+
+    }
+
+    public static byte ScreenCMenu() {
+
+        System.out.println("Press 1 to go back to menu");
+        System.out.println("Press 0 to Cancel");
+        System.out.print("Choice: ");
+        try {
+            return scanner.nextByte();
+        } catch (InputMismatchException e) {
+            return -1;
+        }
     }
 
 
