@@ -6,11 +6,11 @@ import java.sql.*;
 
 public class DatabaseConnect {
 	
-	private Connection connect;
+	private static Connection connect;
 	private Statement statement;
-	private ResultSet result;
+	private static ResultSet result;
 
-	private String SELECT_MOVIES = "SELECT " + 
+	private static String SELECT_MOVIES = "SELECT " + 
 			"cinema_id, movie_name, movie_director, movie_rating,movie_genre " +
 			"FROM movies, cinemas WHERE movies.movie_id = cinemas.movie_id " + 
 			"AND movies.status = 1;";
@@ -34,9 +34,9 @@ public class DatabaseConnect {
 		}
 	}
 	
-	public ResultSet selectMovies(){
+	public static ResultSet selectMovies(){
 		try {
-			PreparedStatement ps = this.connect.prepareStatement(SELECT_MOVIES);
+			PreparedStatement ps = connect.prepareStatement(SELECT_MOVIES);
 			result = ps.executeQuery();
 			ResultSetMetaData rsmd = result.getMetaData();
 			int column = rsmd.getColumnCount();
