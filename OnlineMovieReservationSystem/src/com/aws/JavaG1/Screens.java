@@ -225,7 +225,7 @@ public class Screens {
     		System.out.println("\nSeat Selection Info");
     		System.out.println("\n\nPlease choose your seats from the available seats below: ");
     		
-    		//seats
+    		//seats..
     		for(int i = 1; i < numberOfSeats.length + 1; i++) {    
     		     System.out.print(i+((i%10==0) ? "\n" : " "));
     		}
