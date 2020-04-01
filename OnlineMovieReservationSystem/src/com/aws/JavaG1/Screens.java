@@ -51,10 +51,10 @@ public class Screens {
                     choice = 0;
                     break;
                 case 2:
-                    if (customer.getReservation() == null)
+                    if (customer.getReservations() == null)
                         Screen3D(customer, cinemas);
                     else
-                       Screen3B(customer, cinemas, customer.getReservation(), null);
+                       Screen3B(customer, cinemas, customer.getReservations(), null);
 
                     choice = 0;
                     break;
@@ -311,7 +311,7 @@ public class Screens {
             switch (choice) {
 
                 case 1:
-                    customer.setReservation(reservation);
+                    customer.setReservations(reservation);
                     ScreenC();
                     choice = 0;
                     break;
