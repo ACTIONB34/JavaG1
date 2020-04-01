@@ -35,11 +35,13 @@ public class Screen {
                     if(customer.getReservation() == null)
                        Screens.Screen3D(customer, cinemas);
                     else
-                      //  Screens.Screen4(customer, cinemas);
-                    	System.out.println("Screen 4");
+                      Screens.Screen4(customer, cinemas, null);
                     break;
                 case 3:
-                    System.out.println("3");
+                    if (customer.getReservation() != null)
+                    	Screens.Screen4(customer, cinemas, null);
+                    else
+                    	Screens.Screen3D(customer, cinemas);
                     break;
                 case 0:
                     break;
