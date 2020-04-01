@@ -2,8 +2,8 @@ import com.aws.JavaG1.*;
 
 import java.util.ArrayList;
 
-public class Screen {
-
+public class Welcome {
+	
     public static void main(String[] args) {
         String Name = "";
         int choice = -1;
