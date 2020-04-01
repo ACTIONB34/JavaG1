@@ -47,15 +47,12 @@ public class DatabaseConnect {
 			}
 	    	System.out.println();
 			
-			for(int i = 0; i < column; i++) {
-			    System.out.print(column + "\t");
-		    }
-	    	System.out.println();
-
 	    	while(result.next()) {
-		    	for(int i = 0; i < column; i++) {
-				    System.out.print(result.getString(column) + "\t");
-		    	}
+	    		System.out.print(result.getString("cinema_id") + "\t"
+				    +    result.getString("movie_name") + "\t"
+				    +    result.getString("movie_director") + "\t"
+				    +    result.getString("movie_rating") + "\t"
+				    +    result.getString("movie_genre"));
 		    	System.out.println();
 		    }
 	    	
