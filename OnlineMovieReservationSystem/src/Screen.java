@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 public class Screen {
 
-
-
     public static void main(String[] args) {
         String Name = "";
         int choice = -1;
