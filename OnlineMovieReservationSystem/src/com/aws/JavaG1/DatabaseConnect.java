@@ -1,6 +1,7 @@
 package com.aws.JavaG1;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 
 
@@ -23,6 +24,13 @@ public class DatabaseConnect {
 		    "seat_number" +
 			"FROM seats WHERE timeslot_id = 1 AND cinema_id = 1" +
 		    "AND reservation_id IS NULL;";
+
+	private static String UPDATE_SEATS = "UPDATE seats" +  
+		    "SET reservation_id = ? " +
+			"WHERE cinema_id = ? and timeslot_id = ? and seat_number = ?;";
+	
+	private static String SELECT_RESERVATION_ID = "SELECT " +
+			"MAX('reservation_id') from reservations";
 	
 	
 	public DatabaseConnect() {
@@ -142,6 +150,61 @@ public class DatabaseConnect {
 		return result;
 	}
 	
+	//needs seat 
+	public static int updateSeats(int reservation_id, int cinema_id, int timeslot_id, ArrayList<Integer> reservedSeats){
+		int res = -1;
+		try {
+			PreparedStatement ps = connect.prepareStatement(UPDATE_SEATS);
+			//dummy
+			//reservation
+			//cinema_id = 1;
+			//timeslot_id = 1;
+
+			ps.setInt(1,reservation_id);
+			ps.setInt(2,cinema_id);
+			ps.setInt(3,timeslot_id);
+
+			for (int i = 0; i < reservedSeats.size(); i++) {
+				ps.setInt(4,reservedSeats.get(0));
+				ps.executeUpdate();
+				System.out.println("Seats Updated Successfully");
+				res = 1;
+			}	    	
+	    	
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		
+		return res;
+	}
+	
+	public static int selectReservationId(){
+		int id = -1;
+		try {
+			PreparedStatement ps = connect.prepareStatement(SELECT_RESERVATION_ID);
+			result = ps.executeQuery();
+			//ResultSetMetaData rsmd = result.getMetaData();
+			//int column = rsmd.getColumnCount();
+			
+			//for (int i = 1; i <= column; i++ ) {
+			if(result.next()) {
+				//id = result.getInt();
+				//String temp = result.getString("MAX(reservation_id)");
+				//System.out.println("Successfully retrieved id" + temp);
+				//id = Integer.parseInt(temp);
+				//System.out.println("Successfully retrieved id" + id);
+			}
+			//}
+	    	
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		
+		return id;
+	}
+	
 	
 
 	
@@ -150,7 +213,18 @@ public class DatabaseConnect {
 	public static void main(String[]args){
 		DatabaseConnect db = new DatabaseConnect();
 		
-		db.selectMovies();
+		//db.selectMovies();
+		
+		//int id = db.selectReservationId();
+		
+		//System.out.print(id);
+		
+		ArrayList<Integer> rs = new ArrayList<Integer>();
+		rs.add(4);
+		rs.add(5);
+		rs.add(6);
+
+		//db.updateSeats(id,1,1,rs);
 		
 	}
 
