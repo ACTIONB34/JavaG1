@@ -236,7 +236,7 @@ public class Screens {
     	reservations.setSeatId(scanner.nextInt());
     	
     	while (choice != 0) {
-            choice = Screen3BMenu();
+            choice = Screen3CMenu();
             switch (choice) {
                 case 1:
                 	Screen4(customer, cinemas, reservations);
@@ -255,11 +255,21 @@ public class Screens {
                     break;
 
             }
+        } 	
+    }
+    
+    private static byte Screen3CMenu() {
+
+        System.out.println("\nPress 1 to Proceed to Checkout");
+        System.out.println("Press 2 to Change Seat Selection");
+        System.out.println("Press 0 to Cancel\n");
+        System.out.print("Choice: ");
+        try {
+            return scanner.nextByte();
+        } catch (InputMismatchException e) {
+            return -1;
         }
-    	
-    	
-    	
-    	
+
     }
 
     public static void Screen3D(Customer customer, ArrayList<Cinema> cinemas) {
