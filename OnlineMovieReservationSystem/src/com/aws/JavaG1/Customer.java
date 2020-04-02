@@ -2,6 +2,7 @@ package com.aws.JavaG1;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -21,7 +22,7 @@ public class Customer {
 	private Reservation reservations;
 	private String customerName;
 
-	public Reservation getReservations() {
+	public Reservation getReservation() {
 		return reservations;
 	}
 
@@ -120,7 +121,7 @@ public class Customer {
 		    		   "root", "awsys+123");
 
 		    stmt = conn.createStatement();
-		    rs = stmt.executeQuery("SELECT * FROM seats WHERE cinema_id = 1;");
+		    rs = stmt.executeQuery("SELECT * FROM seats WHERE cinema_id ="+cinema_id+"&& timeslot_id ="+timeslot_id+";");   
 		    
 		    System.out.println("Seat Selection Info");
 		    System.out.println("\n\nPlease choose your seats from the available seats below: ");
@@ -169,7 +170,7 @@ public class Customer {
 		
 		Scanner input = new Scanner(System.in);
 	    System.out.println();
-		System.out.println("Your Choice: ");
+		System.out.println("Select Cinema: ");
 		userInput = input.nextInt();
 		
 		int cinemaID = userInput;
@@ -179,9 +180,12 @@ public class Customer {
 	
 	public static void viewTimeslot(int cinemaID){
 		
-		int userInput;
-		System.out.println("Your Choice: ");
-		userInput = input.nextInt();
+		int timeslotID;
+		Scanner input = new Scanner(System.in);
+		System.out.println("Select Time: ");
+		timeslotID = input.nextInt();
+		
+		viewSeats(cinemaID, timeslotID);
 		
 		
 	}
