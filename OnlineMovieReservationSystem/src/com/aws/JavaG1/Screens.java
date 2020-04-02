@@ -17,10 +17,10 @@ public class Screens {
 
     public static byte Screen1B(String name) {
         System.out.print("\nWelcome, hello " + name + "!\n\n");
-        System.out.println("What would you like to do?");
-        System.out.println("Press 1 to View Now Showing! Screen");
-        System.out.println("Press 2 to View Reservation");
-        System.out.println("Press 3 to Checkout Reservation");
+        System.out.println("What would you like to do?\n");
+        System.out.println("Press 1 to View available movies");
+        System.out.println("Press 2 to View reservation");
+        System.out.println("Press 3 to Checkout");
         System.out.println("Press 0 to Exit\n");
         System.out.print("Choice: ");
         try {
@@ -106,18 +106,21 @@ public class Screens {
     public static void Screen3A(Customer customer, ArrayList<Cinema> cinemas) {
         byte choice = -1;
         Reservation reservation;
-        if(customer.getReservations() == null)
+        if(customer.getReservation() == null)
               reservation = new Reservation();
         else
-              reservation = customer.getReservations();
+              reservation = customer.getReservation();
 
         do {
+        	System.out.println("\nMovie Info");
             System.out.print("\nEnter Cinema ID:");
             reservation.setCinema(getCinemaById(cinemas, scanner.nextInt()));
-            System.out.print("\nEnter Timeslot ID:");
+            System.out.print("Enter Timeslot ID:");
             reservation.setTimeslot(getTimeslotById(reservation.getCinema(), scanner.nextInt()));
+            
             if (reservation.getCinema() == null)
                 System.out.println("Invalid cinema Id");
+            
             if (reservation.getTimeslot() == null)
                 System.out.println("Invalid timeslot Id");
         } while (!reservation.isValidReservation());
@@ -141,13 +144,11 @@ public class Screens {
                     break;
             }
         }
-
     }
 
     private static byte Screen3AMenu() {
-
-        System.out.println("Press 1 to Continue");
-        System.out.println("Press 2 to Edit Movie Selection");
+        System.out.println("\nPress 1 to Proceed to Customer Info");
+        System.out.println("Press 2 to Change Movie Selection");
         System.out.println("Press 0 to Cancel\n");
         System.out.print("Choice: ");
         try {
@@ -161,7 +162,8 @@ public class Screens {
     private static void Screen3B(Customer customer, ArrayList<Cinema> cinemas, Reservation reservation, ArrayList<Seat> seats) {
         byte choice = -1;
         do {
-            System.out.println("Enter # of Kids:");
+        	System.out.println("\nCustomer Info:");
+            System.out.print("\nEnter # of Kids:");
             reservation.setNoOfChildrens(scanner.nextInt());
             System.out.print("Enter # of Adults:");
             reservation.setNoOfAdults(scanner.nextInt());
@@ -182,7 +184,7 @@ public class Screens {
                     break;
                 case 2:
                 	//to do
-                    Screen3A(customer, cinemas);
+                    Screen3B(customer, cinemas, reservation, seats);
                     choice = 0;
                     break;
                 case 0:
@@ -195,15 +197,13 @@ public class Screens {
 
             }
         }
-
     }
 
     private static byte Screen3BMenu() {
 
-    	System.out.println("\n");
-        System.out.println("Press 1 to Continue to checkout");
-        System.out.println("Press 2 to go back to Reservation screen");
-        System.out.println("Press 0 to Viewing Movie Screen\n");
+        System.out.println("\nPress 1 to Proceed to Seat Selection");
+        System.out.println("Press 2 to Edit Number of People");
+        System.out.println("Press 0 to Cancel\n");
         System.out.print("Choice: ");
         try {
             return scanner.nextByte();
@@ -263,7 +263,7 @@ public class Screens {
 
     public static void Screen3D(Customer customer, ArrayList<Cinema> cinemas) {
         byte choice = -1;
-        System.out.println("No existing reservation");
+        System.out.println("No existing reservation.\n");
 
         while (choice != 0) {
             choice = Screen3DMenu();
@@ -298,13 +298,14 @@ public class Screens {
 
     public static void Screen4(Customer customer, ArrayList<Cinema> cinemas, Reservation reservation) {
         byte choice = -1;
-        System.out.println("Ticket info");
+        System.out.println("Ticket info\n");
         System.out.println("Date: " + new Date());
-        System.out.println("Movie: " + reservation.getCinema().getMovie().getMovieName() + " @" + "Cinema " + reservation.getCinema().getCinemaId() + " " + reservation.getTimeslot().getTimeStart());
+        System.out.println("Movie: " + reservation.getCinema().getMovie().getMovieName()
+        				 + " @" + "Cinema " + reservation.getCinema().getCinemaId()
+        				 + " " + reservation.getTimeslot().getTimeStart());
         System.out.println("Total no. of people: " + reservation.getTotalPeople());
         System.out.println("Total amount: P" + reservation.getTotalAmount());
         System.out.println("Seat: ");  // to add
-
 
         while (choice != 0) {
             choice = Screen4Menu();
@@ -326,13 +327,12 @@ public class Screens {
                     break;
             }
         }
-
     }
 
 
     public static byte Screen4Menu() {
 
-        System.out.println("Press 1 to Confirm");
+        System.out.println("\nPress 1 to Confirm");
         System.out.println("Press 2 to Edit Reservation");
         System.out.println("Press 0 to cancel");
         System.out.print("Choice: ");
@@ -346,11 +346,17 @@ public class Screens {
     public static void ScreenC() {
         byte choice = -1;
         System.out.println("Seats reserved!");
-    
+        System.out.println("Thank you and have a great day!");
+        
+        System.out.println("Press Enter to make a new transaction");
+        scanner.nextLine();
+        
 
     }
 
-    public static byte ScreenCMenu() {
+
+
+	public static byte ScreenCMenu() {
 
         System.out.println("Press 1 to go back to menu");
         System.out.println("Press 0 to Cancel");
