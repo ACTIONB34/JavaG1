@@ -13,18 +13,19 @@ public class Movie {
 
 	private int movieID;
 	private String movieName;
+	private String movieDirector;
 	private String movieGenre;
-	private String movieLength;
 	private String movieRating;
+	public char[] movieId;
 
 	public Movie() {
 	}
 
-	public Movie(int movieID, String movieName, String movieGenre, String movieLength, String movieRating) {
+	public Movie(int movieID, String movieName, String movieDirector, String movieGenre, String movieRating) {
 		this.movieID = movieID;
 		this.movieName = movieName;
+		this.movieDirector = movieDirector;
 		this.movieGenre = movieGenre;
-		this.movieLength = movieLength;
 		this.movieRating = movieRating;
 	}
 
@@ -44,20 +45,20 @@ public class Movie {
 		this.movieName = movieName;
 	}
 
+	public String getMovieDirector() {
+		return movieDirector;
+	}
+
+	public void setMovieDirector(String movieDirector) {
+		this.movieDirector = movieDirector;
+	}
+
 	public String getMovieGenre() {
 		return movieGenre;
 	}
 
 	public void setMovieGenre(String movieGenre) {
 		this.movieGenre = movieGenre;
-	}
-
-	public String getMovieLength() {
-		return movieLength;
-	}
-
-	public void setMovieLength(String movieLength) {
-		this.movieLength = movieLength;
 	}
 
 	public String getMovieRating() {

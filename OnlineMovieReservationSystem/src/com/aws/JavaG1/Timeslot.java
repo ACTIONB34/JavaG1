@@ -3,15 +3,13 @@ package com.aws.JavaG1;
 public class Timeslot {
 	private int timeSlotID;
 	private String timeStart;
-	private String timeEnd;
 
 	public Timeslot() {
 	}
 
-	public Timeslot(int timeSlotID, String timeStart, String timeEnd) {
+	public Timeslot(int timeSlotID, String timeStart) {
 		this.timeSlotID = timeSlotID;
 		this.timeStart = timeStart;
-		this.timeEnd = timeEnd;
 	}
 
 	public int getTimeSlotID() {
@@ -28,13 +26,5 @@ public class Timeslot {
 
 	public void setTimeStart(String timeStart) {
 		this.timeStart = timeStart;
-	}
-
-	public String getTimeEnd() {
-		return timeEnd;
-	}
-
-	public void setTimeEnd(String timeEnd) {
-		this.timeEnd = timeEnd;
 	}
 }
