@@ -2,12 +2,7 @@ package com.aws.JavaG1;
 
 import com.aws.JavaG1.utilities.Utility;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.InputMismatchException;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Screens {
     private static Scanner scanner = new Scanner(System.in);
@@ -44,13 +39,13 @@ public class Screens {
         System.out.println("Loading Resources...\n");
         ArrayList<Movie> movies = DatabaseConnect.getAllMovies();
         ArrayList<Timeslot> timeslots = DatabaseConnect.getAllTimeSlots();
+        ArrayList<Cinema> cinemas = DatabaseConnect.getAllCinemas();
+        Utility.populateCinema(cinemas,timeslots,movies);
 
-        for(Timeslot timeslot: timeslots){
-            System.out.println("==========================");
-            System.out.println("Cinema: " + timeslot.getCinemaID());
-            System.out.println("Starts at @" + timeslot.getTimeStart());
-            System.out.println("Movie: " + Utility.getMovieByID(movies, timeslot.getMovieID()).getMovieName());
-            System.out.println("==========================");
+
+
+        for(Cinema cinema: cinemas){
+            System.out.println(cinema.toString());
         }
 
         System.out.print("\nPress Enter to Continue!");
@@ -235,7 +230,7 @@ public class Screens {
     public static void Screen3C(Customer customer, Reservation reservations, ArrayList<Seat> seats, ArrayList<Cinema> cinemas) {
     	byte choice = -1;
     	int seatSelect;
-    	int noOfPeopleRes = reservations.getTotalPeople();;
+    	int noOfPeopleRes = reservations.getTotalPeople();
     	
     
     	if(!reservations.isCinemaFull()) {

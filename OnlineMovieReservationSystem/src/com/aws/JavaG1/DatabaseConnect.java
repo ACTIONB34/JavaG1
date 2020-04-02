@@ -75,10 +75,40 @@ public class DatabaseConnect {
 		}
 	}
 
+	public static ArrayList<Cinema> getAllCinemas(){
+		init();
+		String query = "SELECT * FROM moviereservation.cinemas;";
+		ArrayList<Cinema> cinemas = new ArrayList<>();
+
+		try {
+			PreparedStatement ps = connect2.prepareStatement(query);
+			result2 = ps.executeQuery();
+			ResultSetMetaData rsmd = result2.getMetaData();
+
+			while(result2.next()){
+				Cinema cinema = new Cinema();
+				cinema.setCinemaId(result2.getInt("cinema_id"));
+				cinemas.add(cinema);
+			}
+
+		}
+		catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally {
+			closeConnection();
+		}
+
+
+		return cinemas;
+
+	}
+
 	public static ArrayList<Timeslot> getAllTimeSlots(){
 		init();
 		String query = "SELECT * FROM moviereservation.timeslots;";
-		ArrayList<Timeslot> timeslots = new ArrayList<Timeslot>();
+		ArrayList<Timeslot> timeslots = new ArrayList<>();
 
 		try {
 			PreparedStatement ps = connect2.prepareStatement(query);
@@ -115,7 +145,7 @@ public class DatabaseConnect {
 	public static ArrayList<Movie> getAllMovies(){
 		init();
 		String query = "SELECT * FROM moviereservation.movies;";
-		ArrayList<Movie> movies = new ArrayList<Movie>();
+		ArrayList<Movie> movies = new ArrayList<>();
 
 		try {
 			PreparedStatement ps = connect2.prepareStatement(query);
