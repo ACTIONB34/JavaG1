@@ -49,7 +49,7 @@ public class Screens {
             System.out.println("==========================");
             System.out.println("Cinema: " + timeslot.getCinemaID());
             System.out.println("Starts at @" + timeslot.getTimeStart());
-            System.out.println("Movie: " + Utility.getMovieByID(movies, timeslot.getMovieID()));
+            System.out.println("Movie: " + Utility.getMovieByID(movies, timeslot.getMovieID()).getMovieName());
             System.out.println("==========================");
         }
 

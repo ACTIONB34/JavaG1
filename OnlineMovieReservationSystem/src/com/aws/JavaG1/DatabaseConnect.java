@@ -58,7 +58,7 @@ public class DatabaseConnect {
 		try {
 			connect2 = DriverManager.getConnection("jdbc:mysql://localhost/moviereservation?useUnicode=true&"
 							+ "useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
-					"root", "bobby321");
+					"root", "awsys+123");
 //			System.out.println("CONN SUCCESS");
 		} catch (SQLException ex) {
 			System.out.println("SQLException: " + ex.getMessage());
