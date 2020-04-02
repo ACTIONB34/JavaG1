@@ -16,6 +16,7 @@ public class Screens {
     }
 
     public static byte Screen1B(String name) {
+    	System.out.println("\n\n------------------------------------------");
         System.out.print("\nWelcome, hello " + name + "!\n\n");
         System.out.println("What would you like to do?\n");
         System.out.println("Press 1 to View available movies");
