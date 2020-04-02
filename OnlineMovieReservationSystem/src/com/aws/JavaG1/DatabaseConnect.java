@@ -42,6 +42,7 @@ public class DatabaseConnect {
 		}
 	}
 	
+	
 	public static ResultSet selectMovies(){
 		try {
 			PreparedStatement ps = connect.prepareStatement(SELECT_MOVIES);
@@ -56,12 +57,26 @@ public class DatabaseConnect {
 	    	System.out.println();
 			
 	    	while(result.next()) {
-	    		System.out.print(result.getString("cinema_id") + "\t"
-				    +    result.getString("movie_name") + "\t"
-				    +    result.getString("movie_director") + "\t"
-				    +    result.getString("movie_rating") + "\t"
-				    +    result.getString("movie_genre"));
-		    	System.out.println();
+//	    		System.out.print(result.getString("cinema_id") + "\t"
+//				    +    result.getString("movie_name") + "\t"
+//				    +    result.getString("movie_director") + "\t"
+//				    +    result.getString("movie_rating") + "\t"
+//				    +    result.getString("movie_genre"));
+//		    	System.out.println();
+		    	
+		    	
+		    	//String movie = result.getString("movie_name");
+				Movie movie = new Movie(result.getInt("cinema_id"),
+										result.getString("movie_name"),
+										result.getString("movie_director"),
+										result.getString("movie_rating"),
+										result.getString("movie_genre"));
+		    	
+				System.out.println(movie.getMovieID()+ "\t"
+								 + movie.getMovieName() + "\t"
+								 + movie.getMovieDirector() + "\t"
+								 + movie.getMovieRating() + "\t"
+								 + movie.getMovieGenre());
 		    }
 	    	
 		} catch (SQLException e) {
@@ -75,7 +90,7 @@ public class DatabaseConnect {
 	
 	public static ResultSet selectTimeslots(){
 		try {
-			PreparedStatement ps = connect.prepareStatement(SELECT_TIMESLOTS);
+			PreparedStatement ps = connect.prepareStatement(SELECT_MOVIES);
 			result = ps.executeQuery();
 			ResultSetMetaData rsmd = result.getMetaData();
 			int column = rsmd.getColumnCount();
