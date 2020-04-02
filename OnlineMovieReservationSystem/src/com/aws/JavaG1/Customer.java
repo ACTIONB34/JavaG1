@@ -21,7 +21,7 @@ public class Customer {
 	private Reservation reservations;
 	private String customerName;
 
-	public Reservation getReservation() {
+	public Reservation getReservations() {
 		return reservations;
 	}
 
@@ -66,7 +66,7 @@ public class Customer {
 		    		   "root", "awsys+123");
 
 		    stmt = conn.createStatement();
-		    rs = stmt.executeQuery("select * from movie.movies;");
+		    rs = stmt.executeQuery("select * from movie;");
 		    
 		    while(rs.next()) {
 		    	System.out.println(rs.getString(2));
@@ -108,7 +108,9 @@ public class Customer {
 		}
 	}
 	
-	public static void viewSeats(){
+	public static void viewSeats(int cinema_id, int timeslot_id){
+		int userInput;
+		
 		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rs = null;
@@ -118,17 +120,19 @@ public class Customer {
 		    		   "root", "awsys+123");
 
 		    stmt = conn.createStatement();
-		    rs = stmt.executeQuery("SELECT * FROM seats;");
+		    rs = stmt.executeQuery("SELECT * FROM seats WHERE cinema_id = 1;");
 		    
+		    System.out.println("Seat Selection Info");
+		    System.out.println("\n\nPlease choose your seats from the available seats below: ");
 		    int i = 0;
 		    while(rs.next()) {
-		    	if(i < 4){
+		    	if(i < 7){
 		    		if(rs.getInt(3) == 0)
 			    	{
-			    		System.out.print(rs.getInt(1));
+			    		System.out.print(rs.getInt(1)+"\t");
 			    	}
 			    	else{
-			    		System.out.print("-");
+			    		System.out.print("-\t");
 			    	}
 		    		i++;
 		    	}
@@ -144,6 +148,14 @@ public class Customer {
 		    		i = 0;
 		    	}
 		    }
+		    
+		    Scanner input = new Scanner(System.in);
+		    System.out.println();
+			System.out.println("Your Choice: ");
+			userInput = input.nextInt();
+			
+			
+			
 		} catch (SQLException ex) {
 		    // handle any errors
 		    System.out.println("SQLException: " + ex.getMessage());
@@ -152,8 +164,31 @@ public class Customer {
 		}
 	}
 	
+	public static void viewCinema(){
+		int userInput;
+		
+		Scanner input = new Scanner(System.in);
+	    System.out.println();
+		System.out.println("Your Choice: ");
+		userInput = input.nextInt();
+		
+		int cinemaID = userInput;
+		
+		viewTimeslot(cinemaID);
+	}
+	
+	public static void viewTimeslot(int cinemaID){
+		
+		int userInput;
+		System.out.println("Your Choice: ");
+		userInput = input.nextInt();
+		
+		
+	}
+	
 	public static void main(String[] args) throws ClassNotFoundException, SQLException{
-		viewSeats();
+		viewCinema();
+		
 	}
 }
 
