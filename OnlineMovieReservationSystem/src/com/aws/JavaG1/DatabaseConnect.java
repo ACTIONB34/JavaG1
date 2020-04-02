@@ -10,6 +10,8 @@ public class DatabaseConnect {
 	private static Connection connect;
 	private Statement statement;
 	private static ResultSet result;
+	private static Connection connect2;
+	private static ResultSet result2;
 
 	private static String SELECT_MOVIES = "SELECT " + 
 			"cinema_id, movie_name, movie_director, movie_rating,movie_genre " +
@@ -48,6 +50,100 @@ public class DatabaseConnect {
 		    System.out.println("SQLState: " + ex.getSQLState());
 		    System.out.println("VendorError: " + ex.getErrorCode());
 		}
+	}
+	public static void init(){
+		connect2 = null;
+		result2 = null;
+
+		try {
+			connect2 = DriverManager.getConnection("jdbc:mysql://localhost/moviereservation?useUnicode=true&"
+							+ "useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
+					"root", "bobby321");
+//			System.out.println("CONN SUCCESS");
+		} catch (SQLException ex) {
+			System.out.println("SQLException: " + ex.getMessage());
+			System.out.println("SQLState: " + ex.getSQLState());
+			System.out.println("VendorError: " + ex.getErrorCode());
+		}
+	}
+
+	public static void closeConnection(){
+		try {
+			connect2.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static ArrayList<Timeslot> getAllTimeSlots(){
+		init();
+		String query = "SELECT * FROM moviereservation.timeslots;";
+		ArrayList<Timeslot> timeslots = new ArrayList<Timeslot>();
+
+		try {
+			PreparedStatement ps = connect2.prepareStatement(query);
+			result2 = ps.executeQuery();
+			ResultSetMetaData rsmd = result2.getMetaData();
+
+			while(result2.next()){
+				Timeslot timeslot = new Timeslot();
+				timeslot.setTimeSlotID(result2.getInt("timeslot_id"));
+				timeslot.setTimeStart(result2.getString("time_start"));
+				timeslot.setMovieID(result2.getInt("movie_id"));
+				timeslot.setCinemaID(result2.getInt("cinema_id"));
+				timeslots.add(timeslot);
+
+			}
+
+		}
+		catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally {
+			closeConnection();
+		}
+
+
+		return timeslots;
+
+
+
+	}
+
+
+	public static ArrayList<Movie> getAllMovies(){
+		init();
+		String query = "SELECT * FROM moviereservation.movies;";
+		ArrayList<Movie> movies = new ArrayList<Movie>();
+
+		try {
+			PreparedStatement ps = connect2.prepareStatement(query);
+			result2 = ps.executeQuery();
+			ResultSetMetaData rsmd = result2.getMetaData();
+
+			while(result2.next()){
+				Movie movie = new Movie();
+				movie.setMovieID(result2.getInt("movie_id"));
+				movie.setMovieName(result2.getString("movie_name"));
+				movie.setMovieDirector(result2.getString("movie_director"));
+				movie.setMovieGenre(result2.getString("movie_genre"));
+				movie.setMovieRating(result2.getString("movie_rating"));
+				movies.add(movie);
+			}
+
+		}
+		catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally {
+			closeConnection();
+		}
+
+
+		return movies;
+
 	}
 	
 	

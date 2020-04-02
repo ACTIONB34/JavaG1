@@ -1,5 +1,7 @@
 package com.aws.JavaG1;
 
+import com.aws.JavaG1.utilities.Utility;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -37,10 +39,20 @@ public class Screens {
         }
     }
 
-    public static void Screen2(ArrayList<Cinema> cinemas) {
-        for (Cinema cinema : cinemas) {
-            System.out.println(cinema.toString());
+    public static void Screen2() {
+
+        System.out.println("Loading Resources...\n");
+        ArrayList<Movie> movies = DatabaseConnect.getAllMovies();
+        ArrayList<Timeslot> timeslots = DatabaseConnect.getAllTimeSlots();
+
+        for(Timeslot timeslot: timeslots){
+            System.out.println("==========================");
+            System.out.println("Cinema: " + timeslot.getCinemaID());
+            System.out.println("Starts at @" + timeslot.getTimeStart());
+            System.out.println("Movie: " + Utility.getMovieByID(movies, timeslot.getMovieID()));
+            System.out.println("==========================");
         }
+
         System.out.print("\nPress Enter to Continue!");
         scanner.nextLine();
         scanner.nextLine(); // Double nextLine since previous read was a byte, doesn't read newline
@@ -196,7 +208,7 @@ public class Screens {
                     break;
                 case 0:
                 	//to do
-                    Screen2(cinemas);
+                    Screen2();
                     break;
                 default:
                     System.out.println("Invalid input!");
@@ -262,7 +274,7 @@ public class Screens {
                     choice = 0;
                     break;
                 case 0:
-                	Screen2(cinemas);
+                	Screen2();
                 	choice = 0;
                     break;
                 default:
