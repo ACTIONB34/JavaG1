@@ -2,14 +2,16 @@ package com.aws.JavaG1;
 
 import com.aws.JavaG1.utilities.Utility;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.*;
 
 public class Screens {
     private static Scanner scanner = new Scanner(System.in);
-    public static List<Integer> numberOfSeats = Arrays.asList(1,2,3,4,5,6,7,8,9,10,
-														11,12,13,14,15,16,17,18,19,20,
-														21,22,23,24,25,26,27,28,29,30,
-														31,32,33,34,35,36,37,38,39,40);
+    public static List<Integer> numOfSeats = new ArrayList<Integer>();
     
     public static String Screen1A() {
 
@@ -154,7 +156,7 @@ public class Screens {
 
     }
 
-    private static void Screen3B(Customer customer, ArrayList<Cinema> cinemas, Reservation reservation, ArrayList<Seat> seats) {
+    private static void Screen3B(Customer customer, ArrayList<Cinema> cinemas, Reservation reservation, Seat seats) {
         byte choice = -1;
         do {
         	System.out.println("\nCustomer Info:");
@@ -208,34 +210,68 @@ public class Screens {
 
     }
     
-    public static void Screen3C(Customer customer, Reservation reservations, ArrayList<Seat> seats, ArrayList<Cinema> cinemas) {
+    public static void Screen3C(Customer customer, Reservation reservations, Seat seats, ArrayList<Cinema> cinemas) {
     	byte choice = -1;
-    	int seatSelect;
     	int noOfPeopleRes = reservations.getTotalPeople();
-    	
+    	int seat;
+	    
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		try {
+		    conn =
+		       DriverManager.getConnection("jdbc:mysql://localhost/moviereservation?"
+		       		+ "useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
+		    		   "root", "awsys+123");
+		    stmt = conn.createStatement();
+		    rs = stmt.executeQuery("SELECT * FROM seats WHERE cinema_id ="+reservations.getCinema().getCinemaId()+" && timeslot_id ="+reservations.getTimeslot().getTimeSlotID()+";");   
+		    System.out.println("Seat Selection Info");
+		    System.out.println("\n\nPlease choose your seats from the available seats below: ");
+		    int i = 0;
+		    while(rs.next()) {
+		    	if(i < 7){
+		    		if(rs.getInt(4) == 0)
+			    	{
+			    		System.out.print(rs.getInt(1)+"\t");
+			    	}
+			    	else{
+			    		System.out.print("-\t");
+			    	}
+		    		i++;
+		    	}
+		    	else{
+		    		if(rs.getInt(4) == 0)
+			    	{
+			    		System.out.println(rs.getInt(1));
+			    	}
+			    	else{
+			    		System.out.println("-");
+			    	}
+		    		
+		    		i = 0;
+		    	}
+		    }
+		    
+		    for(int i1 = 0; i1 < noOfPeopleRes; i1++) {
+		    	Scanner input = new Scanner(System.in);
+		    	System.out.println();
+		    	System.out.println("Your Choice: ");
+		    	seat = input.nextInt();
+		    	reservations.setSeatId(seat);
+		    	numOfSeats.add(seat);
+		    }
+		    
+		    
+
+			
+		
+		} catch (SQLException ex) {
+		    // handle any errors
+		    System.out.println("SQLException: " + ex.getMessage());
+		    System.out.println("SQLState: " + ex.getSQLState());
+		    System.out.println("VendorError: " + ex.getErrorCode());
+		}
     
-    	if(!reservations.isCinemaFull()) {
-    		System.out.println("\nSeat Selection Info");
-    		System.out.println("\n\nPlease choose your seats from the available seats below: ");
-    		
-    		for(int i = 1; i < numberOfSeats.size() + 1; i++) {    
-    		     System.out.print(i+((i%10==0) ? "\n" : " "));
-    		}
-    	}
-    	
-    	//get input of seat ids depending on number of people
-    	for(int i = 0; i < noOfPeopleRes; i++){
-	    	System.out.println("\nYour Choice: ");
-	    	seatSelect = scanner.nextInt();
-	    	reservations.setSeatId(seatSelect);
-	    	
-	    	for(int element: numberOfSeats){
-	    		if(element == seatSelect){
-	    			numberOfSeats.set(element - 1, 0);
-	    			seats.add(new Seat(seatSelect));
-	    		} 
-	    	}
-    	}
     	
     	
     	while (choice != 0) {
@@ -319,7 +355,7 @@ public class Screens {
         				 + " " + reservation.getTimeslot().getTimeStart());
         System.out.println("Total no. of people: " + reservation.getTotalPeople());
         System.out.println("Total amount: P" + reservation.getTotalAmount());
-        System.out.println("Seat: " + reservation.getSeatId());  // to add
+        System.out.println("Seat: " + numOfSeats);  // to add
 
         while (choice != 0) {
             choice = Screen4Menu();
