@@ -346,7 +346,8 @@ public class Screens {
 
                 case 1:
                 	//call confirm function here
-                	// TO DO!
+                	DatabaseConnect db2 = new DatabaseConnect();
+                	db2.confirmReservation(reservation,customer);
                     customer.setReservation(reservation);
                     ScreenC();
                     choice = 0;
