@@ -34,6 +34,8 @@ public class DatabaseConnect {
 	private static String SELECT_RESERVATION_ID = "SELECT " +
 			"MAX('reservation_id') from reservations";
 	
+	private String ADDTO_DB = "INSERT INTO reservations (reservation_id, date, cinema_id, time, customer_name, total_payment, no_of_kid, no_of_adult, no_of_senior, timeslot_id)"
+							+ " VALUES (null, current_timestamp, ?, ?, ?, ?, ?, ?, ?, ?)";
 	
 	public DatabaseConnect() {
 		this.connect = null;
@@ -78,7 +80,7 @@ public class DatabaseConnect {
 	public static ArrayList<Cinema> getAllCinemas(){
 		init();
 		String query = "SELECT * FROM moviereservation.cinemas;";
-		ArrayList<Cinema> cinemas = new ArrayList<>();
+		ArrayList<Cinema> cinemas = new ArrayList<Cinema>();
 
 		try {
 			PreparedStatement ps = connect2.prepareStatement(query);
@@ -108,7 +110,7 @@ public class DatabaseConnect {
 	public static ArrayList<Timeslot> getAllTimeSlots(){
 		init();
 		String query = "SELECT * FROM moviereservation.timeslots;";
-		ArrayList<Timeslot> timeslots = new ArrayList<>();
+		ArrayList<Timeslot> timeslots = new ArrayList<Timeslot>();
 
 		try {
 			PreparedStatement ps = connect2.prepareStatement(query);
@@ -145,7 +147,7 @@ public class DatabaseConnect {
 	public static ArrayList<Movie> getAllMovies(){
 		init();
 		String query = "SELECT * FROM moviereservation.movies;";
-		ArrayList<Movie> movies = new ArrayList<>();
+		ArrayList<Movie> movies = new ArrayList<Movie>();
 
 		try {
 			PreparedStatement ps = connect2.prepareStatement(query);
@@ -329,6 +331,26 @@ public class DatabaseConnect {
 		}	
 		
 		return id;
+	}
+	
+	public void confirmReservation(Reservation r, Customer c){
+		try{
+			PreparedStatement ps = connect.prepareStatement(ADDTO_DB);
+			ps.setInt(1, r.getCinema().getCinemaId());
+			ps.setString(2, r.getTimeslot().getTimeStart());
+			ps.setString(3, c.getCustomerName());
+			ps.setInt(4, r.getTotalAmount());
+			ps.setInt(5, r.getNoOfChildrens());
+			ps.setInt(6, r.getNoOfAdults());
+			ps.setInt(7, r.getNoOfSeniors());
+			ps.setInt(8, r.getTimeslot().getTimeSlotID());
+
+			ps.executeUpdate();
+
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+
 	}
 	
 	
