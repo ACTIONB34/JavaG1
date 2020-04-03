@@ -22,17 +22,17 @@ public class DatabaseConnect {
 		    "movies.movie_id, time_start" +
 		    "FROM movies, timeslots where movies.movie_id = timeslots.movie_id;";
 
-	private static String SELECT_SEATS = "SELECT " +  
+	private static String SELECT_SEATS = "SELECT" +  
 		    "seat_number" +
 			"FROM seats WHERE timeslot_id = 1 AND cinema_id = 1" +
 		    "AND reservation_id IS NULL;";
 
-	private static String UPDATE_SEATS = "UPDATE seats " +  
+	private static String UPDATE_SEATS = "UPDATE seats" +  
 		    "SET reservation_id = ? " +
 			"WHERE cinema_id = ? and timeslot_id = ? and seat_number = ?;";
 	
 	private static String SELECT_RESERVATION_ID = "SELECT " +
-			"MAX(reservation_id) as reservation_id from reservations";
+			"MAX('reservation_id') from reservations";
 	
 	private String ADDTO_DB = "INSERT INTO reservations (reservation_id, date, cinema_id, time, customer_name, total_payment, no_of_kid, no_of_adult, no_of_senior, timeslot_id)"
 							+ " VALUES (null, current_timestamp, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -293,9 +293,9 @@ public class DatabaseConnect {
 			ps.setInt(3,timeslot_id);
 
 			for (int i = 0; i < reservedSeats.size(); i++) {
-				ps.setInt(4,reservedSeats.get(i));
+				ps.setInt(4,reservedSeats.get(0));
 				ps.executeUpdate();
-				//System.out.println("Seats Updated Successfully");
+				System.out.println("Seats Updated Successfully");
 				res = 1;
 			}	    	
 	    	
@@ -312,11 +312,18 @@ public class DatabaseConnect {
 		try {
 			PreparedStatement ps = connect.prepareStatement(SELECT_RESERVATION_ID);
 			result = ps.executeQuery();
-
+			//ResultSetMetaData rsmd = result.getMetaData();
+			//int column = rsmd.getColumnCount();
+			
+			//for (int i = 1; i <= column; i++ ) {
 			if(result.next()) {
-				id = result.getInt("reservation_id");
-				//System.out.println("Successfully retrieved id " + id);
+				//id = result.getInt();
+				//String temp = result.getString("MAX(reservation_id)");
+				//System.out.println("Successfully retrieved id" + temp);
+				//id = Integer.parseInt(temp);
+				//System.out.println("Successfully retrieved id" + id);
 			}
+			//}
 	    	
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -340,41 +347,82 @@ public class DatabaseConnect {
 
 			ps.executeUpdate();
 
-			//dummy value will be updated once seat resevation is done
-			ArrayList<Integer> reservedSeats = new ArrayList<Integer>();
-			//rs.add(4);
-			//rs.add(5);
-			//rs.add(6);
-
-			int id = selectReservationId();
-			updateSeats(id,r.getCinema().getCinemaId(),r.getTimeslot().getTimeSlotID(),reservedSeats);
-
 		}catch(SQLException e){
 			e.printStackTrace();
 		}
 
 	}
 	
+	public static void viewSeats(int cinema_id, int timeslot_id){
+		int seat;
+	    
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		try {
+		    conn =
+		       DriverManager.getConnection("jdbc:mysql://localhost/moviereservation?"
+		       		+ "useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
+		    		   "root", "awsys+123");
+		    stmt = conn.createStatement();
+		    rs = stmt.executeQuery("SELECT * FROM seats WHERE cinema_id ="+cinema_id+" && timeslot_id ="+timeslot_id+";");   
+		    System.out.println("Seat Selection Info");
+		    System.out.println("\n\nPlease choose your seats from the available seats below: ");
+		    int i = 0;
+		    while(rs.next()) {
+		    	if(i < 7){
+		    		if(rs.getInt(4) == 0)
+			    	{
+			    		System.out.print(rs.getInt(1)+"\t");
+			    	}
+			    	else{
+			    		System.out.print("-\t");
+			    	}
+		    		i++;
+		    	}
+		    	else{
+		    		if(rs.getInt(4) == 0)
+			    	{
+			    		System.out.println(rs.getInt(1));
+			    	}
+			    	else{
+			    		System.out.println("-");
+			    	}
+		    		
+		    		i = 0;
+		    	}
+		    }
+		    
+
+		    
+		
+		} catch (SQLException ex) {
+		    // handle any errors
+		    System.out.println("SQLException: " + ex.getMessage());
+		    System.out.println("SQLState: " + ex.getSQLState());
+		    System.out.println("VendorError: " + ex.getErrorCode());
+		}
+	}
 	
 
 	
 	
 	//for testing
 	public static void main(String[]args){
-		//DatabaseConnect db = new DatabaseConnect();
+		DatabaseConnect db = new DatabaseConnect();
 		
-		// //db.selectMovies();
+		//db.selectMovies();
 		
-		// //int id = db.selectReservationId();
+		//int id = db.selectReservationId();
 		
-		// //System.out.print(id);
+		//System.out.print(id);
 		
-		// ArrayList<Integer> rs = new ArrayList<Integer>();
-		// rs.add(4);
-		// rs.add(5);
-		// rs.add(6);
+		ArrayList<Integer> rs = new ArrayList<Integer>();
+		rs.add(4);
+		rs.add(5);
+		rs.add(6);
 
-		// //db.updateSeats(id,1,1,rs);
+		//db.updateSeats(id,1,1,rs);
 		
 	}
 

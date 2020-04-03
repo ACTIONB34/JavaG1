@@ -212,68 +212,18 @@ public class Screens {
     
     public static void Screen3C(Customer customer, Reservation reservations, Seat seats, ArrayList<Cinema> cinemas) {
     	byte choice = -1;
-    	int noOfPeopleRes = reservations.getTotalPeople();
     	int seat;
-	    
-		Connection conn = null;
-		Statement stmt = null;
-		ResultSet rs = null;
-		try {
-		    conn =
-		       DriverManager.getConnection("jdbc:mysql://localhost/moviereservation?"
-		       		+ "useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
-		    		   "root", "awsys+123");
-		    stmt = conn.createStatement();
-		    rs = stmt.executeQuery("SELECT * FROM seats WHERE cinema_id ="+reservations.getCinema().getCinemaId()+" && timeslot_id ="+reservations.getTimeslot().getTimeSlotID()+";");   
-		    System.out.println("Seat Selection Info");
-		    System.out.println("\n\nPlease choose your seats from the available seats below: ");
-		    int i = 0;
-		    while(rs.next()) {
-		    	if(i < 7){
-		    		if(rs.getInt(4) == 0)
-			    	{
-			    		System.out.print(rs.getInt(1)+"\t");
-			    	}
-			    	else{
-			    		System.out.print("-\t");
-			    	}
-		    		i++;
-		    	}
-		    	else{
-		    		if(rs.getInt(4) == 0)
-			    	{
-			    		System.out.println(rs.getInt(1));
-			    	}
-			    	else{
-			    		System.out.println("-");
-			    	}
-		    		
-		    		i = 0;
-		    	}
-		    }
-		    
-		    for(int i1 = 0; i1 < noOfPeopleRes; i1++) {
-		    	Scanner input = new Scanner(System.in);
-		    	System.out.println();
-		    	System.out.println("Your Choice: ");
-		    	seat = input.nextInt();
-		    	reservations.setSeatId(seat);
-		    	numOfSeats.add(seat);
-		    }
-		    
-		    
-
-			
-		
-		} catch (SQLException ex) {
-		    // handle any errors
-		    System.out.println("SQLException: " + ex.getMessage());
-		    System.out.println("SQLState: " + ex.getSQLState());
-		    System.out.println("VendorError: " + ex.getErrorCode());
-		}
+    	int noOfPeopleRes = reservations.getTotalPeople();
+    	
+    	DatabaseConnect.viewSeats(reservations.getCinema().getCinemaId(), reservations.getTimeslot().getTimeSlotID());
     
-    	
-    	
+		for(int i = 0; i < noOfPeopleRes; i++) {
+			Scanner input = new Scanner(System.in);
+			System.out.println("\nYour Choice: ");
+			seat = input.nextInt();
+			numOfSeats.add(seat);
+		}
+		
     	while (choice != 0) {
             choice = Screen3CMenu();
             switch (choice) {
