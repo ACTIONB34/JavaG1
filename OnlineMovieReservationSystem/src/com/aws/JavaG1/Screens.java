@@ -257,6 +257,7 @@ public class Screens {
 		    	System.out.println();
 		    	System.out.println("Your Choice: ");
 		    	seat = input.nextInt();
+		    	reservations.setSeatId(seat);
 		    	numOfSeats.add(seat);
 		    }
 		    
