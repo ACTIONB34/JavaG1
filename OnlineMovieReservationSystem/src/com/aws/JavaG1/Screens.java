@@ -345,6 +345,8 @@ public class Screens {
             switch (choice) {
 
                 case 1:
+                	//call confirm function here
+                	// TO DO!
                     customer.setReservation(reservation);
                     ScreenC();
                     choice = 0;
