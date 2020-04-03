@@ -50,7 +50,7 @@ public class Seat {
         this.status = status;
     }
     
-	
+
 	public static void viewSeats(int cinema_id, int timeslot_id){
 		int seat;
 	    
@@ -63,7 +63,7 @@ public class Seat {
 		       		+ "useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
 		    		   "root", "awsys+123");
 		    stmt = conn.createStatement();
-		    rs = stmt.executeQuery("SELECT * FROM seats WHERE cinema_id ="+cinema_id+"&& timeslot_id ="+timeslot_id+";");   
+		    rs = stmt.executeQuery("SELECT * FROM seats WHERE cinema_id ="+cinema_id+" && timeslot_id ="+timeslot_id+";");   
 		    System.out.println("Seat Selection Info");
 		    System.out.println("\n\nPlease choose your seats from the available seats below: ");
 		    int i = 0;
