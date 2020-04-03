@@ -51,8 +51,7 @@ public class Seat {
     public void setStatus(boolean status) {
         this.status = status;
     }
-    
-	
+    	
 	public static void viewSeats(int cinema_id, int timeslot_id, int numOfPeople){
 		Object[] obj  = new Object[numOfPeople];
 		
@@ -117,7 +116,6 @@ public class Seat {
 	}
 	
 	public static void updateSeat(int seat_id){
-		DatabaseConnect.DatabaseConnect();
 		try {
 			Connection conn = null;
 			Statement stmt = null;
@@ -175,6 +173,54 @@ public class Seat {
 		numOfPeople = input.nextInt();
 		
 		viewSeats(cinemaID, timeSlotID, numOfPeople);
+	}
+
+	public static void viewSeats(int cinema_id, int timeslot_id){
+		int seat;
+	    
+		Connection conn = null;
+		Statement stmt = null;
+	    ResultSet rs = null;
+		try {
+		    conn =
+		       DriverManager.getConnection("jdbc:mysql://localhost/moviereservation?"
+	       		+ "useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
+		    		   "root", "awsys+123");
+        stmt = conn.createStatement();
+		    rs = stmt.executeQuery("SELECT * FROM seats WHERE cinema_id ="+cinema_id+" && timeslot_id ="+timeslot_id+";");   
+		    System.out.println("Seat Selection Info");
+		    System.out.println("\n\nPlease choose your seats from the available seats below: ");
+		    int i = 0;
+		    while(rs.next()) {
+		    	if(i < 7){
+		    		if(rs.getInt(4) == 0)
+			    	{
+			    		System.out.print(rs.getInt(1)+"\t");
+			    	}
+			    	else{
+			    		System.out.print("-\t");
+			    	}
+		    		i++;
+		    	}
+		    	else{
+		    		if(rs.getInt(4) == 0)
+			    	{
+			    		System.out.println(rs.getInt(1));
+			    	}
+			    	else{
+			    		System.out.println("-");
+			    	}
+	    		
+		    		i = 0;
+		    	}
+		    }
+		    	    
+		} catch (SQLException ex) {
+		    // handle any errors
+		    System.out.println("SQLException: " + ex.getMessage());
+		    System.out.println("SQLState: " + ex.getSQLState());
+		    System.out.println("VendorError: " + ex.getErrorCode());
+		}
 	}
 	
 	public static void main(String[] args) throws ClassNotFoundException, SQLException{
