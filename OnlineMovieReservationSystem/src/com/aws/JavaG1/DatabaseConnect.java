@@ -346,7 +346,9 @@ public class DatabaseConnect {
 			ps.setInt(8, r.getTimeslot().getTimeSlotID());
 
 			ps.executeUpdate();
-
+	//		System.out.println("Added successfully!");
+			
+			connect.close();
 		}catch(SQLException e){
 			e.printStackTrace();
 		}
@@ -361,18 +363,36 @@ public class DatabaseConnect {
 	public static void main(String[]args){
 		DatabaseConnect db = new DatabaseConnect();
 		
+//	//	Timeslot: int timeSlotID, String timeStart	
+//		Timeslot ts = new Timeslot(1011,"3:30PM");
+//		
+//	//	Movie: int movieID, String movieName, String movieDirector, String movieGenre, String movieRating
+//		Movie movie1 = new Movie(3011, "How I Met Her", "Andrew E.", "Comedy", "PG");	
+//		
+//	//	Cinema: int cinemaId, Movie movie, int noOfSeats, String status	
+//		Cinema cine = new Cinema(2011, movie1, 40, "VIEWING");							
+//		
+//	//	Timeslot timeslot, Cinema cinema, int seatId, int noOfChildrens, int noOfAdults, int noOfSeniors, int totalAmount	
+//		Reservation res = new Reservation(ts, cine, 1, 0, 3, 0, 459);					
+//		Customer cust = new Customer(4011, "Shaiapouf");
+//		
+//		db.confirmReservation(res, cust);
+//		
+		
 		//db.selectMovies();
 		
 		//int id = db.selectReservationId();
 		
 		//System.out.print(id);
 		
-		ArrayList<Integer> rs = new ArrayList<Integer>();
-		rs.add(4);
-		rs.add(5);
-		rs.add(6);
+//		ArrayList<Integer> rs = new ArrayList<Integer>();
+//		rs.add(4);
+//		rs.add(5);
+//		rs.add(6);
 
 		//db.updateSeats(id,1,1,rs);
+		
+		
 		
 	}
 
