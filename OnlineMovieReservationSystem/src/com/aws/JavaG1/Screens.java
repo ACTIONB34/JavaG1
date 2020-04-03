@@ -34,13 +34,9 @@ public class Screens {
         }
     }
 
-    public static void Screen2() {
+    public static void Screen2(ArrayList<Cinema> cinemas) {
 
-        System.out.println("Loading Resources...\n");
-        ArrayList<Movie> movies = DatabaseConnect.getAllMovies();
-        ArrayList<Timeslot> timeslots = DatabaseConnect.getAllTimeSlots();
-        ArrayList<Cinema> cinemas = DatabaseConnect.getAllCinemas();
-        Utility.populateCinema(cinemas,timeslots,movies);
+
 
 
 
@@ -100,22 +96,7 @@ public class Screens {
 
     }
 
-    private static Cinema getCinemaById(ArrayList<Cinema> cinemas, int cinemaID) {
-        for (Cinema cinema : cinemas) {
-            if (cinema.getCinemaId() == cinemaID)
-                return cinema;
-        }
 
-        return null;
-    }
-
-    private static Timeslot getTimeslotById(Cinema cinema, int timeslotID) {
-        for (Timeslot timeslot : cinema.getTimeslots()) {
-            if (timeslot.getTimeSlotID() == timeslotID)
-                return timeslot;
-        }
-        return null;
-    }
 
     public static void Screen3A(Customer customer, ArrayList<Cinema> cinemas) {
         byte choice = -1;
@@ -128,9 +109,9 @@ public class Screens {
         do {
         	System.out.println("\nMovie Info");
             System.out.print("\nEnter Cinema ID:");
-            reservation.setCinema(getCinemaById(cinemas, scanner.nextInt()));
+            reservation.setCinema(Utility.getCinemaByID(cinemas, scanner.nextInt()));
             System.out.print("Enter Timeslot ID:");
-            reservation.setTimeslot(getTimeslotById(reservation.getCinema(), scanner.nextInt()));
+            reservation.setTimeslot(Utility.getTimeSlotById(reservation.getCinema().getTimeslots(), scanner.nextInt()));
             
             if (reservation.getCinema() == null)
                 System.out.println("Invalid cinema Id");
@@ -203,7 +184,7 @@ public class Screens {
                     break;
                 case 0:
                 	//to do
-                    Screen2();
+                    Screen2(cinemas);
                     break;
                 default:
                     System.out.println("Invalid input!");
@@ -269,7 +250,7 @@ public class Screens {
                     choice = 0;
                     break;
                 case 0:
-                	Screen2();
+                	Screen2(cinemas);
                 	choice = 0;
                     break;
                 default:
