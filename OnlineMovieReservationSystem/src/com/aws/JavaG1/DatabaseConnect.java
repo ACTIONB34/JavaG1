@@ -110,7 +110,7 @@ public class DatabaseConnect {
 	public static ArrayList<Timeslot> getAllTimeSlots(){
 		init();
 		String query = "SELECT * FROM moviereservation.timeslots;";
-		ArrayList<Timeslot> timeslots = new ArrayList<>();
+		ArrayList<Timeslot> timeslots = new ArrayList<Timeslot>();
 
 		try {
 			PreparedStatement ps = connect2.prepareStatement(query);
@@ -147,7 +147,7 @@ public class DatabaseConnect {
 	public static ArrayList<Movie> getAllMovies(){
 		init();
 		String query = "SELECT * FROM moviereservation.movies;";
-		ArrayList<Movie> movies = new ArrayList<>();
+		ArrayList<Movie> movies = new ArrayList<Movie>();
 
 		try {
 			PreparedStatement ps = connect2.prepareStatement(query);
