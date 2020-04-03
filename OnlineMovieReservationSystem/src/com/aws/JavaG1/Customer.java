@@ -110,25 +110,24 @@ public class Customer {
 	}
 	
 	public static void viewSeats(int cinema_id, int timeslot_id){
-		int userInput;
-		
+		int seat;
+	    
 		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rs = null;
 		try {
 		    conn =
-		       DriverManager.getConnection("jdbc:mysql://localhost/pet_clinic?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
+		       DriverManager.getConnection("jdbc:mysql://localhost/moviereservation?"
+		       		+ "useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
 		    		   "root", "awsys+123");
-
 		    stmt = conn.createStatement();
 		    rs = stmt.executeQuery("SELECT * FROM seats WHERE cinema_id ="+cinema_id+"&& timeslot_id ="+timeslot_id+";");   
-		    
 		    System.out.println("Seat Selection Info");
 		    System.out.println("\n\nPlease choose your seats from the available seats below: ");
 		    int i = 0;
 		    while(rs.next()) {
 		    	if(i < 7){
-		    		if(rs.getInt(3) == 0)
+		    		if(rs.getInt(4) == 0)
 			    	{
 			    		System.out.print(rs.getInt(1)+"\t");
 			    	}
@@ -138,7 +137,7 @@ public class Customer {
 		    		i++;
 		    	}
 		    	else{
-		    		if(rs.getInt(3) == 0)
+		    		if(rs.getInt(4) == 0)
 			    	{
 			    		System.out.println(rs.getInt(1));
 			    	}
@@ -150,13 +149,12 @@ public class Customer {
 		    	}
 		    }
 		    
+
 		    Scanner input = new Scanner(System.in);
 		    System.out.println();
 			System.out.println("Your Choice: ");
-			userInput = input.nextInt();
-			
-			
-			
+			seat = input.nextInt();
+		
 		} catch (SQLException ex) {
 		    // handle any errors
 		    System.out.println("SQLException: " + ex.getMessage());
