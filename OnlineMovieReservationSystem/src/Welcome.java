@@ -1,4 +1,5 @@
 import com.aws.JavaG1.*;
+import com.aws.JavaG1.utilities.Utility;
 
 import java.util.ArrayList;
 
@@ -10,23 +11,11 @@ public class Welcome {
         Name = Screens.Screen1A();
         Customer customer = new Customer(123, Name);
 
-
-
-
-
-
-        ArrayList<Cinema> cinemas = new ArrayList<Cinema>();
-        ArrayList<Timeslot> timeslot = new ArrayList<Timeslot>();
-
-        Movie IT = new Movie(1010, "IT", "horror", "1hr", "SPG");
-        Movie MonsterInc = new Movie(1011, "MonsterInc", "Action", "2hr", "G");
-        Movie PPG = new Movie(1012, "PPG", "Action", "3hr", "PG");
-//        timeslot.add(new Timeslot(1, "12:00 PM", "3:00 PM"));
-//        timeslot.add(new Timeslot(2, "3:30 PM", "6:30 PM"));
-//        timeslot.add(new Timeslot(3, "7:00 PM", "10:00 PM"));
-        cinemas.add(new Cinema(1,IT, timeslot, 40, "OPEN"));
-        cinemas.add(new Cinema(2,MonsterInc, timeslot, 40, "OPEN"));
-        cinemas.add(new Cinema(3,PPG, timeslot, 40, "OPEN"));
+        System.out.println("Loading Resources...\n");
+        ArrayList<Movie> movies = DatabaseConnect.getAllMovies();
+        ArrayList<Timeslot> timeslots = DatabaseConnect.getAllTimeSlots();
+        ArrayList<Cinema> cinemas = DatabaseConnect.getAllCinemas();
+        Utility.populateCinema(cinemas,timeslots,movies);
 
 
         while ( choice != 0) {
@@ -34,7 +23,7 @@ public class Welcome {
             switch (choice) {
                 case 1:
                     //Screen 2 - View Showing Movies
-                    Screens.Screen2();
+                    Screens.Screen2(cinemas);
                     break;
                 case 2:
                     if(customer.getReservation() == null)
