@@ -315,7 +315,6 @@ public class DatabaseConnect {
 		try {
 			PreparedStatement ps = connect.prepareStatement(SELECT_RESERVATION_ID);
 			result = ps.executeQuery();
-			ResultSetMetaData rsmd = result.getMetaData();
 
 			if(result.next()) {
 				id = result.getInt("reservation_id");
