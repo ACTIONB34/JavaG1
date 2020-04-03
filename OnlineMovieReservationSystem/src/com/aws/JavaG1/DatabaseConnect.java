@@ -340,6 +340,15 @@ public class DatabaseConnect {
 
 			ps.executeUpdate();
 
+			//dummy value will be updated once seat resevation is done
+			ArrayList<Integer> reservedSeats = new ArrayList<Integer>();
+			//rs.add(4);
+			//rs.add(5);
+			//rs.add(6);
+
+			int id = selectReservationId();
+			updateSeats(id,r.getCinema().getCinemaId(),r.getTimeslot().getTimeSlotID(),reservedSeats);
+
 		}catch(SQLException e){
 			e.printStackTrace();
 		}
@@ -352,20 +361,20 @@ public class DatabaseConnect {
 	
 	//for testing
 	public static void main(String[]args){
-		DatabaseConnect db = new DatabaseConnect();
+		//DatabaseConnect db = new DatabaseConnect();
 		
-		//db.selectMovies();
+		// //db.selectMovies();
 		
-		//int id = db.selectReservationId();
+		// //int id = db.selectReservationId();
 		
-		//System.out.print(id);
+		// //System.out.print(id);
 		
-		ArrayList<Integer> rs = new ArrayList<Integer>();
-		rs.add(4);
-		rs.add(5);
-		rs.add(6);
+		// ArrayList<Integer> rs = new ArrayList<Integer>();
+		// rs.add(4);
+		// rs.add(5);
+		// rs.add(6);
 
-		//db.updateSeats(id,1,1,rs);
+		// //db.updateSeats(id,1,1,rs);
 		
 	}
 
