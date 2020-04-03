@@ -3,17 +3,22 @@ package com.aws.JavaG1;
 public class Seat {
     private int seatId;
     private Cinema cinema;
-    private String status;
-
+    private boolean status; // 0-free, 1-occupied
+    
     public Seat() {
     }
 
-    public Seat(int seatId, Cinema cinema, String status) {
+    public Seat(int seatId, Cinema cinema, boolean status) {
         this.seatId = seatId;
         this.cinema = cinema;
         this.status = status;
     }
 
+    public Seat(int seatId){
+    	this.seatId = seatId;
+    	this.status = true;
+    }
+    
     public int getSeatId() {
         return seatId;
     }
@@ -30,11 +35,11 @@ public class Seat {
         this.cinema = cinema;
     }
 
-    public String getStatus() {
+    public boolean getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(boolean status) {
         this.status = status;
     }
 }

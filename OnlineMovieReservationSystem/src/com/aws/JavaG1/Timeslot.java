@@ -9,16 +9,35 @@ import java.sql.Statement;
 public class Timeslot {
 	private int timeSlotID;
 	private String timeStart;
-	private String timeEnd;
+	private int movieID;
+	private int cinemaID;
+	private int timeSLotID;
 
 	public Timeslot() {
 		
 	}
 
-	public Timeslot(int timeSlotID, String timeStart, String timeEnd) {
+	public int getMovieID() {
+		return movieID;
+	}
+
+	public void setMovieID(int movieID) {
+		this.movieID = movieID;
+	}
+
+	public int getCinemaID() {
+		return cinemaID;
+	}
+
+	public void setCinemaID(int cinemaID) {
+		this.cinemaID = cinemaID;
+	}
+
+
+
+	public Timeslot(int timeSlotID, String timeStart) {
 		this.timeSlotID = timeSlotID;
 		this.timeStart = timeStart;
-		this.timeEnd = timeEnd;
 	}
 
 	public int getTimeSlotID() {
@@ -37,12 +56,14 @@ public class Timeslot {
 		this.timeStart = timeStart;
 	}
 
-	public String getTimeEnd() {
-		return timeEnd;
-	}
-
-	public void setTimeEnd(String timeEnd) {
-		this.timeEnd = timeEnd;
+	@Override
+	public String toString() {
+		return "Timeslot{" +
+				"timeSlotID=" + timeSlotID +
+				", timeStart='" + timeStart + '\'' +
+				", movieID=" + movieID +
+				", cinemaID=" + cinemaID +
+				'}';
 	}
 	
 	public static void viewTimeslot(){

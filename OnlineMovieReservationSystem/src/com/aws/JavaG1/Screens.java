@@ -1,13 +1,16 @@
 package com.aws.JavaG1;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import com.aws.JavaG1.utilities.Utility;
+
+import java.util.*;
 
 public class Screens {
     private static Scanner scanner = new Scanner(System.in);
-
+    public static List<Integer> numberOfSeats = Arrays.asList(1,2,3,4,5,6,7,8,9,10,
+														11,12,13,14,15,16,17,18,19,20,
+														21,22,23,24,25,26,27,28,29,30,
+														31,32,33,34,35,36,37,38,39,40);
+    
     public static String Screen1A() {
 
         System.out.print("ONLINE MOVIE RESERVATION\n\n"
@@ -31,10 +34,20 @@ public class Screens {
         }
     }
 
-    public static void Screen2(ArrayList<Cinema> cinemas) {
-        for (Cinema cinema : cinemas) {
+    public static void Screen2() {
+
+        System.out.println("Loading Resources...\n");
+        ArrayList<Movie> movies = DatabaseConnect.getAllMovies();
+        ArrayList<Timeslot> timeslots = DatabaseConnect.getAllTimeSlots();
+        ArrayList<Cinema> cinemas = DatabaseConnect.getAllCinemas();
+        Utility.populateCinema(cinemas,timeslots,movies);
+
+
+
+        for(Cinema cinema: cinemas){
             System.out.println(cinema.toString());
         }
+
         System.out.print("\nPress Enter to Continue!");
         scanner.nextLine();
         scanner.nextLine(); // Double nextLine since previous read was a byte, doesn't read newline
@@ -190,7 +203,7 @@ public class Screens {
                     break;
                 case 0:
                 	//to do
-                    Screen2(cinemas);
+                    Screen2();
                     break;
                 default:
                     System.out.println("Invalid input!");
@@ -216,24 +229,33 @@ public class Screens {
     
     public static void Screen3C(Customer customer, Reservation reservations, ArrayList<Seat> seats, ArrayList<Cinema> cinemas) {
     	byte choice = -1;
-    	int[] numberOfSeats = new int[]{1,2,3,4,5,6,7,8,9,10,
-    									11,12,13,14,15,16,17,18,19,20,
-    									21,22,23,24,25,26,27,28,29,30,
-    									31,32,33,34,35,36,37,38,39,40};
+    	int seatSelect;
+    	int noOfPeopleRes = reservations.getTotalPeople();
+    	
     
     	if(!reservations.isCinemaFull()) {
     		System.out.println("\nSeat Selection Info");
     		System.out.println("\n\nPlease choose your seats from the available seats below: ");
     		
-    		//seats..
-    		for(int i = 1; i < numberOfSeats.length + 1; i++) {    
+    		for(int i = 1; i < numberOfSeats.size() + 1; i++) {    
     		     System.out.print(i+((i%10==0) ? "\n" : " "));
     		}
-    		
     	}
     	
-    	System.out.println("\nYour Choice: ");
-    	reservations.setSeatId(scanner.nextInt());
+    	//get input of seat ids depending on number of people
+    	for(int i = 0; i < noOfPeopleRes; i++){
+	    	System.out.println("\nYour Choice: ");
+	    	seatSelect = scanner.nextInt();
+	    	reservations.setSeatId(seatSelect);
+	    	
+	    	for(int element: numberOfSeats){
+	    		if(element == seatSelect){
+	    			numberOfSeats.set(element - 1, 0);
+	    			seats.add(new Seat(seatSelect));
+	    		} 
+	    	}
+    	}
+    	
     	
     	while (choice != 0) {
             choice = Screen3CMenu();
@@ -247,7 +269,7 @@ public class Screens {
                     choice = 0;
                     break;
                 case 0:
-                	Screen2(cinemas);
+                	Screen2();
                 	choice = 0;
                     break;
                 default:
@@ -316,7 +338,7 @@ public class Screens {
         				 + " " + reservation.getTimeslot().getTimeStart());
         System.out.println("Total no. of people: " + reservation.getTotalPeople());
         System.out.println("Total amount: P" + reservation.getTotalAmount());
-        System.out.println("Seat: ");  // to add
+        System.out.println("Seat: " + reservation.getSeatId());  // to add
 
         while (choice != 0) {
             choice = Screen4Menu();
