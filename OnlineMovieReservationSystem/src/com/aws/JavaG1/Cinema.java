@@ -27,7 +27,15 @@ public class Cinema {
         this.noOfSeats = noOfSeats;
         this.status = status;
     }
-
+    
+    //New Constructor
+    public Cinema(int cinemaId, Movie movie, int noOfSeats, String status) {
+        this.cinemaId = cinemaId;
+        this.movie = movie;
+        this.noOfSeats = noOfSeats;
+        this.status = status;
+    }
+    
     public int getCinemaId() {
         return cinemaId;
     }
