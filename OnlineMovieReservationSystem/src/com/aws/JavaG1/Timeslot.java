@@ -5,6 +5,7 @@ public class Timeslot {
 	private String timeStart;
 	private int movieID;
 	private int cinemaID;
+	private int timeSLotID;
 
 	public Timeslot() {
 	}
