@@ -28,7 +28,6 @@ public class Screens {
         try {
             return scanner.nextByte();
         } catch (InputMismatchException e) {
-            scanner.nextLine();
             return -1;
         }
     }
@@ -84,7 +83,6 @@ public class Screens {
         try {
             return scanner.nextByte();
         } catch (InputMismatchException e) {
-            scanner.nextLine();
             return -1;
         }
 
@@ -142,7 +140,6 @@ public class Screens {
         try {
             return scanner.nextByte();
         } catch (InputMismatchException e) {
-            scanner.nextLine();
             return -1;
         }
 
@@ -163,7 +160,7 @@ public class Screens {
                 System.out.println("Cinema is Full, please lessen the no of attendees.");
         } while (reservation.isCinemaFull());
 
-        while (choice != 0 && choice != -127) {
+        while (choice != 0) {
             choice = Screen3BMenu();
             switch (choice) {
                 case 1:
@@ -175,7 +172,8 @@ public class Screens {
                     Screen3B(customer, cinemas, reservation, seats);
                     break;
                 case 0:
-                    choice = -127;
+                	//to do
+                    Screen2(cinemas);
                     break;
                 default:
                     System.out.println("Invalid input!");
@@ -194,7 +192,6 @@ public class Screens {
         try {
             return scanner.nextByte();
         } catch (InputMismatchException e) {
-            scanner.nextLine();
             return -1;
         }
 
@@ -210,6 +207,7 @@ public class Screens {
     	dbconn.viewSeats(reservations.getCinema().getCinemaId(), reservations.getTimeslot().getTimeSlotID());
 
     	for(int i = 0; i < noOfPeopleRes;i++){
+    		
     		Scanner input = new Scanner(System.in);
     		System.out.println("\nYour choice: ");
     		seat = input.nextInt();
@@ -219,7 +217,9 @@ public class Screens {
     			Scanner input1 = new Scanner(System.in);
         		System.out.println("\nYour choice: ");
         		seat = input.nextInt();
-    		} else if(seat > totalNumberOfSeats){
+    		} 
+    		
+    		if(seat > totalNumberOfSeats){
     			System.out.println("\nSeat number does not exist. Try again.");
     			Scanner input2 = new Scanner(System.in);
         		System.out.println("\nYour choice: ");
@@ -227,10 +227,8 @@ public class Screens {
     		}
     		numberOfSeats.add(seat);
     	}
-        scanner.nextLine();
 
-    	
-    	while (choice != 0 && choice !=-127 ) {
+    	while (choice != 0) {
             choice = Screen3CMenu();
             switch (choice) {
                 case 1:
@@ -240,7 +238,8 @@ public class Screens {
                 	Screen3C(customer, reservations, seats, cinemas);
                     break;
                 case 0:
-                	choice = -127;
+                	Screen2(cinemas);
+                	choice = 0;
                     break;
                 default:
                     System.out.println("Invalid input!");
@@ -259,7 +258,6 @@ public class Screens {
         try {
             return scanner.nextByte();
         } catch (InputMismatchException e) {
-            scanner.nextLine();
             return -1;
         }
 
@@ -269,14 +267,13 @@ public class Screens {
         choice = -1;
         System.out.println("No existing reservation.\n");
 
-        while (choice != 0 && choice != -127) {
+        while (choice != 0) {
             choice = Screen3DMenu();
             switch (choice) {
                 case 1:
                     Screen3A(customer, cinemas);
                     break;
                 case 0:
-                    choice = -127;
                     break;
                 default:
                     System.out.println("Invalid input!");
@@ -295,7 +292,6 @@ public class Screens {
         try {
             return scanner.nextByte();
         } catch (InputMismatchException e) {
-            scanner.nextLine();
             return -1;
         }
 
@@ -311,9 +307,10 @@ public class Screens {
         System.out.println("Total no. of people: " + reservation.getTotalPeople());
         System.out.println("Total amount: P" + reservation.getTotalAmount());
         System.out.println("Seat: " + numberOfSeats);  // to add
-    	//numberOfSeats.clear();
+    	numberOfSeats.clear();
 
         while (choice != 0 && choice != -127) {
+
             choice = Screen4Menu();
             switch (choice) {
 
@@ -321,8 +318,6 @@ public class Screens {
                 	DatabaseConnect db4 = new DatabaseConnect();
                 	db4.confirmReservation(reservation, customer);
                     customer.setReservation(reservation);
-                    int id = db4.selectReservationId();
-                    db4.updateSeats(id, reservation, numberOfSeats);
                     ScreenC();
                     register = true;
                     choice = -127;
@@ -350,7 +345,6 @@ public class Screens {
         try {
             return scanner.nextByte();
         } catch (InputMismatchException e) {
-            scanner.nextLine();
             return -1;
         }
     }
@@ -376,7 +370,6 @@ public class Screens {
         try {
             return scanner.nextByte();
         } catch (InputMismatchException e) {
-            scanner.nextLine();
             return -1;
         }
     }
