@@ -354,14 +354,8 @@ public class DatabaseConnect {
 	
  	
 	public static void viewSeats(int cinema_id, int timeslot_id){
-		int rows = 4;
 		int columns = 7;
-	    
-		//Statement stmt = null;
-	    //ResultSet rs = null;
-		
 		try {
-	
 			Statement stmt = connect.createStatement();
 		    ResultSet rs = stmt.executeQuery("SELECT * FROM seats WHERE cinema_id ="+cinema_id+" && timeslot_id ="+timeslot_id+";");   
 		    System.out.println("Seat Selection Info");
@@ -369,7 +363,7 @@ public class DatabaseConnect {
 		    int i = 0;
 		    while(rs.next()) {
 		    	if(i < columns){
-		    		if(rs.getInt(rows) == 0)
+		    		if(rs.getInt("reservation_id") == 0)
 			    	{
 			    		System.out.print(rs.getInt(1)+"\t");
 			    	}
@@ -377,16 +371,14 @@ public class DatabaseConnect {
 			    		System.out.print("-\t");
 			    	}
 		    		i++;
-		    	}
-		    	else{
-		    		if(rs.getInt(rows) == 0)
+		    	} else {
+		    		if(rs.getInt("reservation_id") == 0)
 			    	{
 			    		System.out.println(rs.getInt(1));
 			    	}
 			    	else{
 			    		System.out.println("-");
 			    	}
-	    		
 		    		i = 0;
 		    	}
 		    }
@@ -395,6 +387,8 @@ public class DatabaseConnect {
 		    System.out.println("SQLException: " + ex.getMessage());
 		    System.out.println("SQLState: " + ex.getSQLState());
 		    System.out.println("VendorError: " + ex.getErrorCode());
+		} finally {
+			closeConnection();
 		}
 	}
 	
