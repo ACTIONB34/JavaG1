@@ -1,7 +1,6 @@
 package com.aws.JavaG1;
 
 import com.aws.JavaG1.utilities.Utility;
-
 import java.util.*;
 
 public class Screens {
@@ -205,6 +204,7 @@ public class Screens {
     public static void Screen3C(Customer customer, Reservation reservations, ArrayList<Seat> seats, ArrayList<Cinema> cinemas) {
     	byte choice = -1;
     	int seat;
+    	int totalNumberOfSeats = 40;
     	int noOfPeopleRes = reservations.getTotalPeople();
     	
     	DatabaseConnect dbconn = new DatabaseConnect();
@@ -214,6 +214,18 @@ public class Screens {
     		Scanner input = new Scanner(System.in);
     		System.out.println("\nYour choice: ");
     		seat = input.nextInt();
+    		
+    		if(numberOfSeats.contains(seat)) {
+    			System.out.println("\nOops! Seat Taken! Try again.");
+    			Scanner input1 = new Scanner(System.in);
+        		System.out.println("\nYour choice: ");
+        		seat = input.nextInt();
+    		} else if(seat > totalNumberOfSeats){
+    			System.out.println("\nSeat number does not exist. Try again.");
+    			Scanner input2 = new Scanner(System.in);
+        		System.out.println("\nYour choice: ");
+        		seat = input.nextInt();
+    		}
     		numberOfSeats.add(seat);
     	}
 
