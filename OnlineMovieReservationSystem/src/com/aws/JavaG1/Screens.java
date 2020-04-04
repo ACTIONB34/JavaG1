@@ -1,7 +1,6 @@
 package com.aws.JavaG1;
 
 import com.aws.JavaG1.utilities.Utility;
-
 import java.util.*;
 
 public class Screens {
@@ -207,6 +206,7 @@ public class Screens {
     public static void Screen3C(Customer customer, Reservation reservations, ArrayList<Seat> seats, ArrayList<Cinema> cinemas) {
     	byte choice = -1;
     	int seat;
+    	int totalNumberOfSeats = 40;
     	int noOfPeopleRes = reservations.getTotalPeople();
     	
     	DatabaseConnect dbconn = new DatabaseConnect();
@@ -216,6 +216,18 @@ public class Screens {
     		Scanner input = new Scanner(System.in);
     		System.out.println("\nYour choice: ");
     		seat = input.nextInt();
+    		
+    		if(numberOfSeats.contains(seat)) {
+    			System.out.println("\nOops! Seat Taken! Try again.");
+    			Scanner input1 = new Scanner(System.in);
+        		System.out.println("\nYour choice: ");
+        		seat = input.nextInt();
+    		} else if(seat > totalNumberOfSeats){
+    			System.out.println("\nSeat number does not exist. Try again.");
+    			Scanner input2 = new Scanner(System.in);
+        		System.out.println("\nYour choice: ");
+        		seat = input.nextInt();
+    		}
     		numberOfSeats.add(seat);
     	}
         scanner.nextLine();
@@ -305,7 +317,7 @@ public class Screens {
         System.out.println("Total no. of people: " + reservation.getTotalPeople());
         System.out.println("Total amount: P" + reservation.getTotalAmount());
         System.out.println("Seat: " + numberOfSeats);  // to add
-    	numberOfSeats.clear();
+    	//numberOfSeats.clear();
 
         while (choice != 0 && choice != 127) {
             choice = Screen4Menu();
@@ -315,6 +327,8 @@ public class Screens {
                 	DatabaseConnect db4 = new DatabaseConnect();
                 	db4.confirmReservation(reservation, customer);
                     customer.setReservation(reservation);
+                    int id = db4.selectReservationId();
+                    db4.updateSeats(id, reservation, numberOfSeats);
                     ScreenC();
                     choice = 0;
                     break;
