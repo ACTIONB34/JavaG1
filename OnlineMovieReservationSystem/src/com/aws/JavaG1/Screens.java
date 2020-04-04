@@ -207,14 +207,15 @@ public class Screens {
     	int seat;
     	int noOfPeopleRes = reservations.getTotalPeople();
     	
-    	DatabaseConnect.viewSeats(reservations.getCinema().getCinemaId(), reservations.getTimeslot().getTimeSlotID());
+    	DatabaseConnect db3c = new DatabaseConnect();
+    	db3c.viewSeats(reservations.getCinema().getCinemaId(), reservations.getTimeslot().getTimeSlotID());
 
     	for(int i = 0; i < noOfPeopleRes;i++){
     		Scanner input = new Scanner(System.in);
     		System.out.println("\nYour choice: ");
     		seat = input.nextInt();
     		numberOfSeats.add(seat);
-    		input.close();
+    //		input.close();
     	}
     	
     	
