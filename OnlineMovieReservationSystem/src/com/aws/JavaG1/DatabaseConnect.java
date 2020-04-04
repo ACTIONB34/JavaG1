@@ -34,7 +34,7 @@ public class DatabaseConnect {
 	private static String SELECT_RESERVATION_ID = "SELECT " +
 			"MAX(reservation_id) as reservation_id from reservations";
 	
-	private static String ADDTO_DB = "INSERT INTO reservations (reservation_id, date, cinema_id, time, customer_name, total_payment, no_of_kid, no_of_adult, no_of_senior, timeslot_id)"
+	private String ADDTO_DB = "INSERT INTO reservations (reservation_id, date, cinema_id, time, customer_name, total_payment, no_of_kid, no_of_adult, no_of_senior, timeslot_id)"
 							+ " VALUES (null, current_timestamp, ?, ?, ?, ?, ?, ?, ?, ?)";
 	
 	public DatabaseConnect() {
@@ -327,9 +327,11 @@ public class DatabaseConnect {
 		return id;
 	}
 	
-	public static void confirmReservation(Reservation r, Customer c){
+	public void confirmReservation(Reservation r, Customer c){
 		try{
+	//		System.out.println("Connecting to database. . .");
 			PreparedStatement ps = connect.prepareStatement(ADDTO_DB);
+	//		System.out.println("Inserting data. . .");
 			ps.setInt(1, r.getCinema().getCinemaId());
 			ps.setString(2, r.getTimeslot().getTimeStart());
 			ps.setString(3, c.getCustomerName());
@@ -413,6 +415,18 @@ public class DatabaseConnect {
 //	//	Timeslot timeslot, Cinema cinema, int seatId, int noOfChildrens, int noOfAdults, int noOfSeniors, int totalAmount	
 //		Reservation res = new Reservation(ts, cine, 1, 0, 3, 0, 459);					
 //		Customer cust = new Customer(4011, "Shaiapouf");
+
+		
+//		Customer cust = new Customer(2, "Belle Test");
+//		Movie movie1 = new Movie(1,"Harry Potter", "You", "Adventure", "R");
+//		Cinema cine = new Cinema(1, movie1, 40, "SHOWING");
+//		ArrayList<Cinema> cines = new ArrayList<Cinema>();
+//		cines.add(cine);
+//		Timeslot ts = new Timeslot(2,"3:30PM", 1, 1);
+//		
+//		Reservation res = new Reservation(ts, cine, 14, 0, 2, 0, 300);
+//		
+//		db.confirmReservation(res, cust);
 //		
 //		db.confirmReservation(res, cust);
 	
