@@ -368,7 +368,7 @@ public class DatabaseConnect {
 		    	if(i < columns){
 		    		if(rs.getInt(rows) == 0)
 			    	{
-			    		System.out.print(rs.getInt(1)+"\t");
+			    		System.out.print(rs.getInt(2)+"\t");
 			    	}
 			    	else{
 			    		System.out.print("-\t");
@@ -377,7 +377,7 @@ public class DatabaseConnect {
 		    	} else {
 		    		if(rs.getInt(rows) == 0)
 			    	{
-			    		System.out.println(rs.getInt(1));
+			    		System.out.println(rs.getInt(2));
 			    	}
 			    	else{
 			    		System.out.println("-");
