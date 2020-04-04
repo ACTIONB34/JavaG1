@@ -31,6 +31,13 @@ public class Timeslot {
 		this.timeSlotID = timeSlotID;
 		this.timeStart = timeStart;
 	}
+	
+	public Timeslot(int timeSlotID, String timeStart, int m_id, int cine_id) {
+		this.timeSlotID = timeSlotID;
+		this.timeStart = timeStart;
+		this.movieID = m_id;
+		this.cinemaID = cine_id;
+	}
 
 	public int getTimeSlotID() {
 		return timeSlotID;
