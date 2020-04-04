@@ -37,7 +37,7 @@ public class DatabaseConnect {
 	private String ADDTO_DB = "INSERT INTO reservations (reservation_id, date, cinema_id, time, customer_name, total_payment, no_of_kid, no_of_adult, no_of_senior, timeslot_id)"
 							+ " VALUES (null, current_timestamp, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-	public static String genericPassword = "awsys+123";
+	public static String genericPassword = "bobby321";
 	public DatabaseConnect() {
 		this.connect = null;
 		this.statement = null;
