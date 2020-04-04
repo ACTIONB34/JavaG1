@@ -104,16 +104,28 @@ public class Screens {
 
         do {
         	System.out.println("\nMovie Info");
-            System.out.print("\nEnter Cinema ID: ");
-            reservation.setCinema(Utility.getCinemaByID(cinemas, scanner.nextInt()));
-            System.out.print("Enter Timeslot ID: ");
-            reservation.setTimeslot(Utility.getTimeSlotById(reservation.getCinema().getTimeslots(), scanner.nextInt()));
-            
-            if (reservation.getCinema() == null)
-                System.out.println("Invalid cinema Id");
-            
-            if (reservation.getTimeslot() == null)
-                System.out.println("Invalid timeslot Id");
+            int cinemaID = 0;
+            int timeslotID = 0;
+            Cinema cinema = null;
+            Timeslot timeslot = null;
+
+            do {
+                System.out.print("\nEnter Cinema ID: ");
+                cinemaID = scanner.nextInt();
+                cinema = Utility.getCinemaByID(cinemas, cinemaID);
+                if(cinema == null)
+                    System.out.println("Invalid cinema id!");
+            } while( cinema == null);
+            reservation.setCinema(cinema);
+            do {
+                System.out.print("\nEnter Timeslot ID: ");
+                timeslotID = scanner.nextInt();
+                timeslot = Utility.getTimeSlotById(reservation.getCinema().getTimeslots(), timeslotID);
+                if(timeslot == null)
+                    System.out.println("Invalid timeslot id!");
+            } while( timeslot == null);
+            reservation.setTimeslot(timeslot);
+
         } while (!reservation.isValidReservation());
 
 
