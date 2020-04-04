@@ -24,7 +24,7 @@ public class DatabaseConnect {
 
 	private static String SELECT_UNRESERVED_SEATS = "SELECT " +  
 		    "seat_number" +
-			"FROM seats WHERE timeslot_id = 1 AND cinema_id = 1" +
+			"FROM seats WHERE timeslot_id = ? AND cinema_id = ?" +
 		    "AND reservation_id IS NULL;";
 
 	private static String UPDATE_SEATS = "UPDATE seats " +  
@@ -355,7 +355,7 @@ public class DatabaseConnect {
 	}
 	
  	
-	public void viewSeats(int cinema_id, int timeslot_id){
+	public static void viewSeats(int cinema_id, int timeslot_id){
 		int columns = 7;
 		int rows = 4;
 		try {
