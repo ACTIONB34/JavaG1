@@ -311,7 +311,7 @@ public class Screens {
         System.out.println("Total no. of people: " + reservation.getTotalPeople());
         System.out.println("Total amount: P" + reservation.getTotalAmount());
         System.out.println("Seat: " + numberOfSeats);  // to add
-    	numberOfSeats.clear();
+    	//numberOfSeats.clear();
 
         while (choice != 0) {
             choice = Screen4Menu();
@@ -321,6 +321,8 @@ public class Screens {
                 	DatabaseConnect db4 = new DatabaseConnect();
                 	db4.confirmReservation(reservation, customer);
                     customer.setReservation(reservation);
+                    int id = db4.selectReservationId();
+                    db4.updateSeats(id, reservation, numberOfSeats);
                     ScreenC();
                     choice = 0;
                     break;
