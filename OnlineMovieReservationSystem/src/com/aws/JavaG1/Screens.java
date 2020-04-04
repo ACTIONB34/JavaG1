@@ -27,6 +27,7 @@ public class Screens {
         try {
             return scanner.nextByte();
         } catch (InputMismatchException e) {
+            scanner.nextLine();
             return -1;
         }
     }
@@ -84,6 +85,7 @@ public class Screens {
         try {
             return scanner.nextByte();
         } catch (InputMismatchException e) {
+            scanner.nextLine();
             return -1;
         }
 
@@ -142,6 +144,7 @@ public class Screens {
         try {
             return scanner.nextByte();
         } catch (InputMismatchException e) {
+            scanner.nextLine();
             return -1;
         }
 
@@ -162,7 +165,7 @@ public class Screens {
                 System.out.println("Cinema is Full, please lessen the no of attendees.");
         } while (reservation.isCinemaFull());
 
-        while (choice != 0) {
+        while (choice != 0 && choice != -127) {
             choice = Screen3BMenu();
             switch (choice) {
                 case 1:
@@ -176,8 +179,7 @@ public class Screens {
                     choice = 0;
                     break;
                 case 0:
-                	//to do
-                    Screen2(cinemas);
+                    choice = -127;
                     break;
                 default:
                     System.out.println("Invalid input!");
@@ -196,6 +198,7 @@ public class Screens {
         try {
             return scanner.nextByte();
         } catch (InputMismatchException e) {
+            scanner.nextLine();
             return -1;
         }
 
@@ -215,9 +218,10 @@ public class Screens {
     		seat = input.nextInt();
     		numberOfSeats.add(seat);
     	}
+        scanner.nextLine();
 
     	
-    	while (choice != 0) {
+    	while (choice != 0 && choice !=-127 ) {
             choice = Screen3CMenu();
             switch (choice) {
                 case 1:
@@ -229,8 +233,7 @@ public class Screens {
                     choice = 0;
                     break;
                 case 0:
-                	Screen2(cinemas);
-                	choice = 0;
+                	choice = -127;
                     break;
                 default:
                     System.out.println("Invalid input!");
@@ -249,6 +252,7 @@ public class Screens {
         try {
             return scanner.nextByte();
         } catch (InputMismatchException e) {
+            scanner.nextLine();
             return -1;
         }
 
@@ -258,7 +262,7 @@ public class Screens {
         byte choice = -1;
         System.out.println("No existing reservation.\n");
 
-        while (choice != 0) {
+        while (choice != 0 && choice != -127) {
             choice = Screen3DMenu();
             switch (choice) {
                 case 1:
@@ -266,6 +270,7 @@ public class Screens {
                     choice = 0;
                     break;
                 case 0:
+                    choice = -127;
                     break;
                 default:
                     System.out.println("Invalid input!");
@@ -284,6 +289,7 @@ public class Screens {
         try {
             return scanner.nextByte();
         } catch (InputMismatchException e) {
+            scanner.nextLine();
             return -1;
         }
 
@@ -301,7 +307,7 @@ public class Screens {
         System.out.println("Seat: " + numberOfSeats);  // to add
     	numberOfSeats.clear();
 
-        while (choice != 0) {
+        while (choice != 0 && choice != 127) {
             choice = Screen4Menu();
             switch (choice) {
 
@@ -319,6 +325,7 @@ public class Screens {
                 case 0:
                     break;
                 default:
+                    choice = -127;
                     System.out.println("Invalid input!");
                     break;
             }
@@ -335,6 +342,7 @@ public class Screens {
         try {
             return scanner.nextByte();
         } catch (InputMismatchException e) {
+            scanner.nextLine();
             return -1;
         }
     }
@@ -360,6 +368,7 @@ public class Screens {
         try {
             return scanner.nextByte();
         } catch (InputMismatchException e) {
+            scanner.nextLine();
             return -1;
         }
     }
