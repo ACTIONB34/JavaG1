@@ -306,7 +306,8 @@ public class Screens {
             switch (choice) {
 
                 case 1:
-                	DatabaseConnect.confirmReservation(reservation,customer);
+                	DatabaseConnect db4 = new DatabaseConnect();
+                	db4.confirmReservation(reservation, customer);
                     customer.setReservation(reservation);
                     ScreenC();
                     choice = 0;
@@ -340,6 +341,7 @@ public class Screens {
 
     public static void ScreenC() {
         byte choice = -1;
+        System.out.println("\n------------------------------------------");
         System.out.println("Seats reserved!");
         System.out.println("Thank you and have a great day!");
         
@@ -362,6 +364,18 @@ public class Screens {
         }
     }
 
-	
+//	public static void main(String[] args) {
+//		//for testing only
+//		Customer cust = new Customer(2, "Isa Test");
+//		Movie movie1 = new Movie(1,"Harry Potter", "You", "Adventure", "R");
+//		Cinema cine = new Cinema(1, movie1, 40, "SHOWING");
+//		ArrayList<Cinema> cines = new ArrayList<Cinema>();
+//		cines.add(cine);
+//		Timeslot ts = new Timeslot(2,"3:30PM", 1, 1);
+//		
+//		Reservation res = new Reservation(ts, cine, 14, 0, 2, 0, 300);
+//		
+//		Screens.Screen4(cust, cines, res);
+//	}	
 
 }
