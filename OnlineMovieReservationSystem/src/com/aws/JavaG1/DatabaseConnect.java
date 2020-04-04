@@ -414,7 +414,7 @@ public class DatabaseConnect {
 	
 	//for testing
 	public static void main(String[]args){
-		DatabaseConnect db = new DatabaseConnect();
+//		DatabaseConnect db = new DatabaseConnect();
 		
 //	//	Timeslot: int timeSlotID, String timeStart	
 //		Timeslot ts = new Timeslot(1011,"3:30PM");
