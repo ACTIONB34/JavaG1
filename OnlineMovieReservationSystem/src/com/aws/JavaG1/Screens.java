@@ -9,6 +9,7 @@ public class Screens {
     public static byte choice = -1;
     public static Boolean register = false;
     private static byte WELCOME_CODE = -127;
+    public static Reservation pendingReservation = null;
     
     public static String Screen1A() {
 
@@ -56,10 +57,10 @@ public class Screens {
                     Screen3A(customer, cinemas);
                     break;
                 case 2:
-                    if (customer.getReservation() == null)
+                    if (pendingReservation == null)
                         Screen3D(customer, cinemas);
                     else
-                       Screen3B(customer, cinemas, customer.getReservation(), null);
+                       Screen3B(customer, cinemas, pendingReservation, null);
 
                     break;
                 case 3:
@@ -96,11 +97,9 @@ public class Screens {
 
     public static void Screen3A(Customer customer, ArrayList<Cinema> cinemas) {
         choice = -1;
-        Reservation reservation;
-        if(customer.getReservation() == null)
-              reservation = new Reservation();
-        else
-              reservation = customer.getReservation();
+
+        pendingReservation = new Reservation();
+
 
         do {
         	System.out.println("\nMovie Info");
@@ -116,24 +115,24 @@ public class Screens {
                 if(cinema == null)
                     System.out.println("Invalid cinema id!");
             } while( cinema == null);
-            reservation.setCinema(cinema);
+            pendingReservation.setCinema(cinema);
             do {
                 System.out.print("\nEnter Timeslot ID: ");
                 timeslotID = scanner.nextInt();
-                timeslot = Utility.getTimeSlotById(reservation.getCinema().getTimeslots(), timeslotID);
+                timeslot = Utility.getTimeSlotById(pendingReservation.getCinema().getTimeslots(), timeslotID);
                 if(timeslot == null)
                     System.out.println("Invalid timeslot id!");
             } while( timeslot == null);
-            reservation.setTimeslot(timeslot);
+            pendingReservation.setTimeslot(timeslot);
 
-        } while (!reservation.isValidReservation());
+        } while (!pendingReservation.isValidReservation());
 
 
         while (choice != 0 && choice != WELCOME_CODE) {
             choice = Screen3AMenu();
             switch (choice) {
                 case 1:
-                    Screen3B(customer, cinemas, reservation, null);
+                    Screen3B(customer, cinemas, pendingReservation, null);
                     break;
                 case 2:
                     Screen3A(customer, cinemas);
@@ -338,7 +337,8 @@ public class Screens {
                 case 1:
                 	DatabaseConnect db4 = new DatabaseConnect();
                 	db4.confirmReservation(reservation, customer);
-                    customer.setReservation(reservation);
+                    customer.addReservation(reservation);
+                    pendingReservation = null;
                     ScreenC();
                     register = true;
                     choice = WELCOME_CODE;

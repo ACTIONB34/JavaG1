@@ -1,12 +1,6 @@
 package com.aws.JavaG1;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Scanner;
+import java.util.ArrayList;
 
 /**
  * 
@@ -19,26 +13,36 @@ import java.util.Scanner;
 public class Customer {
 	
 	private int customerID;
-	private Reservation reservations;
+	private ArrayList<Reservation> reservations;
 	private String customerName;
 
-	public Reservation getReservation() {
+	public void setCustomerID(int customerID) {
+		this.customerID = customerID;
+	}
+
+	public ArrayList<Reservation> getReservations() {
 		return reservations;
 	}
 
-	public void setReservation(Reservation reservation) {
-		this.reservations = reservation;
+	public void addReservation (Reservation reservation){
+		if(this.reservations == null)
+			this.reservations = new ArrayList<>();
+		this.reservations.add(reservation);
 	}
-	
+
+	public void setReservations(ArrayList<Reservation> reservations) {
+		this.reservations = reservations;
+	}
+
 	public Customer(int customerID, String customerName){
 		this.customerID = customerID;
 		this.customerName = customerName;
 	}
 
-	public Customer(int customerID, String customerName, Reservation reservation){
+	public Customer(int customerID, String customerName, ArrayList<Reservation> reservations){
 		this.customerID = customerID;
 		this.customerName = customerName;
-		setReservation(reservation);
+		setReservations(reservations);
 	}
 	
 	public int getCustomerID(){
