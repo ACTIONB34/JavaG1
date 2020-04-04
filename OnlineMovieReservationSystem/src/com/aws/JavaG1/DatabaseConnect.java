@@ -347,8 +347,9 @@ public class DatabaseConnect {
 
 			ps.executeUpdate();
 
-	//		System.out.println("Added successfully!");
+	//		System.out.println("Added successfully!");	//for testing
 			
+			ps.close();
 			connect.close();
 
 		}catch(SQLException e){
