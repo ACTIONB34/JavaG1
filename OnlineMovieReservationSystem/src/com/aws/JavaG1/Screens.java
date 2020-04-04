@@ -101,9 +101,9 @@ public class Screens {
 
         do {
         	System.out.println("\nMovie Info");
-            System.out.print("\nEnter Cinema ID:");
+            System.out.print("\nEnter Cinema ID: ");
             reservation.setCinema(Utility.getCinemaByID(cinemas, scanner.nextInt()));
-            System.out.print("Enter Timeslot ID:");
+            System.out.print("Enter Timeslot ID: ");
             reservation.setTimeslot(Utility.getTimeSlotById(reservation.getCinema().getTimeslots(), scanner.nextInt()));
             
             if (reservation.getCinema() == null)
@@ -141,8 +141,7 @@ public class Screens {
         System.out.println("Press 0 to Cancel\n");
         System.out.print("Choice: ");
         try {
-        	byte choice = scanner.nextByte(); 
-            return choice;
+            return scanner.nextByte();
         } catch (InputMismatchException e) {
             return -1;
         }
@@ -364,5 +363,6 @@ public class Screens {
         }
     }
 
+	
 
 }
