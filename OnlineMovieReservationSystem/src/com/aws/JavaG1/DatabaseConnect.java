@@ -357,13 +357,13 @@ public class DatabaseConnect {
 		int rows = 4;
 		int columns = 7;
 	    
-		Statement stmt = null;
-	    ResultSet rs = null;
+		//Statement stmt = null;
+	    //ResultSet rs = null;
 		
 		try {
-			
-			stmt = connect.createStatement();
-		    rs = stmt.executeQuery("SELECT * FROM seats WHERE cinema_id ="+cinema_id+" && timeslot_id ="+timeslot_id+";");   
+	
+			Statement stmt = connect.createStatement();
+		    ResultSet rs = stmt.executeQuery("SELECT * FROM seats WHERE cinema_id ="+cinema_id+" && timeslot_id ="+timeslot_id+";");   
 		    System.out.println("Seat Selection Info");
 		    System.out.println("\n\nPlease choose your seats from the available seats below: ");
 		    int i = 0;
