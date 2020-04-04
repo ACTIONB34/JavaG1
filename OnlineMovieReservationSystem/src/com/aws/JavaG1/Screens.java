@@ -44,7 +44,7 @@ public class Screens {
     public static void Screen3(Customer customer, ArrayList<Cinema> cinemas) {
         byte choice = -1;
 
-        while (choice != 3) {
+        while (choice != 3 || choice != 0) {
             choice = Screen3Menu(customer.getCustomerName());
             switch (choice) {
                 case 1:
@@ -131,7 +131,6 @@ public class Screens {
                     break;
             }
         }
-        scanner.close();
     }
 
     private static byte Screen3AMenu() {
