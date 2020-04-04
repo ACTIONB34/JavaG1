@@ -297,7 +297,7 @@ public class Screens {
         				 + " " + reservation.getTimeslot().getTimeStart());
         System.out.println("Total no. of people: " + reservation.getTotalPeople());
         System.out.println("Total amount: P" + reservation.getTotalAmount());
-        System.out.println("Seat: " + reservation.getSeatId());  // to add
+        System.out.println("Seat: " + numberOfSeats);  // to add
 
         while (choice != 0) {
             choice = Screen4Menu();
