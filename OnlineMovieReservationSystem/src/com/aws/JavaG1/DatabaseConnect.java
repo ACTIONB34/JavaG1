@@ -34,7 +34,7 @@ public class DatabaseConnect {
 	private static String SELECT_RESERVATION_ID = "SELECT " +
 			"MAX('reservation_id') from reservations";
 	
-	private String ADDTO_DB = "INSERT INTO reservations (reservation_id, date, cinema_id, time, customer_name, total_payment, no_of_kid, no_of_adult, no_of_senior, timeslot_id)"
+	private static String ADDTO_DB = "INSERT INTO reservations (reservation_id, date, cinema_id, time, customer_name, total_payment, no_of_kid, no_of_adult, no_of_senior, timeslot_id)"
 							+ " VALUES (null, current_timestamp, ?, ?, ?, ?, ?, ?, ?, ?)";
 	
 	public DatabaseConnect() {
@@ -333,7 +333,7 @@ public class DatabaseConnect {
 		return id;
 	}
 	
-	public void confirmReservation(Reservation r, Customer c){
+	public static void confirmReservation(Reservation r, Customer c){
 		try{
 			PreparedStatement ps = connect.prepareStatement(ADDTO_DB);
 			ps.setInt(1, r.getCinema().getCinemaId());
