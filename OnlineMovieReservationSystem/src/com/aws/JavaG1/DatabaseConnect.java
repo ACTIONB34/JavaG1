@@ -387,7 +387,7 @@ public class DatabaseConnect {
 		    		i++;
 		    	}
 		    	else{
-		    		if(rs.getInt(4) == 0)
+		    		if(rs.getInt(rows) == 0)
 			    	{
 			    		System.out.println(rs.getInt(1));
 			    	}
