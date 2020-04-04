@@ -218,7 +218,6 @@ public class Screens {
     		input.close();
     	}
     	
-    	
     	while (choice != 0) {
             choice = Screen3CMenu();
             switch (choice) {
