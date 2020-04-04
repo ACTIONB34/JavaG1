@@ -357,15 +357,12 @@ public class DatabaseConnect {
 		int rows = 4;
 		int columns = 7;
 	    
-		Connection conn = null;
 		Statement stmt = null;
 	    ResultSet rs = null;
+		
 		try {
-		    conn =
-		       DriverManager.getConnection("jdbc:mysql://localhost/moviereservation?"
-	       		+ "useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
-		    		   "root", "awsys+123");
-        stmt = conn.createStatement();
+			
+			stmt = connect.createStatement();
 		    rs = stmt.executeQuery("SELECT * FROM seats WHERE cinema_id ="+cinema_id+" && timeslot_id ="+timeslot_id+";");   
 		    System.out.println("Seat Selection Info");
 		    System.out.println("\n\nPlease choose your seats from the available seats below: ");
@@ -395,7 +392,6 @@ public class DatabaseConnect {
 		    }
 		    	    
 		} catch (SQLException ex) {
-		    // handle any errors
 		    System.out.println("SQLException: " + ex.getMessage());
 		    System.out.println("SQLState: " + ex.getSQLState());
 		    System.out.println("VendorError: " + ex.getErrorCode());
