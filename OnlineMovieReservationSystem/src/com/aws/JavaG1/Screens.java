@@ -6,10 +6,7 @@ import java.util.*;
 
 public class Screens {
     private static Scanner scanner = new Scanner(System.in);
-    public static List<Integer> numberOfSeats = Arrays.asList(1,2,3,4,5,6,7,8,9,10,
-														11,12,13,14,15,16,17,18,19,20,
-														21,22,23,24,25,26,27,28,29,30,
-														31,32,33,34,35,36,37,38,39,40);
+    public static List<Integer> numberOfSeats = new ArrayList<Integer>();
     
     public static String Screen1A() {
 
@@ -206,31 +203,16 @@ public class Screens {
     
     public static void Screen3C(Customer customer, Reservation reservations, ArrayList<Seat> seats, ArrayList<Cinema> cinemas) {
     	byte choice = -1;
-    	int seatSelect;
+    	int seat;
     	int noOfPeopleRes = reservations.getTotalPeople();
     	
-    
-    	if(!reservations.isCinemaFull()) {
-    		System.out.println("\nSeat Selection Info");
-    		System.out.println("\n\nPlease choose your seats from the available seats below: ");
-    		
-    		for(int i = 1; i < numberOfSeats.size() + 1; i++) {    
-    		     System.out.print(i+((i%10==0) ? "\n" : " "));
-    		}
-    	}
-    	
-    	//get input of seat ids depending on number of people
-    	for(int i = 0; i < noOfPeopleRes; i++){
-	    	System.out.println("\nYour Choice: ");
-	    	seatSelect = scanner.nextInt();
-	    	reservations.setSeatId(seatSelect);
-	    	
-	    	for(int element: numberOfSeats){
-	    		if(element == seatSelect){
-	    			numberOfSeats.set(element - 1, 0);
-	    			seats.add(new Seat(seatSelect));
-	    		} 
-	    	}
+    	DatabaseConnect.viewSeats(reservations.getCinema().getCinemaId(), reservations.getTimeslot().getTimeSlotID());
+
+    	for(int i = 0; i < noOfPeopleRes;i++){
+    		Scanner input = new Scanner(System.in);
+    		System.out.println("\nYour choice: ");
+    		seat = input.nextInt();
+    		numberOfSeats.add(seat);
     	}
     	
     	
