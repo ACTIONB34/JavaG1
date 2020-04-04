@@ -207,7 +207,8 @@ public class Screens {
     	int seat;
     	int noOfPeopleRes = reservations.getTotalPeople();
     	
-    	DatabaseConnect.viewSeats(reservations.getCinema().getCinemaId(), reservations.getTimeslot().getTimeSlotID());
+    	DatabaseConnect dbconn = new DatabaseConnect();
+    	dbconn.viewSeats(reservations.getCinema().getCinemaId(), reservations.getTimeslot().getTimeSlotID());
 
     	for(int i = 0; i < noOfPeopleRes;i++){
     		Scanner input = new Scanner(System.in);
