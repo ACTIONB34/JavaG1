@@ -132,6 +132,7 @@ public class Screens {
                     break;
             }
         }
+        scanner.close();
     }
 
     private static byte Screen3AMenu() {
@@ -140,7 +141,8 @@ public class Screens {
         System.out.println("Press 0 to Cancel\n");
         System.out.print("Choice: ");
         try {
-            return scanner.nextByte();
+        	byte choice = scanner.nextByte(); 
+            return choice;
         } catch (InputMismatchException e) {
             return -1;
         }
@@ -150,16 +152,16 @@ public class Screens {
     private static void Screen3B(Customer customer, ArrayList<Cinema> cinemas, Reservation reservation, ArrayList<Seat> seats) {
         byte choice = -1;
         do {
-        	System.out.println("\nCustomer Info:");
-            System.out.print("\nEnter # of Kids:");
+        	System.out.println("\nCustomer Info: ");
+            System.out.print("\nEnter # of Kids: ");
             reservation.setNoOfChildrens(scanner.nextInt());
-            System.out.print("Enter # of Adults:");
+            System.out.print("Enter # of Adults: ");
             reservation.setNoOfAdults(scanner.nextInt());
-            System.out.print("Enter # of Senior:");
+            System.out.print("Enter # of Senior: ");
             reservation.setNoOfSeniors(scanner.nextInt());
 
             if (reservation.isCinemaFull())
-                System.out.println("Cinema is Full, please lessen the no of attendees");
+                System.out.println("Cinema is Full, please lessen the no of attendees.");
         } while (reservation.isCinemaFull());
 
         while (choice != 0) {
@@ -213,6 +215,7 @@ public class Screens {
     		System.out.println("\nYour choice: ");
     		seat = input.nextInt();
     		numberOfSeats.add(seat);
+    		input.close();
     	}
     	
     	
