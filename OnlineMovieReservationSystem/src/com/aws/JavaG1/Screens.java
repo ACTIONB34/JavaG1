@@ -215,8 +215,8 @@ public class Screens {
     		System.out.println("\nYour choice: ");
     		seat = input.nextInt();
     		numberOfSeats.add(seat);
-    		input.close();
     	}
+
     	
     	while (choice != 0) {
             choice = Screen3CMenu();
@@ -300,6 +300,7 @@ public class Screens {
         System.out.println("Total no. of people: " + reservation.getTotalPeople());
         System.out.println("Total amount: P" + reservation.getTotalAmount());
         System.out.println("Seat: " + numberOfSeats);  // to add
+    	numberOfSeats.clear();
 
         while (choice != 0) {
             choice = Screen4Menu();
