@@ -210,6 +210,7 @@ public class Screens {
     	dbconn.viewSeats(reservations.getCinema().getCinemaId(), reservations.getTimeslot().getTimeSlotID());
 
     	for(int i = 0; i < noOfPeopleRes;i++){
+    		
     		Scanner input = new Scanner(System.in);
     		System.out.println("\nYour choice: ");
     		seat = input.nextInt();
@@ -219,7 +220,9 @@ public class Screens {
     			Scanner input1 = new Scanner(System.in);
         		System.out.println("\nYour choice: ");
         		seat = input.nextInt();
-    		} else if(seat > totalNumberOfSeats){
+    		} 
+    		
+    		if(seat > totalNumberOfSeats){
     			System.out.println("\nSeat number does not exist. Try again.");
     			Scanner input2 = new Scanner(System.in);
         		System.out.println("\nYour choice: ");
@@ -228,7 +231,6 @@ public class Screens {
     		numberOfSeats.add(seat);
     	}
 
-    	
     	while (choice != 0) {
             choice = Screen3CMenu();
             switch (choice) {
