@@ -6,17 +6,15 @@ import java.util.ArrayList;
 public class Welcome {
 
     public static void main(String[] args) {
-
-        int choice = -1;
         String name = "";
         Customer customer = null;
         ArrayList<Movie> movies = null;
         ArrayList<Timeslot> timeslots = null;
         ArrayList<Cinema> cinemas = null;
+        Screens.register = true;
 
-        while (choice != 0) {
-            //-127 means don't register again
-            if (choice != -127) {
+        while (Screens.choice != 0) {
+            if (Screens.register) {
                 name = Screens.Screen1A();
                 customer = new Customer(123, name);
                 System.out.println("Loading Resources...\n");
@@ -24,14 +22,15 @@ public class Welcome {
                 timeslots = DatabaseConnect.getAllTimeSlots();
                 cinemas = DatabaseConnect.getAllCinemas();
                 Utility.populateCinema(cinemas, timeslots, movies);
+                Screens.register = false;
             }
 
-            choice = Screens.Screen1B(customer.getCustomerName());
-            switch (choice) {
+            Screens.choice = Screens.Screen1B(customer.getCustomerName());
+            switch (Screens.choice) {
                 case 1:
                     //Screen 2 - View Showing Movies
                     Screens.Screen2(cinemas);
-                    choice = -127;
+                    Screens.choice = -127;
                     break;
                 case 2:
                     if (customer.getReservation() == null)
@@ -49,7 +48,7 @@ public class Welcome {
                     break;
                 default:
                     System.out.println("INVALID CHOICE!\n");
-                    choice = -127;
+                    Screens.choice = -127;
                     break;
             }
         }

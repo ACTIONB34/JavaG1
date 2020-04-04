@@ -85,6 +85,7 @@ public class Cinema {
 
     @Override
     public String toString() {
+        int i=1;
         String info = "\n==========================================\n";
 				info += "Cinema " + this.getCinemaId() + "\n\n";
         info += this.getMovie().getMovieName() + "\n";
@@ -92,7 +93,7 @@ public class Cinema {
         info += this.getMovie().getMovieRating() + "\n";
 
         for (Timeslot timeslot : this.getTimeslots()) {
-            info += "Show " + timeslot.getTimeSlotID() + ": " + timeslot.getTimeStart() + "\n";
+            info += "Show " + i++ + ": " + timeslot.getTimeStart() + "\n";
         }
 
 		info += "==========================================";
