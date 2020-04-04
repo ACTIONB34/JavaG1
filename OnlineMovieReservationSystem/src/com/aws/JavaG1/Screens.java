@@ -6,6 +6,9 @@ import java.util.*;
 public class Screens {
     private static Scanner scanner = new Scanner(System.in);
     public static List<Integer> numberOfSeats = new ArrayList<Integer>();
+    public static byte choice = -1;
+    public static Boolean register = false;
+    private static byte WELCOME_CODE = -127;
     
     public static String Screen1A() {
 
@@ -26,6 +29,7 @@ public class Screens {
         try {
             return scanner.nextByte();
         } catch (InputMismatchException e) {
+            scanner.nextLine();
             return -1;
         }
     }
@@ -42,15 +46,14 @@ public class Screens {
     }
 
     public static void Screen3(Customer customer, ArrayList<Cinema> cinemas) {
-        byte choice = -1;
+        choice = -1;
 
-        while (choice != 3 || choice != 0) {
+        while (choice != 3 || choice != 0 && choice != WELCOME_CODE) {
             choice = Screen3Menu(customer.getCustomerName());
             switch (choice) {
                 case 1:
                     // Screen 3A - Make reservation
                     Screen3A(customer, cinemas);
-                    choice = 0;
                     break;
                 case 2:
                     if (customer.getReservation() == null)
@@ -58,9 +61,9 @@ public class Screens {
                     else
                        Screen3B(customer, cinemas, customer.getReservation(), null);
 
-                    choice = 0;
                     break;
                 case 3:
+                    choice = WELCOME_CODE;
                     break;
                 case 0:
                     System.exit(0);
@@ -83,6 +86,7 @@ public class Screens {
         try {
             return scanner.nextByte();
         } catch (InputMismatchException e) {
+            scanner.nextLine();
             return -1;
         }
 
@@ -91,7 +95,7 @@ public class Screens {
 
 
     public static void Screen3A(Customer customer, ArrayList<Cinema> cinemas) {
-        byte choice = -1;
+        choice = -1;
         Reservation reservation;
         if(customer.getReservation() == null)
               reservation = new Reservation();
@@ -113,18 +117,17 @@ public class Screens {
         } while (!reservation.isValidReservation());
 
 
-        while (choice != 0) {
+        while (choice != 0 && choice != WELCOME_CODE) {
             choice = Screen3AMenu();
             switch (choice) {
                 case 1:
                     Screen3B(customer, cinemas, reservation, null);
-                    choice = 0;
                     break;
                 case 2:
                     Screen3A(customer, cinemas);
-                    choice = 0;
                     break;
                 case 0:
+                    choice = WELCOME_CODE;
                     break;
                 default:
                     System.out.println("Invalid Choice");
@@ -141,13 +144,14 @@ public class Screens {
         try {
             return scanner.nextByte();
         } catch (InputMismatchException e) {
+            scanner.nextLine();
             return -1;
         }
 
     }
 
     private static void Screen3B(Customer customer, ArrayList<Cinema> cinemas, Reservation reservation, ArrayList<Seat> seats) {
-        byte choice = -1;
+        choice = -1;
         do {
         	System.out.println("\nCustomer Info: ");
             System.out.print("\nEnter # of Kids: ");
@@ -161,22 +165,20 @@ public class Screens {
                 System.out.println("Cinema is Full, please lessen the no of attendees.");
         } while (reservation.isCinemaFull());
 
-        while (choice != 0) {
+        while (choice != 0 && choice != WELCOME_CODE) {
             choice = Screen3BMenu();
             switch (choice) {
                 case 1:
                 	//to do
                     Screen3C(customer, reservation, seats, cinemas);
-                    choice = 0;
                     break;
                 case 2:
                 	//to do
                     Screen3B(customer, cinemas, reservation, seats);
-                    choice = 0;
                     break;
                 case 0:
-                	//to do
-                    Screen2(cinemas);
+                    //to do
+                    choice = WELCOME_CODE;
                     break;
                 default:
                     System.out.println("Invalid input!");
@@ -195,13 +197,14 @@ public class Screens {
         try {
             return scanner.nextByte();
         } catch (InputMismatchException e) {
+            scanner.nextLine();
             return -1;
         }
 
     }
     
     public static void Screen3C(Customer customer, Reservation reservations, ArrayList<Seat> seats, ArrayList<Cinema> cinemas) {
-    	byte choice = -1;
+        choice = -1;
     	int seat;
     	int totalNumberOfSeats = 40;
     	int noOfPeopleRes = reservations.getTotalPeople();
@@ -231,20 +234,18 @@ public class Screens {
     		numberOfSeats.add(seat);
     	}
 
-    	while (choice != 0) {
+    	while (choice != 0 && choice != WELCOME_CODE) {
             choice = Screen3CMenu();
             switch (choice) {
                 case 1:
                 	Screen4(customer, cinemas, reservations);
-                    choice = 0;
                     break;
                 case 2:
                 	Screen3C(customer, reservations, seats, cinemas);
-                    choice = 0;
                     break;
                 case 0:
                 	Screen2(cinemas);
-                	choice = 0;
+                	choice = WELCOME_CODE;
                     break;
                 default:
                     System.out.println("Invalid input!");
@@ -263,23 +264,24 @@ public class Screens {
         try {
             return scanner.nextByte();
         } catch (InputMismatchException e) {
+            scanner.nextLine();
             return -1;
         }
 
     }
 
     public static void Screen3D(Customer customer, ArrayList<Cinema> cinemas) {
-        byte choice = -1;
+        choice = -1;
         System.out.println("No existing reservation.\n");
 
-        while (choice != 0) {
+        while (choice != 0 && choice != WELCOME_CODE) {
             choice = Screen3DMenu();
             switch (choice) {
                 case 1:
                     Screen3A(customer, cinemas);
-                    choice = 0;
                     break;
                 case 0:
+                    choice = WELCOME_CODE;
                     break;
                 default:
                     System.out.println("Invalid input!");
@@ -298,13 +300,14 @@ public class Screens {
         try {
             return scanner.nextByte();
         } catch (InputMismatchException e) {
+            scanner.nextLine();
             return -1;
         }
 
     }
 
     public static void Screen4(Customer customer, ArrayList<Cinema> cinemas, Reservation reservation) {
-        byte choice = -1;
+        choice = -1;
         System.out.println("Ticket info\n");
         System.out.println("Date: " + new Date());
         System.out.println("Movie: " + reservation.getCinema().getMovie().getMovieName()
@@ -315,7 +318,8 @@ public class Screens {
         System.out.println("Seat: " + numberOfSeats);  // to add
     	numberOfSeats.clear();
 
-        while (choice != 0) {
+        while (choice != 0 && choice != WELCOME_CODE) {
+
             choice = Screen4Menu();
             switch (choice) {
 
@@ -324,13 +328,14 @@ public class Screens {
                 	db4.confirmReservation(reservation, customer);
                     customer.setReservation(reservation);
                     ScreenC();
-                    choice = 0;
+                    register = true;
+                    choice = WELCOME_CODE;
                     break;
                 case 2:
                     Screen3A(customer, cinemas);
-                    choice = 0;
                     break;
                 case 0:
+                    choice = WELCOME_CODE;
                     break;
                 default:
                     System.out.println("Invalid input!");
@@ -349,12 +354,13 @@ public class Screens {
         try {
             return scanner.nextByte();
         } catch (InputMismatchException e) {
+            scanner.nextLine();
             return -1;
         }
     }
 
     public static void ScreenC() {
-        byte choice = -1;
+        choice = -1;
         System.out.println("\n------------------------------------------");
         System.out.println("Seats reserved!");
         System.out.println("Thank you and have a great day!");
@@ -374,6 +380,7 @@ public class Screens {
         try {
             return scanner.nextByte();
         } catch (InputMismatchException e) {
+            scanner.nextLine();
             return -1;
         }
     }
