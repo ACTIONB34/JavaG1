@@ -8,17 +8,22 @@ public class Welcome {
     public static void main(String[] args) {
 
         int choice = -1;
-
+        String name = "";
+        Customer customer = null;
+        ArrayList<Movie> movies = null;
+        ArrayList<Timeslot> timeslots = null;
+        ArrayList<Cinema> cinemas = null;
 
         while (choice != 0) {
-            String Name = "";
-            Name = Screens.Screen1A();
-            Customer customer = new Customer(123, Name);
-            System.out.println("Loading Resources...\n");
-            ArrayList<Movie> movies = DatabaseConnect.getAllMovies();
-            ArrayList<Timeslot> timeslots = DatabaseConnect.getAllTimeSlots();
-            ArrayList<Cinema> cinemas = DatabaseConnect.getAllCinemas();
-            Utility.populateCinema(cinemas, timeslots, movies);
+            if (choice != 1) {
+                name = Screens.Screen1A();
+                customer = new Customer(123, name);
+                System.out.println("Loading Resources...\n");
+                movies = DatabaseConnect.getAllMovies();
+                timeslots = DatabaseConnect.getAllTimeSlots();
+                cinemas = DatabaseConnect.getAllCinemas();
+                Utility.populateCinema(cinemas, timeslots, movies);
+            }
 
             choice = Screens.Screen1B(customer.getCustomerName());
             switch (choice) {
