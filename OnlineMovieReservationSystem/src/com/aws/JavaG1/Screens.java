@@ -350,7 +350,6 @@ public class Screens {
     }
 
 
-
 	public static byte ScreenCMenu() {
 
         System.out.println("Press 1 to go back to menu");
