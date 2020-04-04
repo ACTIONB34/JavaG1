@@ -83,7 +83,7 @@ public class DatabaseConnect {
 	public static ArrayList<Reservation> getAllReservationByName(String name, ArrayList<Timeslot> timeslots, ArrayList<Cinema> cinemas){
 		init();
 		String query = "SELECT * FROM moviereservation.reservations where customer_name = \""+name+"\";";
-		ArrayList<Reservation> reservations = new ArrayList<>();
+		ArrayList<Reservation> reservations = new ArrayList<Reservation>();
 
 		try {
 			PreparedStatement ps = connect2.prepareStatement(query);

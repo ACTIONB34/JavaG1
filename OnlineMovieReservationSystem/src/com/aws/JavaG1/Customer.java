@@ -26,7 +26,7 @@ public class Customer {
 
 	public void addReservation (Reservation reservation){
 		if(this.reservations == null)
-			this.reservations = new ArrayList<>();
+			this.reservations = new ArrayList<Reservation>();
 		this.reservations.add(reservation);
 	}
 
