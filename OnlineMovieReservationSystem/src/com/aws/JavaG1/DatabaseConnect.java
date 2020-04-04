@@ -355,7 +355,7 @@ public class DatabaseConnect {
 	}
 	
  	
-	public static void viewSeats(int cinema_id, int timeslot_id){
+	public void viewSeats(int cinema_id, int timeslot_id){
 		int columns = 7;
 		int rows = 4;
 		try {
