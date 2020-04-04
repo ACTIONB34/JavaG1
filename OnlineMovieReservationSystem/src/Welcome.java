@@ -15,7 +15,6 @@ public class Welcome {
 
         while (Screens.choice != 0) {
             if (Screens.register) {
-
                 name = Screens.Screen1A();
                 customer = new Customer(123, name);
                 System.out.println("Loading Resources...\n");
@@ -31,8 +30,6 @@ public class Welcome {
                 case 1:
                     //Screen 2 - View Showing Movies
                     Screens.Screen2(cinemas);
-                    Screens.choice = -127;
-
                     break;
                 case 2:
                     if (customer.getReservation() == null)
