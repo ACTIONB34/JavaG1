@@ -132,7 +132,6 @@ public class Screens {
                     break;
             }
         }
-        scanner.close();
     }
 
     private static byte Screen3AMenu() {

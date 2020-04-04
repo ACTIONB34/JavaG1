@@ -39,7 +39,7 @@ public class Utility {
 
     public static Timeslot getTimeSlotById(ArrayList<Timeslot> timeslots, int timeslotID){
         for(Timeslot timeslot: timeslots){
-            if(timeslot.getMovieID() == timeslotID)
+            if(timeslot.getTimeSlotID() == timeslotID)
                 return timeslot;
         }
         return null;
