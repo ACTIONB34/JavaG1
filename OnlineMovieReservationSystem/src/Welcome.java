@@ -5,17 +5,28 @@ import java.util.ArrayList;
 
 public class Welcome {
 
-    public static void main(String[] args) {
+    public static void displayReservations(ArrayList<Reservation> reservations){
+        if(reservations.size() > 0){
+            for(Reservation reservation: reservations){
+                System.out.println("==============================");
+                System.out.println(reservation.toString());
+                System.out.println("==============================");
 
-        int choice = -1;
+            }
+        }
+    }
+
+    public static void main(String[] args) {
         String name = "";
         Customer customer = null;
         ArrayList<Movie> movies = null;
         ArrayList<Timeslot> timeslots = null;
         ArrayList<Cinema> cinemas = null;
+        ArrayList<Reservation> reservations = null;
+        Screens.register = true;
 
-        while (choice != 0) {
-            if (choice != 1) {
+        while (Screens.choice != 0) {
+            if (Screens.register) {
                 name = Screens.Screen1A();
                 customer = new Customer(123, name);
                 System.out.println("Loading Resources...\n");
@@ -23,22 +34,29 @@ public class Welcome {
                 timeslots = DatabaseConnect.getAllTimeSlots();
                 cinemas = DatabaseConnect.getAllCinemas();
                 Utility.populateCinema(cinemas, timeslots, movies);
+                reservations = DatabaseConnect.getAllReservationByName(name,timeslots, cinemas);
+
+                displayReservations(reservations);
+
+                customer.setReservations(reservations);
+
+                Screens.register = false;
             }
 
-            choice = Screens.Screen1B(customer.getCustomerName());
-            switch (choice) {
+            Screens.choice = Screens.Screen1B(customer.getCustomerName());
+            switch (Screens.choice) {
                 case 1:
                     //Screen 2 - View Showing Movies
                     Screens.Screen2(cinemas);
                     break;
                 case 2:
-                    if (customer.getReservation() == null)
+                    if (Screens.pendingReservation == null)
                         Screens.Screen3D(customer, cinemas);
                     else
                         Screens.Screen4(customer, cinemas, null);
                     break;
                 case 3:
-                    if (customer.getReservation() != null)
+                    if (customer.getReservations() != null)
                         Screens.Screen4(customer, cinemas, null);
                     else
                         Screens.Screen3D(customer, cinemas);
@@ -47,6 +65,7 @@ public class Welcome {
                     break;
                 default:
                     System.out.println("INVALID CHOICE!\n");
+                    Screens.choice = -127;
                     break;
             }
         }

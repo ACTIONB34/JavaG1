@@ -2,6 +2,7 @@ package com.aws.JavaG1.utilities;
 
 import com.aws.JavaG1.Cinema;
 import com.aws.JavaG1.Movie;
+import com.aws.JavaG1.Reservation;
 import com.aws.JavaG1.Timeslot;
 
 import java.util.ArrayList;
@@ -22,6 +23,8 @@ public class Utility {
 
     }
 
+
+
     public static Cinema getCinemaByID(ArrayList<Cinema> cinemas, int cinemaID){
         for(Cinema cinema: cinemas){
             if(cinema.getCinemaId() == cinemaID)
@@ -41,6 +44,14 @@ public class Utility {
         for(Timeslot timeslot: timeslots){
             if(timeslot.getTimeSlotID() == timeslotID)
                 return timeslot;
+        }
+        return null;
+    }
+
+    public static Reservation getReservationById(ArrayList<Reservation> reservations, int reservationID){
+        for(Reservation reservation: reservations){
+            if(reservation.getReservationID() == reservationID)
+                return reservation;
         }
         return null;
     }

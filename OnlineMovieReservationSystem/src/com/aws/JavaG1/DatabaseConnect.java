@@ -1,5 +1,7 @@
 package com.aws.JavaG1;
 
+import com.aws.JavaG1.utilities.Utility;
+
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -76,6 +78,45 @@ public class DatabaseConnect {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public static ArrayList<Reservation> getAllReservationByName(String name, ArrayList<Timeslot> timeslots, ArrayList<Cinema> cinemas){
+		init();
+		String query = "SELECT * FROM moviereservation.reservations where customer_name = \""+name+"\";";
+		ArrayList<Reservation> reservations = new ArrayList<Reservation>();
+
+		try {
+			PreparedStatement ps = connect2.prepareStatement(query);
+			result2 = ps.executeQuery();
+			ResultSetMetaData rsmd = result2.getMetaData();
+
+			while(result2.next()){
+				Reservation reservation = new Reservation();
+				reservation.setReservationID(result2.getInt("reservation_id"));
+				reservation.setTimeslot(Utility.getTimeSlotById(timeslots, result2.getInt("timeslot_id")));
+				reservation.setCinema(Utility.getCinemaByID(cinemas, result2.getInt("cinema_id")));
+				reservation.setDate(result2.getDate("date"));
+				reservation.setTime(result2.getString("time"));
+				reservation.setCustomer_name(result2.getString("customer_name"));
+				reservation.setTotalAmount(result2.getInt("total_payment"));
+				reservation.setNoOfChildrens(result2.getInt("no_of_kid"));
+				reservation.setNoOfAdults(result2.getInt("no_of_adult"));
+				reservation.setNoOfSeniors(result2.getInt("no_of_senior"));
+				reservations.add(reservation);
+			}
+
+		}
+		catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally {
+			closeConnection();
+		}
+
+
+		return reservations;
+
 	}
 
 	public static ArrayList<Cinema> getAllCinemas(){
