@@ -1,5 +1,6 @@
 import com.aws.JavaG1.*;
 import com.aws.JavaG1.utilities.Utility;
+import com.aws.JavaG1.utilities.gui;
 
 import java.util.ArrayList;
 
@@ -47,7 +48,8 @@ public class Welcome {
             switch (Screens.choice) {
                 case 1:
                     //Screen 2 - View Showing Movies
-                    Screens.Screen2(cinemas);
+                    //Screens.Screen2(cinemas);
+                	gui nowShowing = new gui(cinemas);
                     break;
                 case 2:
                     if (Screens.pendingReservation == null)
