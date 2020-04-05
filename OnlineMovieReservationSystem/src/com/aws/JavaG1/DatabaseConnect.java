@@ -407,28 +407,30 @@ public class DatabaseConnect {
 		    System.out.println("Seat Selection Info");
 		    System.out.println("\n\nPlease choose your seats from the available seats below: ");
 		    int i = 0;
-		    while(rs.next()) {
-		    	if(i < columns){
-		    		if(rs.getInt(reservation_id) == 0)
-			    	{
-			    		System.out.print(rs.getInt(seat_number)+"\t");
+		    if(rs != null){
+		    	while(rs.next()) {
+			    	if(i < columns){
+			    		if(rs.getInt(reservation_id) == 0)
+				    	{
+				    		System.out.print(rs.getInt(seat_number)+"\t");
+				    	} else {
+				    		System.out.print("-\t");
+				    	}
+			    		i++;
+			    	} else {
+			    		if(rs.getInt(reservation_id) == 0)
+				    	{
+				    		System.out.println(rs.getInt(seat_number));
+				    	} else {
+				    		System.out.println("-");
+				    	}
+			    		i = 0;
 			    	}
-			    	else{
-			    		System.out.print("-\t");
-			    	}
-		    		i++;
-		    	} else {
-		    		if(rs.getInt(reservation_id) == 0)
-			    	{
-			    		System.out.println(rs.getInt(seat_number));
-			    	}
-			    	else{
-			    		System.out.println("-");
-			    	}
-		    		i = 0;
-		    	}
+			    }
+		    }else {
+		    	System.out.println("Sorry! No available seats.");
 		    }
-		    	    
+
 		} catch (SQLException ex) {
 		    System.out.println("SQLException: " + ex.getMessage());
 		    System.out.println("SQLState: " + ex.getSQLState());
