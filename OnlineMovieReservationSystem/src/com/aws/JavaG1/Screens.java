@@ -119,7 +119,7 @@ public class Screens {
             Timeslot timeslot = null;
 
             do {
-                System.out.print("\nEnter Cinema ID: ");
+                System.out.print("\nEnter Cinema ID (1 - " + cinemas.size() +"): ");
                 cinemaID = scanner.nextInt();
                 cinema = Utility.getCinemaByID(cinemas, cinemaID);
                 if (cinema == null)
