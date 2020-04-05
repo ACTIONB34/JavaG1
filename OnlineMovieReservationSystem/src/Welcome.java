@@ -55,11 +55,11 @@ public class Welcome {
                     if (Screens.pendingReservation == null)
                         Screens.Screen3D(customer, cinemas);
                     else
-                        Screens.Screen4(customer, cinemas, null);
+                        Screens.Screen4(customer, cinemas, Screens.pendingReservation);
                     break;
                 case 3:
-                    if (customer.getReservations() != null)
-                        Screens.Screen4(customer, cinemas, null);
+                    if (Screens.pendingReservation == null)
+                        Screens.Screen4(customer, cinemas, Screens.pendingReservation);
                     else
                         Screens.Screen3D(customer, cinemas);
                     break;
