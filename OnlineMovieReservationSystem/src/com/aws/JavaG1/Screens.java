@@ -1,6 +1,8 @@
 package com.aws.JavaG1;
 
 import com.aws.JavaG1.utilities.Utility;
+import com.aws.JavaG1.utilities.gui;
+
 import java.util.*;
 
 public class Screens {
@@ -35,16 +37,17 @@ public class Screens {
         }
     }
 
-    public static void Screen2(ArrayList<Cinema> cinemas) {
-
-        for(Cinema cinema: cinemas){
-            System.out.println(cinema.toString());
-        }
-
-        System.out.print("\nPress Enter to Continue!");
-        scanner.nextLine();
-        scanner.nextLine(); // Double nextLine since previous read was a byte, doesn't read newline
-    }
+//    public static void Screen2(ArrayList<Cinema> cinemas) {
+//
+//        for(Cinema cinema: cinemas){
+//            System.out.println(cinema.toString());
+//        }
+//
+//        System.out.print("\nPress Enter to Continue!");
+//        scanner.nextLine();
+//        scanner.nextLine(); // Double nextLine since previous read was a byte, doesn't read newline
+//
+//    }
 
     public static void Screen3(Customer customer, ArrayList<Cinema> cinemas) {
         choice = -1;
@@ -255,7 +258,7 @@ public class Screens {
                 	Screen3C(customer, reservations, seats, cinemas);
                     break;
                 case 0:
-                	Screen2(cinemas);
+                	gui nowShowing = new gui(cinemas);
                 	choice = WELCOME_CODE;
                     break;
                 default:
