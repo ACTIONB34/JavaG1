@@ -2,11 +2,12 @@
  * 
  */
 package com.aws.JavaG1.utilities;
-import com.aws.JavaG1.*;
-import java.awt.*;
-import java.util.ArrayList;
+import com.aws.JavaG1.Cinema;
+import com.aws.JavaG1.Timeslot;
 
 import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
 /**
  * @author bianca.gilay
  *
@@ -27,7 +28,7 @@ public class gui {
 	
 	public gui(ArrayList<Cinema> show) { //Cinema show1, Cinema show2, Cinema show3, Cinema show4
 		frame = new JFrame("Java Group 1 - Online Movie Reservation");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		head_font = new Font("Gadugi", Font.BOLD, 20);
 		
