@@ -107,8 +107,8 @@ public class Screens {
 
     public static void Screen3A(Customer customer, ArrayList<Cinema> cinemas) {
         choice = -1;
-
-        pendingReservation = new Reservation();
+        if(pendingReservation == null)
+           pendingReservation = new Reservation();
 
 
         do {
@@ -127,9 +127,13 @@ public class Screens {
             } while (cinema == null);
             pendingReservation.setCinema(cinema);
             do {
-                System.out.print("\nEnter Timeslot ID: ");
+                System.out.print("\nEnter Timeslot entry (1 - " + cinema.getTimeslots().size() + "): ");
                 timeslotID = scanner.nextInt();
-                timeslot = Utility.getTimeSlotById(pendingReservation.getCinema().getTimeslots(), timeslotID);
+                if (timeslotID != 0 && --timeslotID < cinema.getTimeslots().size()  ) {
+                    timeslot = Utility.getTimeSlotById(pendingReservation.getCinema().getTimeslots(),
+                            cinema.getTimeslots().get(timeslotID).getTimeSlotID()
+                    );
+                }
                 if (timeslot == null)
                     System.out.println("Invalid timeslot id!");
             } while (timeslot == null);
@@ -149,6 +153,7 @@ public class Screens {
                     break;
                 case 0:
                     choice = WELCOME_CODE;
+                    pendingReservation = null;
                     break;
                 default:
                     System.out.println("Invalid Choice");
@@ -199,6 +204,7 @@ public class Screens {
                     break;
                 case 0:
                     //to do
+                    pendingReservation = null;
                     choice = WELCOME_CODE;
                     break;
                 default:
@@ -266,6 +272,7 @@ public class Screens {
                     break;
                 case 0:
                     gui nowShowing = new gui(cinemas);
+                    pendingReservation = null;
                     choice = WELCOME_CODE;
                     break;
                 default:
