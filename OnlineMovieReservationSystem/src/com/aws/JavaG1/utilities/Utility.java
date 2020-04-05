@@ -55,4 +55,10 @@ public class Utility {
         }
         return null;
     }
+
+    public static Boolean isValidName(String name){
+        if(name.trim().isEmpty())
+            return false;
+        return true;
+    }
 }
