@@ -37,25 +37,29 @@ public class gui {
 		cine1 = new JTextArea(40,17);
 		cine1.setFont(head_font);
 		cine1.setEditable(false);
+		cine1.setLineWrap(true);
 		cine1.setText(" CINEMA 1\n\n\n" + getCinemaDetails(show.get(0)));
 		
 		cine2 = new JTextArea(40,17);
 		cine2.setFont(head_font);
 		cine2.setEditable(false);
+		cine2.setLineWrap(true);
 		cine2.setText(" CINEMA 2\n\n\n" + getCinemaDetails(show.get(1)));
 		
 		cine3 = new JTextArea(40,17);
 		cine3.setFont(head_font);
 		cine3.setEditable(false);
+		cine3.setLineWrap(true);
 		cine3.setText(" CINEMA 3\n\n\n" + getCinemaDetails(show.get(2)));
 		
 		cine4 = new JTextArea(40,17);
 		cine4.setFont(head_font);
 		cine4.setEditable(false);
+		cine4.setLineWrap(true);
 		cine4.setText(" CINEMA 4\n\n\n" + getCinemaDetails(show.get(3)));
-		
+				
 		mainPanel = new JPanel(new FlowLayout());
-		mainPanel.setPreferredSize(new Dimension(1250,500));
+		mainPanel.setPreferredSize(new Dimension(1250,515));
 		mainPanel.setBackground(Color.black);
 		mainPanel.add(cine1);
 		mainPanel.add(cine2);
@@ -90,8 +94,12 @@ public class gui {
 //    	for(int i =0; i<3; i++) {
 //    		info += "Show " + i+1 + "- " + ts.get(i) + "\n";
 //    	}
+    	int i = 1;
+    	for (Timeslot timeslot : cinema.getTimeslots()) {
+    		info += "  Show " + i++ + ": " + timeslot.getTimeStart() + "\n";
+    		}
     	
     	return info;
-	}
+    	}
 	
 }
