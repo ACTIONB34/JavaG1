@@ -399,7 +399,8 @@ public class DatabaseConnect {
  	
 	public void viewSeats(int cinema_id, int timeslot_id){
 		int columns = 7;
-		int rows = 4;
+		int reservation_id = 4;
+		int seat_number = 2;
 		try {
 			Statement stmt = connect.createStatement();
 		    ResultSet rs = stmt.executeQuery("SELECT * FROM seats WHERE cinema_id ="+cinema_id+" && timeslot_id ="+timeslot_id+";");   
@@ -408,18 +409,18 @@ public class DatabaseConnect {
 		    int i = 0;
 		    while(rs.next()) {
 		    	if(i < columns){
-		    		if(rs.getInt(rows) == 0)
+		    		if(rs.getInt(reservation_id) == 0)
 			    	{
-			    		System.out.print(rs.getInt(2)+"\t");
+			    		System.out.print(rs.getInt(seat_number)+"\t");
 			    	}
 			    	else{
 			    		System.out.print("-\t");
 			    	}
 		    		i++;
 		    	} else {
-		    		if(rs.getInt(rows) == 0)
+		    		if(rs.getInt(reservation_id) == 0)
 			    	{
-			    		System.out.println(rs.getInt(2));
+			    		System.out.println(rs.getInt(seat_number));
 			    	}
 			    	else{
 			    		System.out.println("-");
