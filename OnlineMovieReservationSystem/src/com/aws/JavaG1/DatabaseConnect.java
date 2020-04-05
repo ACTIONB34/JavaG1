@@ -3,7 +3,7 @@ package com.aws.JavaG1;
 import com.aws.JavaG1.utilities.Utility;
 
 import java.sql.*;
-import java.util.ArrayList;
+import java.util.*;
 
 
 
@@ -320,8 +320,8 @@ public class DatabaseConnect {
 		return result;
 	}
 	
-	//needs seat 
-	public static int updateSeats(int reservation_id, int cinema_id, int timeslot_id, ArrayList<Integer> reservedSeats){
+	//needs seat
+	public static int updateSeats(int reservation_id, Reservation r, List<Integer> numberOfSeats){
 		int res = -1;
 		try {
 			PreparedStatement ps = connect.prepareStatement(UPDATE_SEATS);
@@ -331,11 +331,11 @@ public class DatabaseConnect {
 			//timeslot_id = 1;
 
 			ps.setInt(1,reservation_id);
-			ps.setInt(2,cinema_id);
-			ps.setInt(3,timeslot_id);
+			ps.setInt(2,r.getCinema().getCinemaId());
+			ps.setInt(3,r.getTimeslot().getTimeSlotID());
 
-			for (int i = 0; i < reservedSeats.size(); i++) {
-				ps.setInt(4,reservedSeats.get(i));
+			for (int i = 0; i < numberOfSeats.size(); i++) {
+				ps.setInt(4,numberOfSeats.get(i));
 				ps.executeUpdate();
 				//System.out.println("Seats Updated Successfully");
 				res = 1;
