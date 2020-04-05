@@ -83,21 +83,21 @@ public class Cinema {
         this.status = status;
     }
 
-    @Override
-    public String toString() {
-        int i=1;
-        String info = "\n==========================================\n";
-				info += "Cinema " + this.getCinemaId() + "\n\n";
-        info += this.getMovie().getMovieName() + "\n";
-        info += this.getMovie().getMovieGenre() + "\n";
-        info += this.getMovie().getMovieRating() + "\n";
-
-        for (Timeslot timeslot : this.getTimeslots()) {
-            info += "Show " + i++ + ": " + timeslot.getTimeStart() + "\n";
-        }
-
-		info += "==========================================";
-        return info;
-
-    }
+//    @Override
+//    public String toString() {
+//        int i=1;
+//        String info = "\n==========================================\n";
+//				info += "Cinema " + this.getCinemaId() + "\n\n";
+//        info += this.getMovie().getMovieName() + "\n";
+//        info += this.getMovie().getMovieGenre() + "\n";
+//        info += this.getMovie().getMovieRating() + "\n";
+//
+//        for (Timeslot timeslot : this.getTimeslots()) {
+//            info += "Show " + i++ + ": " + timeslot.getTimeStart() + "\n";
+//        }
+//
+//		info += "==========================================";
+//        return info;
+//    }
+    	
 }
