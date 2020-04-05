@@ -393,7 +393,7 @@ public class Screens {
 
     public static void ScreenC() {
         choice = -1;
-        System.out.println("\n------------------------------------------");
+        System.out.println("\n------------------------------------------\n");
         System.out.println("Seats reserved!");
         System.out.println("Thank you and have a great day!");
 
