@@ -404,10 +404,10 @@ public class DatabaseConnect {
 		try {
 			Statement stmt = connect.createStatement();
 		    ResultSet rs = stmt.executeQuery("SELECT * FROM seats WHERE cinema_id ="+cinema_id+" && timeslot_id ="+timeslot_id+";");   
-		    System.out.println("Seat Selection Info");
-		    System.out.println("\n\nPlease choose your seats from the available seats below: ");
 		    int i = 0;
-		    if(rs != null){
+		    if(rs.first()){
+		    	System.out.println("Seat Selection Info");
+			    System.out.println("\n\nPlease choose your seats from the available seats below: ");
 		    	while(rs.next()) {
 			    	if(i < columns){
 			    		if(rs.getInt(reservation_id) == 0)
