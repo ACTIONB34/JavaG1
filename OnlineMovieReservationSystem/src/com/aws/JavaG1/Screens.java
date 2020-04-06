@@ -7,7 +7,7 @@ import java.util.*;
 
 public class Screens {
     private static Scanner scanner = new Scanner(System.in);
-    public static List<Integer> numberOfSeats = new ArrayList<Integer>();
+    public static List<Integer> numberOfSeatsDisplay = new ArrayList<Integer>();
     public static byte choice = -1;
     public static Boolean register = false;
     private static byte WELCOME_CODE = -127;
@@ -178,6 +178,7 @@ public class Screens {
 
     private static void Screen3B(Customer customer, ArrayList<Cinema> cinemas, Reservation reservation, ArrayList<Seat> seats) {
         choice = -1;
+        
         do {
             System.out.println("\nCustomer Info: ");
             System.out.print("\nEnter # of Kids: ");
@@ -233,34 +234,33 @@ public class Screens {
     public static void Screen3C(Customer customer, Reservation reservations, ArrayList<Seat> seats, ArrayList<Cinema> cinemas) {
         choice = -1;
         int seat;
+        int addedCount = 0;
         int totalNumberOfSeats = 40;
         int noOfPeopleRes = reservations.getTotalPeople();
-
+     
+        if(!numberOfSeatsDisplay.isEmpty()){
+        	numberOfSeatsDisplay.clear();
+        }
         DatabaseConnect dbconn = new DatabaseConnect();
         dbconn.viewSeats(reservations.getCinema().getCinemaId(), reservations.getTimeslot().getTimeSlotID());
-
-        for (int i = 0; i < noOfPeopleRes; i++) {
-
-            Scanner input = new Scanner(System.in);
+     
+        while(addedCount != noOfPeopleRes){
+        	Scanner input = new Scanner(System.in);
             System.out.println("\nYour choice: ");
             seat = input.nextInt();
-
-            if (numberOfSeats.contains(seat)) {
+            
+            if (numberOfSeatsDisplay.contains(seat)) {
                 System.out.println("\nOops! Seat Taken! Try again.");
-                Scanner input1 = new Scanner(System.in);
-                System.out.println("\nYour choice: ");
-                seat = input.nextInt();
+            }else{
+            	numberOfSeatsDisplay.add(seat);
+            	addedCount++;
             }
-
+            
             if (seat > totalNumberOfSeats) {
                 System.out.println("\nSeat number does not exist. Try again.");
-                Scanner input2 = new Scanner(System.in);
-                System.out.println("\nYour choice: ");
-                seat = input.nextInt();
             }
-            numberOfSeats.add(seat);
         }
-
+       
         while (choice != 0 && choice != WELCOME_CODE) {
             choice = Screen3CMenu();
             switch (choice) {
@@ -343,8 +343,9 @@ public class Screens {
                 + " " + reservation.getTimeslot().getTimeStart());
         System.out.println("Total no. of people: " + reservation.getTotalPeople());
         System.out.println("Total amount: P" + reservation.getTotalAmount());
-        System.out.println("Seat: " + numberOfSeats);  // to add
-
+        System.out.println("Seat: " + numberOfSeatsDisplay); 
+//        numberOfSeatsDisplay.clear();
+        
         while (choice != 0 && choice != WELCOME_CODE) {
 
             choice = Screen4Menu();
@@ -356,8 +357,7 @@ public class Screens {
                     customer.addReservation(reservation);
                     DatabaseConnect db5 = new DatabaseConnect();
                     int reservation_id = db5.selectReservationId();
-                    db5.updateSeats(reservation_id, reservation, numberOfSeats);
-                    numberOfSeats.clear();
+                    db5.updateSeats(reservation_id, reservation, numberOfSeatsDisplay);
                     pendingReservation = null;
                     ScreenC();
                     register = true;
