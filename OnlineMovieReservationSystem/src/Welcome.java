@@ -59,9 +59,10 @@ public class Welcome {
                     break;
                 case 3:
                     if (Screens.pendingReservation == null)
-                        Screens.Screen4(customer, cinemas, Screens.pendingReservation);
-                    else
                         Screens.Screen3D(customer, cinemas);
+                    else
+                    	Screens.Screen4(customer, cinemas, Screens.pendingReservation);
+                   
                     break;
                 case 0:
                     break;
