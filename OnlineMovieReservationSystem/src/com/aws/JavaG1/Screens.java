@@ -110,7 +110,7 @@ public class Screens {
                         	cinemaID = scanner.nextInt();
                         	cinema = Utility.getCinemaByID(cinemas, cinemaID);   
                             if (cinema == null) {
-                            	System.out.println("Invalid cinema id!");
+                            	System.out.println("Invalid cinema id!\nPlease enter a number between (1 - " + cinemas.size() +"): ");
                             }
  
                         	}catch (InputMismatchException e) {
@@ -132,7 +132,7 @@ public class Screens {
                                     cinema.getTimeslots().get(timeslotID).getTimeSlotID());
                     		}
                     		if (timeslot == null) {
-                           	 System.out.println("Invalid timeslot id!");
+                           	 System.out.println("Invalid timeslot id!\nPlease enter a number between (1 - " + cinema.getTimeslots().size() + "): ");
                            }
                     	} catch (InputMismatchException e) {
                     		scanner.next();
@@ -200,7 +200,7 @@ public class Screens {
             }
             
             int noAdult = 0;
-            System.out.print("\nEnter # of Adults: ");
+            System.out.print("Enter # of Adults: ");
             while(noAdult == 0) {
             	try {
                 	noAdult = scanner.nextInt();
