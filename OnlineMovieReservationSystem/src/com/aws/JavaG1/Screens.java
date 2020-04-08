@@ -106,7 +106,6 @@ public class Screens {
                 
                 System.out.print("\nEnter Cinema ID (1 - " + cinemas.size() +"): "); 
                 do {
-                    while(cinemaID == 0) {
                     	try {
                         	cinemaID = scanner.nextInt();
                         	cinema = Utility.getCinemaByID(cinemas, cinemaID);   
@@ -118,17 +117,16 @@ public class Screens {
                         		scanner.next();
                         		System.out.println("Please enter a whole number.");
                         	}	
-                    }
-                    
+             
                 } while (cinema == null);
                 
                 pendingReservation.setCinema(cinema);
                 
                 System.out.print("\nEnter Timeslot entry (1 - " + cinema.getTimeslots().size() + "): ");
                 do {
-                    while(timeslotID == 0) {
                     	try {
                     		timeslotID = scanner.nextInt();
+                    		
                     		if (timeslotID != 0 && --timeslotID < cinema.getTimeslots().size()){
                     			timeslot = Utility.getTimeSlotById(pendingReservation.getCinema().getTimeslots(),
                                     cinema.getTimeslots().get(timeslotID).getTimeSlotID());
@@ -140,8 +138,7 @@ public class Screens {
                     		scanner.next();
                     		System.out.println("Please enter a whole number.");
                     	}
-                    }
-                   
+                  
                 } while (timeslot == null);
                 
                 pendingReservation.setTimeslot(timeslot);
@@ -189,15 +186,46 @@ public class Screens {
         do {
         	System.out.println("\n=============================================================");
             System.out.println("\nCustomer Info: ");
+            
+            int noChild = 0;
             System.out.print("\nEnter # of Kids: ");
-            reservation.setNoOfChildrens(scanner.nextInt());
-            System.out.print("Enter # of Adults: ");
-            reservation.setNoOfAdults(scanner.nextInt());
+            while(noChild == 0) {
+            	try {
+            		noChild = scanner.nextInt();
+            		reservation.setNoOfChildrens(noChild);
+            	}catch(InputMismatchException e) {
+            		scanner.next();
+            		System.out.print("\nPlease input a number: ");
+            	}
+            }
+            
+            int noAdult = 0;
+            System.out.print("\nEnter # of Adults: ");
+            while(noAdult == 0) {
+            	try {
+                	noAdult = scanner.nextInt();
+                	reservation.setNoOfAdults(noAdult);
+                }catch(InputMismatchException f) {
+                	scanner.next();
+            		System.out.print("\nPlease input a number: ");
+                }
+            }
+            
+            int noSenior = 0;
             System.out.print("Enter # of Senior: ");
-            reservation.setNoOfSeniors(scanner.nextInt());
-
-            if (reservation.isCinemaFull())
-                System.out.println("Cinema is Full, please lessen the no of attendees.");
+            while(noSenior == 0) {
+            	try {
+            		noSenior = scanner.nextInt();
+            		reservation.setNoOfSeniors(noSenior);  
+            	}catch(InputMismatchException g) {
+            		scanner.next();
+            		System.out.print("\nPlease input a number: ");
+            	}
+            }
+    
+           if (reservation.isCinemaFull()) {
+        	   System.out.println("Cinema is Full, please lessen the no of attendees.");
+           }
         } while (reservation.isCinemaFull());
 
         while (choice != 0 && choice != WELCOME_CODE) {
