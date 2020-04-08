@@ -4,10 +4,6 @@ package com.aws.JavaG1; /**
 
 import java.util.ArrayList;
 
-/**
- * @author chanel.baluyos
- *
- */
 public class Cinema {
 
     private int cinemaId;
@@ -28,7 +24,6 @@ public class Cinema {
         this.status = status;
     }
     
-    //New Constructor
     public Cinema(int cinemaId, Movie movie, int noOfSeats, String status) {
         this.cinemaId = cinemaId;
         this.movie = movie;
@@ -82,22 +77,5 @@ public class Cinema {
     public void setStatus(String status) {
         this.status = status;
     }
-
-//    @Override
-//    public String toString() {
-//        int i=1;
-//        String info = "\n==========================================\n";
-//				info += "Cinema " + this.getCinemaId() + "\n\n";
-//        info += this.getMovie().getMovieName() + "\n";
-//        info += this.getMovie().getMovieGenre() + "\n";
-//        info += this.getMovie().getMovieRating() + "\n";
-//
-//        for (Timeslot timeslot : this.getTimeslots()) {
-//            info += "Show " + i++ + ": " + timeslot.getTimeStart() + "\n";
-//        }
-//
-//		info += "==========================================";
-//        return info;
-//    }
-    	
+    
 }
