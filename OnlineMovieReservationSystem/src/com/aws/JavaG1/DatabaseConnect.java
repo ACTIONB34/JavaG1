@@ -25,7 +25,7 @@ public class DatabaseConnect {
 	
 	private static String SELECT_RESERVED_SEATS = "SELECT " +  
 		    "seat_number " +
-			"FROM seats WHERE timeslot_id = ? AND cinema_id = ? " +
+			"FROM seats WHERE cinema_id = ? AND timeslot_id = ? " +
 		    "AND reservation_id IS NOT NULL;";
 
 

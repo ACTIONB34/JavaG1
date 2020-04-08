@@ -272,56 +272,95 @@ public class Screens {
 
     public static void Screen3C(Customer customer, Reservation reservations, ArrayList<Seat> seats, ArrayList<Cinema> cinemas) {
         choice = -1;
+        int seat;
         int addedCount = 0;
         int totalNumberOfSeats = 40;
         int noOfPeopleRes = reservations.getTotalPeople();
+        int numberOfAvailableSeats;
      
         if(!numberOfSeatsDisplay.isEmpty()){
-        	numberOfSeatsDisplay.clear();
+            numberOfSeatsDisplay.clear();
         }
+        
         DatabaseConnect dbconn = new DatabaseConnect();
         dbconn.viewSeats(reservations.getCinema().getCinemaId(), reservations.getTimeslot().getTimeSlotID());
+                
+        DatabaseConnect dbconn2 = new DatabaseConnect();
+        ArrayList<Integer> reservedSeats = dbconn2.reservedSeats(reservations.getCinema().getCinemaId(), reservations.getTimeslot().getTimeSlotID());
         
-        //reserved seats
-		DatabaseConnect dbconn2 = new DatabaseConnect();
-		ArrayList<Integer> res = dbconn2.reservedSeats(reservations.getCinema().getCinemaId(), reservations.getTimeslot().getTimeSlotID());
-		
-		//test print of reserved seats
-//        for(Integer r:res) {
-//            System.out.println(r);
-//        }
-        //error trapping nalang dayon
+        //i dont know what to do
+        int numberOfReservedSeats = reservedSeats.size();
+        numberOfAvailableSeats = totalNumberOfSeats - numberOfReservedSeats;
         
-		int seat = -1;
+        
         while(addedCount != noOfPeopleRes){
-        	Scanner input = new Scanner(System.in);
-        	do {
-        		try {
-            		System.out.print("\nYour choice: ");
-            		seat = input.nextInt();
-            		numberOfSeatsDisplay.add(seat);
-            	}catch(InputMismatchException i) {
-            		input.next();
-            		System.out.println("\nOops! Please input a positive number: ");
-            	}
-        	}while(seat <= 0);
-        	addedCount += 1;
-//            System.out.println("\nYour choice: ");
-//            seat = input.nextInt();
-//            
-//            if (numberOfSeatsDisplay.contains(seat)) {
-//                System.out.println("\nOops! Seat Taken! Try again.");
-//            } else if(seat > totalNumberOfSeats) {
-//            	System.out.println("Oops! Seat does not exist! Try again.");
-//            } else if (seat < 0) {
-//            	System.out.println("Oops! Negative number! Try again.");
-//        	}else if(seat == 0) {
-//        		System.out.println("Oops! Try again.");
-//        	}else{
-//            	numberOfSeatsDisplay.add(seat);
-//            	addedCount++;
-//            }
+            Scanner input = new Scanner(System.in);
+            System.out.println("\nYour choice: ");
+            seat = input.nextInt();
+            
+            if(numberOfSeatsDisplay.contains(seat) || reservedSeats.contains(seat)) {
+                System.out.println("\nOops! Seat Taken! Try again.");
+            } else if(seat > totalNumberOfSeats) {
+                System.out.println("Oops! Seat does not exist! Try again.");
+            } else if (seat < 0) {
+                System.out.println("Oops! Negative number! Try again.");
+            }else if(seat == 0) {
+                System.out.println("Oops! Try again.");
+            }
+            //else if(seat > numberOfAvailableSeats) {
+            //    System.out.println("Oops! Try again.");
+            //}
+        	else{
+                numberOfSeatsDisplay.add(seat);
+                addedCount++;
+            }
         }
+        reservedSeats.clear();
+    	
+//        choice = -1;
+//        int addedCount = 0;
+//        int totalNumberOfSeats = 40;
+//        int noOfPeopleRes = reservations.getTotalPeople();
+//     
+//        if(!numberOfSeatsDisplay.isEmpty()){
+//        	numberOfSeatsDisplay.clear();
+//        }
+//        DatabaseConnect dbconn = new DatabaseConnect();
+//        dbconn.viewSeats(reservations.getCinema().getCinemaId(), reservations.getTimeslot().getTimeSlotID());
+//        
+//        DatabaseConnect dbconn2 = new DatabaseConnect();
+//		ArrayList<Integer> reservedSeats = dbconn2.reservedSeats(reservations.getCinema().getCinemaId(), reservations.getTimeslot().getTimeSlotID());
+//        
+//		int seat = -1;
+//        while(addedCount != noOfPeopleRes){
+//        	Scanner input = new Scanner(System.in);
+//        	do {
+//        		try {
+//            		System.out.print("\nYour choice: ");
+//            		seat = input.nextInt();
+//            		numberOfSeatsDisplay.add(seat);
+//            	}catch(InputMismatchException i) {
+//            		input.next();
+//            		System.out.println("\nOops! Please input a positive number: ");
+//            	}
+//        	}while(seat <= 0);
+//        	addedCount += 1;
+////            System.out.println("\nYour choice: ");
+////            seat = input.nextInt();
+////            
+////            if (numberOfSeatsDisplay.contains(seat)) {
+////                System.out.println("\nOops! Seat Taken! Try again.");
+////            } else if(seat > totalNumberOfSeats) {
+////            	System.out.println("Oops! Seat does not exist! Try again.");
+////            } else if (seat < 0) {
+////            	System.out.println("Oops! Negative number! Try again.");
+////        	}else if(seat == 0) {
+////        		System.out.println("Oops! Try again.");
+////        	}else{
+////            	numberOfSeatsDisplay.add(seat);
+////            	addedCount++;
+////            }
+//        }
        
         while (choice != 0 && choice != WELCOME_CODE) {
             choice = Screen3CMenu();
