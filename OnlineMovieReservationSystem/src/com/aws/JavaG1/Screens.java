@@ -114,9 +114,9 @@ public class Screens {
                         	if (cinema == null) {
                         	System.out.println("Invalid cinema id!");
                         	}
-                    	} catch (InputMismatchException e) {
-                    	 System.out.println("Please enter a whole number.");
-                    	 cinemaID = scanner.nextInt();
+                    	}catch (InputMismatchException e) {
+                    		scanner.next();
+                    		System.out.println("Please enter a whole number.");
                     	}
                     
                 } while (cinema == null);
