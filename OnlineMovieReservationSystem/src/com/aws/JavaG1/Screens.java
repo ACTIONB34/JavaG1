@@ -116,7 +116,9 @@ public class Screens {
                         	}catch (InputMismatchException e) {
                         		scanner.next();
                         		System.out.println("Please enter a whole number.");
-                        	}	
+                        	}catch(ArrayIndexOutOfBoundsException h) {
+                        		System.out.println("Invalid cinema id!\nPlease enter a number between (1 - " + cinemas.size() + "): ");
+                        	}
              
                 } while (cinema == null);
                 
@@ -189,53 +191,41 @@ public class Screens {
         	System.out.println("\n=============================================================");
             System.out.println("\nCustomer Info: ");
             
-            int noChild = 0;
-            System.out.print("\nEnter # of Kids: ");
-            while(noChild == 0) {
+            int noChild = -1;
+            do {
             	try {
+            		System.out.print("\nEnter # of Kids: ");
             		noChild = scanner.nextInt();
-            		while(noChild < 0) {
-            			System.out.print("\nPlease input a positive number: ");
-            			noChild = scanner.nextInt();
-            		}
             		reservation.setNoOfChildrens(noChild);
             	}catch(InputMismatchException e) {
             		scanner.next();
-            		System.out.print("\nPlease input a number: ");
-            	}
-            }
-            
-            int noAdult = 0;
-            System.out.print("Enter # of Adults: ");
-            while(noAdult == 0) {
+            		System.out.print("\nOops!\nPlease input a positive number!\n");
+            	}	
+            }while(noChild < 0);
+      
+            int noAdult = -1;
+            do {
             	try {
+            		System.out.print("\nEnter # of Adults: ");
                 	noAdult = scanner.nextInt();
-                	while(noAdult < 0) {
-            			System.out.print("\nPlease input a positive number: ");
-            			noAdult = scanner.nextInt();
-            		}
                 	reservation.setNoOfAdults(noAdult);
                 }catch(InputMismatchException f) {
                 	scanner.next();
-            		System.out.print("\nPlease input a number: ");
+            		System.out.print("\nOops!\nPlease input a positive number!\n");
                 }
-            }
+            } while(noAdult < 0);
             
-            int noSenior = 0;
-            System.out.print("Enter # of Senior: ");
-            while(noSenior == 0) {
+            int noSenior = -1;
+            do {
             	try {
+            		System.out.print("\nEnter # of Senior: ");
             		noSenior = scanner.nextInt();
-            		while(noSenior < 0) {
-            			System.out.print("\nPlease input a positive number: ");
-            			noSenior = scanner.nextInt();
-            		}
             		reservation.setNoOfSeniors(noSenior);  
             	}catch(InputMismatchException g) {
             		scanner.next();
-            		System.out.print("\nPlease input a number: ");
+            		System.out.print("\nOops!\\nPlease input a positive number!\n");
             	}
-            }
+            }while(noSenior < 0);
     
            if (reservation.isCinemaFull()) {
         	   System.out.println("Cinema is Full, please lessen the no of attendees.");
