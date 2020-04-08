@@ -19,9 +19,15 @@ public class DatabaseConnect {
 			"AND movies.status = 1;";
 
 	private static String SELECT_UNRESERVED_SEATS = "SELECT " +  
-		    "seat_number" +
-			"FROM seats WHERE timeslot_id = ? AND cinema_id = ?" +
+		    "seat_number " +
+			"FROM seats WHERE timeslot_id = ? AND cinema_id = ? " +
 		    "AND reservation_id IS NULL;";
+	
+	private static String SELECT_RESERVED_SEATS = "SELECT " +  
+		    "seat_number " +
+			"FROM seats WHERE timeslot_id = ? AND cinema_id = ? " +
+		    "AND reservation_id IS NOT NULL;";
+
 
 	private static String UPDATE_SEATS = "UPDATE seats " +  
 		    "SET reservation_id = ? " +
@@ -308,7 +314,6 @@ public class DatabaseConnect {
 		try {
 			PreparedStatement ps = connect.prepareStatement(SELECT_RESERVATION_ID);
 			result = ps.executeQuery();
-			ResultSetMetaData rsmd = result.getMetaData();
 
 			if(result.next()) {
 				id = result.getInt("reservation_id");
@@ -388,6 +393,27 @@ public class DatabaseConnect {
 		} finally {
 			closeConnection();
 		}
+	}
+	
+	public ArrayList<Integer> reservedSeats(int cinema_id, int timeslot_id){
+		ArrayList<Integer> reserved = new ArrayList<Integer>();
+		
+		try {
+			PreparedStatement ps = connect.prepareStatement(SELECT_RESERVED_SEATS);
+			ps.setInt(1,cinema_id);
+			ps.setInt(2,timeslot_id);
+			result = ps.executeQuery();
+
+			while(result.next()){
+				reserved.add(result.getInt("seat_number"));
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return reserved;
+
 	}
 
 }
