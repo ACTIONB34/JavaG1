@@ -284,12 +284,12 @@ public class Screens {
         
         //reserved seats
 		DatabaseConnect dbconn2 = new DatabaseConnect();
-		ArrayList<Integer> res = dbconn2.reservedSeats(reservations.getCinema().getCinemaId(), reservations.getTimeslot().getTimeSlotID());
+		ArrayList<Integer> reservedSeats = dbconn2.reservedSeats(reservations.getCinema().getCinemaId(), reservations.getTimeslot().getTimeSlotID());
 		
 		//test print of reserved seats
-        for(Integer r:res) {
-            System.out.println(r);
-        }
+        //for(Integer r:res) {
+        //    System.out.println(r);
+        //}
         //error trapping nalang dayon
         
         while(addedCount != noOfPeopleRes){
@@ -297,7 +297,7 @@ public class Screens {
             System.out.println("\nYour choice: ");
             seat = input.nextInt();
             
-            if (numberOfSeatsDisplay.contains(seat)) {
+            if (numberOfSeatsDisplay.contains(seat) || reservedSeats.contains(seat)) {
                 System.out.println("\nOops! Seat Taken! Try again.");
             } else if(seat > totalNumberOfSeats) {
             	System.out.println("Oops! Seat does not exist! Try again.");
