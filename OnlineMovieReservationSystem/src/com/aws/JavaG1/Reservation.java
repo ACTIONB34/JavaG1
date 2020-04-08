@@ -1,13 +1,7 @@
-package com.aws.JavaG1; /**
- *
- */
+package com.aws.JavaG1;
 
 import java.util.Date;
 
-/**
- * @author candace.madelo
- *
- */
 public class Reservation {
 
     private Timeslot timeslot;

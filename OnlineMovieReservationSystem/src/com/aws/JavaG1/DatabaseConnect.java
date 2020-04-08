@@ -17,10 +17,6 @@ public class DatabaseConnect {
 			"cinema_id, movie_name, movie_director, movie_rating,movie_genre " +
 			"FROM movies, cinemas WHERE movies.movie_id = cinemas.movie_id " + 
 			"AND movies.status = 1;";
-	
-	private static String SELECT_TIMESLOTS = "SELECT " +  
-		    "movies.movie_id, time_start" +
-		    "FROM movies, timeslots where movies.movie_id = timeslots.movie_id;";
 
 	private static String SELECT_UNRESERVED_SEATS = "SELECT " +  
 		    "seat_number" +
