@@ -47,22 +47,22 @@ public class Welcome {
             Screens.choice = Screens.Screen1B(customer.getCustomerName());
             switch (Screens.choice) {
                 case 1:
-                    //Screen 2 - View Showing Movies
-                    //Screens.Screen2(cinemas);
+                	// This is considered as Screen 2
                 	gui nowShowing = new gui(cinemas);
                     break;
                 case 2:
-                    if (Screens.pendingReservation == null)
-                        Screens.Screen3D(customer, cinemas);
-                    else
-                        Screens.Screen4(customer, cinemas, Screens.pendingReservation);
+                    if (Screens.pendingReservation == null) {
+                    	Screens.Screen3D(customer, cinemas);
+                    }else {
+                    	Screens.Screen4(customer, cinemas, Screens.pendingReservation);
+                    }
                     break;
                 case 3:
-                    if (Screens.pendingReservation == null)
-                        Screens.Screen3D(customer, cinemas);
-                    else
+                    if (Screens.pendingReservation == null) {
+                    	Screens.Screen3D(customer, cinemas);
+                    }else {
                     	Screens.Screen4(customer, cinemas, Screens.pendingReservation);
-                   
+                    }
                     break;
                 case 0:
                     break;
