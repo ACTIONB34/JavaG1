@@ -23,8 +23,6 @@ public class Utility {
 
     }
 
-
-
     public static Cinema getCinemaByID(ArrayList<Cinema> cinemas, int cinemaID){
         for(Cinema cinema: cinemas){
             if(cinema.getCinemaId() == cinemaID)
