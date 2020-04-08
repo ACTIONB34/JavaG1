@@ -280,7 +280,18 @@ public class Screens {
         }
         DatabaseConnect dbconn = new DatabaseConnect();
         dbconn.viewSeats(reservations.getCinema().getCinemaId(), reservations.getTimeslot().getTimeSlotID());
-     
+        
+        
+        //reserved seats
+		DatabaseConnect dbconn2 = new DatabaseConnect();
+		ArrayList<Integer> res = dbconn2.reservedSeats(reservations.getCinema().getCinemaId(), reservations.getTimeslot().getTimeSlotID());
+		
+		//test print of reserved seats
+        for(Integer r:res) {
+            System.out.println(r);
+        }
+        //error trapping nalang dayon
+        
         while(addedCount != noOfPeopleRes){
         	Scanner input = new Scanner(System.in);
             System.out.println("\nYour choice: ");
