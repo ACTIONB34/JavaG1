@@ -200,33 +200,35 @@ public class Screens {
             	}catch(InputMismatchException e) {
             		scanner.next();
             		System.out.print("\nOops!\nPlease input a positive number!\n");
-            	}	
-            }while(noChild <= 0);
-      
-            int noAdult = -1;
-            do {
-            	try {
-            		System.out.print("\nEnter # of Adults: ");
-                	noAdult = scanner.nextInt();
-                	reservation.setNoOfAdults(noAdult);
-                }catch(InputMismatchException f) {
-                	scanner.next();
-            		System.out.print("\nOops!\nPlease input a positive number!\n");
-                }
-            } while(noAdult <= 0);
-            
-            int noSenior = -1;
-            do {
-            	try {
-            		System.out.print("\nEnter # of Senior: ");
-            		noSenior = scanner.nextInt();
-            		reservation.setNoOfSeniors(noSenior);  
-            	}catch(InputMismatchException g) {
-            		scanner.next();
-            		System.out.print("\nOops!\\nPlease input a positive number!\n");
             	}
-            }while(noSenior <= 0);
-    
+            }while(noChild < 0);
+            
+            int noAdult = -1;
+            int noSenior = -1;
+            while( (1 > noAdult) && (1 > noSenior) ) {
+            	do {
+                	try {
+                		System.out.print("\nEnter # of Adults: ");
+                    	noAdult = scanner.nextInt();
+                    	reservation.setNoOfAdults(noAdult);
+                    }catch(InputMismatchException f) {
+                    	scanner.next();
+                		System.out.print("\nOops!\nPlease input a positive number!\n");
+                    }
+                } while(noAdult < 0);
+            	
+            	do {
+                	try {
+                		System.out.print("\nEnter # of Senior: ");
+                		noSenior = scanner.nextInt();
+                		reservation.setNoOfSeniors(noSenior);  
+                	}catch(InputMismatchException g) {
+                		scanner.next();
+                		System.out.print("\nOops!\\nPlease input a positive number!\n");
+                	}
+                }while(noSenior < 0);
+            }
+            
            if (reservation.isCinemaFull()) {
         	   System.out.println("Cinema is Full, please lessen the no of attendees.");
            }
