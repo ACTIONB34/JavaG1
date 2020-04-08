@@ -1,8 +1,7 @@
 package com.aws.JavaG1;
-
 import com.aws.JavaG1.utilities.Utility;
 import com.aws.JavaG1.utilities.gui;
-
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class Screens {
@@ -333,15 +332,20 @@ public class Screens {
 
     public static void Screen4(Customer customer, ArrayList<Cinema> cinemas, Reservation reservation) {
         choice = -1;
+        String pattern = "MM-dd-yyyy";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        String date = simpleDateFormat.format(new Date());
+        
         System.out.println("\n=============================================================");
         System.out.println("\nTicket info\n");
-        System.out.println("Date: " + new Date());
+        System.out.println("Date: " + date);
         System.out.println("Movie: " + reservation.getCinema().getMovie().getMovieName()
-                + " @" + "Cinema " + reservation.getCinema().getCinemaId()
-                + " " + reservation.getTimeslot().getTimeStart());
-        System.out.println("Total no. of people: " + reservation.getTotalPeople());
+                + "\nCinema #" + reservation.getCinema().getCinemaId()
+                + " at " + reservation.getTimeslot().getTimeStart());
+        System.out.println("No. of people: " + reservation.getTotalPeople());
+        System.out.println("Seat(s): " + numberOfSeatsDisplay); 
         System.out.println("Total amount: P" + reservation.getTotalAmount());
-        System.out.println("Seat: " + numberOfSeatsDisplay); 
+     
         
         while (choice != 0 && choice != WELCOME_CODE) {
 
