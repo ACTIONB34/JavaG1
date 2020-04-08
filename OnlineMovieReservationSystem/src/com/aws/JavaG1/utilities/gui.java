@@ -77,11 +77,6 @@ public class gui {
 	}
 
     public String getCinemaDetails(Cinema cinema){
-		//title
-    	//director
-    	//genre
-    	//rating
-    	//screening time: show 1, 2, 3
     	String info;
     	
     	info = "  Title: " + cinema.getMovie().getMovieName() + "\n";
@@ -90,11 +85,6 @@ public class gui {
     	info += "  Rating: " + cinema.getMovie().getMovieRating() +"\n";
     	info += "\n  Screening Time\n\n";
     	
-//    	ArrayList<Timeslot> ts = new ArrayList<Timeslot>();
-//    	ts = cinema.getTimeslots();
-//    	for(int i =0; i<3; i++) {
-//    		info += "Show " + i+1 + "- " + ts.get(i) + "\n";
-//    	}
     	int i = 1;
     	for (Timeslot timeslot : cinema.getTimeslots()) {
     		info += "  Show " + i++ + ": " + timeslot.getTimeStart() + "\n";
