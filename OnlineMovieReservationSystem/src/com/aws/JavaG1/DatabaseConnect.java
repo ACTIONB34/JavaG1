@@ -5,8 +5,6 @@ import com.aws.JavaG1.utilities.Utility;
 import java.sql.*;
 import java.util.*;
 
-
-
 public class DatabaseConnect {
 	
 	private static Connection connect;
@@ -49,7 +47,6 @@ public class DatabaseConnect {
 		    connect = DriverManager.getConnection("jdbc:mysql://localhost/moviereservation?useUnicode=true&"
 		    		+ "useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
 		    		   "root", genericPassword);
-		    //System.out.println("CONN SUCCESS");
 		} catch (SQLException ex) {
 		    System.out.println("SQLException: " + ex.getMessage());
 		    System.out.println("SQLState: " + ex.getSQLState());
@@ -64,7 +61,6 @@ public class DatabaseConnect {
 			connect2 = DriverManager.getConnection("jdbc:mysql://localhost/moviereservation?useUnicode=true&"
 							+ "useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
 					"root", genericPassword);
-//			System.out.println("CONN SUCCESS");
 		} catch (SQLException ex) {
 			System.out.println("SQLException: " + ex.getMessage());
 			System.out.println("SQLState: " + ex.getSQLState());
@@ -88,7 +84,6 @@ public class DatabaseConnect {
 		try {
 			PreparedStatement ps = connect2.prepareStatement(query);
 			result2 = ps.executeQuery();
-			ResultSetMetaData rsmd = result2.getMetaData();
 
 			while(result2.next()){
 				Reservation reservation = new Reservation();
@@ -104,16 +99,12 @@ public class DatabaseConnect {
 				reservation.setNoOfSeniors(result2.getInt("no_of_senior"));
 				reservations.add(reservation);
 			}
-
-		}
-		catch (SQLException e) {
-			// TODO Auto-generated catch block
+		}catch(SQLException e){
 			e.printStackTrace();
 		}
 		finally {
 			closeConnection();
 		}
-
 
 		return reservations;
 
@@ -127,24 +118,19 @@ public class DatabaseConnect {
 		try {
 			PreparedStatement ps = connect2.prepareStatement(query);
 			result2 = ps.executeQuery();
-			ResultSetMetaData rsmd = result2.getMetaData();
-
+			
 			while(result2.next()){
 				Cinema cinema = new Cinema();
 				cinema.setCinemaId(result2.getInt("cinema_id"));
 				cinemas.add(cinema);
 			}
-
-		}
-		catch (SQLException e) {
-			// TODO Auto-generated catch block
+		}catch (SQLException e){
 			e.printStackTrace();
 		}
 		finally {
 			closeConnection();
 		}
-
-
+		
 		return cinemas;
 
 	}
@@ -157,7 +143,6 @@ public class DatabaseConnect {
 		try {
 			PreparedStatement ps = connect2.prepareStatement(query);
 			result2 = ps.executeQuery();
-			ResultSetMetaData rsmd = result2.getMetaData();
 
 			while(result2.next()){
 				Timeslot timeslot = new Timeslot();
@@ -166,23 +151,16 @@ public class DatabaseConnect {
 				timeslot.setMovieID(result2.getInt("movie_id"));
 				timeslot.setCinemaID(result2.getInt("cinema_id"));
 				timeslots.add(timeslot);
-
 			}
-
 		}
 		catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		finally {
 			closeConnection();
 		}
-
-
+		
 		return timeslots;
-
-
-
 	}
 
 
@@ -194,7 +172,6 @@ public class DatabaseConnect {
 		try {
 			PreparedStatement ps = connect2.prepareStatement(query);
 			result2 = ps.executeQuery();
-			ResultSetMetaData rsmd = result2.getMetaData();
 
 			while(result2.next()){
 				Movie movie = new Movie();
@@ -205,16 +182,13 @@ public class DatabaseConnect {
 				movie.setMovieRating(result2.getString("movie_rating"));
 				movies.add(movie);
 			}
-
 		}
 		catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		finally {
 			closeConnection();
 		}
-
 
 		return movies;
 
@@ -235,15 +209,6 @@ public class DatabaseConnect {
 	    	System.out.println();
 			
 	    	while(result.next()) {
-//	    		System.out.print(result.getString("cinema_id") + "\t"
-//				    +    result.getString("movie_name") + "\t"
-//				    +    result.getString("movie_director") + "\t"
-//				    +    result.getString("movie_rating") + "\t"
-//				    +    result.getString("movie_genre"));
-//		    	System.out.println();
-		    	
-		    	
-		    	//String movie = result.getString("movie_name");
 				Movie movie = new Movie(result.getInt("cinema_id"),
 										result.getString("movie_name"),
 										result.getString("movie_director"),
@@ -258,7 +223,6 @@ public class DatabaseConnect {
 		    }
 	    	
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	
 		
@@ -267,6 +231,7 @@ public class DatabaseConnect {
 	}
 	
 	public static ResultSet selectTimeslots(){
+		
 		try {
 			PreparedStatement ps = connect.prepareStatement(SELECT_MOVIES);
 			result = ps.executeQuery();
@@ -277,6 +242,7 @@ public class DatabaseConnect {
 				 String name = rsmd.getColumnName(i);
 				 System.out.print(name + "\t");
 			}
+			
 	    	System.out.println();
 			
 	    	while(result.next()) {
@@ -285,8 +251,7 @@ public class DatabaseConnect {
 		    	System.out.println();
 		    }
 	    	
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+		}catch (SQLException e){
 			e.printStackTrace();
 		}	
 		
@@ -294,6 +259,7 @@ public class DatabaseConnect {
 	}
 	
 	public static ResultSet selectSeats(){
+		
 		try {
 			PreparedStatement ps = connect.prepareStatement(SELECT_UNRESERVED_SEATS);
 			result = ps.executeQuery();
@@ -304,6 +270,7 @@ public class DatabaseConnect {
 				 String name = rsmd.getColumnName(i);
 				 System.out.print(name + "\t");
 			}
+			
 	    	System.out.println();
 			
 	    	while(result.next()) {
@@ -311,25 +278,17 @@ public class DatabaseConnect {
 		    	System.out.println();
 		    }
 	    	
-	    	
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	
 		
 		return result;
 	}
 	
-	//needs seat
 	public static int updateSeats(int reservation_id, Reservation r, List<Integer> numberOfSeats){
 		int res = -1;
 		try {
 			PreparedStatement ps = connect.prepareStatement(UPDATE_SEATS);
-			//dummy
-			//reservation
-			//cinema_id = 1;
-			//timeslot_id = 1;
-
 			ps.setInt(1,reservation_id);
 			ps.setInt(2,r.getCinema().getCinemaId());
 			ps.setInt(3,r.getTimeslot().getTimeSlotID());
@@ -337,12 +296,10 @@ public class DatabaseConnect {
 			for (int i = 0; i < numberOfSeats.size(); i++) {
 				ps.setInt(4,numberOfSeats.get(i));
 				ps.executeUpdate();
-				//System.out.println("Seats Updated Successfully");
 				res = 1;
 			}	    	
 	    	
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	
 		
@@ -351,6 +308,7 @@ public class DatabaseConnect {
 	
 	public static int selectReservationId(){
 		int id = -1;
+		
 		try {
 			PreparedStatement ps = connect.prepareStatement(SELECT_RESERVATION_ID);
 			result = ps.executeQuery();
@@ -358,11 +316,9 @@ public class DatabaseConnect {
 
 			if(result.next()) {
 				id = result.getInt("reservation_id");
-				//System.out.println("Successfully retrieved id " + id);
 			}
 	    	
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	
 		
@@ -370,10 +326,9 @@ public class DatabaseConnect {
 	}
 	
 	public void confirmReservation(Reservation r, Customer c){
+		
 		try{
-	//		System.out.println("Connecting to database. . .");
 			PreparedStatement ps = connect.prepareStatement(ADDTO_DB);
-	//		System.out.println("Inserting data. . .");
 			ps.setInt(1, r.getCinema().getCinemaId());
 			ps.setString(2, r.getTimeslot().getTimeStart());
 			ps.setString(3, c.getCustomerName());
@@ -384,8 +339,6 @@ public class DatabaseConnect {
 			ps.setInt(8, r.getTimeslot().getTimeSlotID());
 
 			ps.executeUpdate();
-
-	//		System.out.println("Added successfully!");	//for testing
 			
 			ps.close();
 			connect.close();
@@ -438,65 +391,6 @@ public class DatabaseConnect {
 		} finally {
 			closeConnection();
 		}
-	}
-	
-	
-
-	
-	
-	//for testing
-	public static void main(String[]args){
-//		DatabaseConnect db = new DatabaseConnect();
-		
-//	//	Timeslot: int timeSlotID, String timeStart	
-//		Timeslot ts = new Timeslot(1011,"3:30PM");
-//		
-//	//	Movie: int movieID, String movieName, String movieDirector, String movieGenre, String movieRating
-//		Movie movie1 = new Movie(3011, "How I Met Her", "Andrew E.", "Comedy", "PG");	
-//		
-//	//	Cinema: int cinemaId, Movie movie, int noOfSeats, String status	
-//		Cinema cine = new Cinema(2011, movie1, 40, "VIEWING");							
-//		
-//	//	Timeslot timeslot, Cinema cinema, int seatId, int noOfChildrens, int noOfAdults, int noOfSeniors, int totalAmount	
-//		Reservation res = new Reservation(ts, cine, 1, 0, 3, 0, 459);					
-//		Customer cust = new Customer(4011, "Shaiapouf");
-
-		
-//		Customer cust = new Customer(2, "Belle Test");
-//		Movie movie1 = new Movie(1,"Harry Potter", "You", "Adventure", "R");
-//		Cinema cine = new Cinema(1, movie1, 40, "SHOWING");
-//		ArrayList<Cinema> cines = new ArrayList<Cinema>();
-//		cines.add(cine);
-//		Timeslot ts = new Timeslot(2,"3:30PM", 1, 1);
-//		
-//		Reservation res = new Reservation(ts, cine, 14, 0, 2, 0, 300);
-//		
-//		db.confirmReservation(res, cust);
-//		
-//		db.confirmReservation(res, cust);
-	
-		//db.selectMovies();
-
-		//int id = db.selectReservationId();
-		
-		//System.out.print(id);
-		
-
-
-//		ArrayList<Integer> rs = new ArrayList<Integer>();
-//		rs.add(4);
-//		rs.add(5);
-//		rs.add(6);
-
-		// ArrayList<Integer> rs = new ArrayList<Integer>();
-		// rs.add(4);
-		// rs.add(5);
-		// rs.add(6);
-
-		//db.updateSeats(id,1,1,rs);
-		
-		
-		
 	}
 
 }
