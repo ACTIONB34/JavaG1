@@ -126,7 +126,7 @@ public class Screens {
                 do {
                     System.out.print("\nEnter Timeslot entry (1 - " + cinema.getTimeslots().size() + "): ");
                     try {
-                    	timeslotID = scanner.nextInt();
+                    		timeslotID = scanner.nextInt();
                     		if (timeslotID != 0 && --timeslotID < cinema.getTimeslots().size()){
                     			timeslot = Utility.getTimeSlotById(pendingReservation.getCinema().getTimeslots(),
                                     cinema.getTimeslots().get(timeslotID).getTimeSlotID());
@@ -135,7 +135,8 @@ public class Screens {
                            	 System.out.println("Invalid timeslot id!");
                            }
                     	} catch (InputMismatchException e) {
-                    	 System.out.println("Please enter a whole number.");
+                    		scanner.next();
+                    		System.out.println("Please enter a whole number.");
                     	}
                    
                 } while (timeslot == null);
