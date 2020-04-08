@@ -1,6 +1,7 @@
 package com.aws.JavaG1;
 
 import java.util.Date;
+import java.math.*;
 
 public class Reservation {
 
@@ -130,13 +131,14 @@ public class Reservation {
 	}
 
 	public Boolean isCinemaFull(){
-    	return this.cinema.getNoOfSeats() <= getTotalPeople();
+		int noSeats = Math.abs(this.cinema.getNoOfSeats());
+    	return noSeats <= getTotalPeople();
 	}
 
 	public Boolean isValidReservation(){
     	return this.cinema != null && this.timeslot != null &&  !isCinemaFull();
 	}
-
+	
     @Override
     public String toString() {
         String info = "";
