@@ -357,8 +357,9 @@ public class DatabaseConnect {
 		try {
 			Statement stmt = connect.createStatement();
 		    ResultSet rs = stmt.executeQuery("SELECT * FROM seats WHERE cinema_id ="+cinema_id+" && timeslot_id ="+timeslot_id+";");   
-		    int i = 0;
-		    if(rs.first()){
+		    
+		    if(!(rs.equals(null))){
+		    	int i = 0;
 		    	System.out.println("Seat Selection Info");
 			    System.out.println("\n\nPlease choose your seats from the available seats below: ");
 		    	while(rs.next()) {

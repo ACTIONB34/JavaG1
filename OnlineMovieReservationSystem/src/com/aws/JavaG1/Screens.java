@@ -248,15 +248,11 @@ public class Screens {
             System.out.println("\nYour choice: ");
             seat = input.nextInt();
             
-            if (numberOfSeatsDisplay.contains(seat)) {
+            if (numberOfSeatsDisplay.contains(seat) || (seat > totalNumberOfSeats)) {
                 System.out.println("\nOops! Seat Taken! Try again.");
             }else{
             	numberOfSeatsDisplay.add(seat);
             	addedCount++;
-            }
-            
-            if (seat > totalNumberOfSeats) {
-                System.out.println("\nSeat number does not exist. Try again.");
             }
         }
        
