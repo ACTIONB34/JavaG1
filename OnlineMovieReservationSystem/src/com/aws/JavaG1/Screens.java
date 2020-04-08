@@ -20,17 +20,19 @@ public class Screens {
             System.out.print("| * * *O N L I N E   M O V I E   R E S E R V A T I O N* * * |\n");
             System.out.println("=============================================================");
             System.out.print("\nPlease enter your name: ");
-
             name = scanner.nextLine();
-            if (!Utility.isValidName(name))
-                System.out.println("Invalid name!");
+            
+            if (!Utility.isValidName(name)) {
+            	System.out.println("Invalid name!");
+            }
+ 
         } while (!Utility.isValidName(name));
 
         return name;
     }
 
     public static byte Screen1B(String name) {
-        System.out.println("\n------------------------------------------");
+        System.out.println("\n=============================================================");
         System.out.print("\nWelcome, hello " + name + "!\n\n");
         System.out.println("What would you like to do?\n");
         System.out.println("Press 1 to View available movies");
@@ -46,18 +48,6 @@ public class Screens {
         }
     }
 
-//    public static void Screen2(ArrayList<Cinema> cinemas) {
-//
-//        for(Cinema cinema: cinemas){
-//            System.out.println(cinema.toString());
-//        }
-//
-//        System.out.print("\nPress Enter to Continue!");
-//        scanner.nextLine();
-//        scanner.nextLine(); // Double nextLine since previous read was a byte, doesn't read newline
-//
-//    }
-
     public static void Screen3(Customer customer, ArrayList<Cinema> cinemas) {
         choice = -1;
 
@@ -65,7 +55,6 @@ public class Screens {
             choice = Screen3Menu(customer.getCustomerName());
             switch (choice) {
                 case 1:
-                    // Screen 3A - Make reservation
                     Screen3A(customer, cinemas);
                     break;
                 case 2:
@@ -73,7 +62,6 @@ public class Screens {
                         Screen3D(customer, cinemas);
                     else
                         Screen3B(customer, cinemas, pendingReservation, null);
-
                     break;
                 case 3:
                     choice = WELCOME_CODE;
@@ -105,7 +93,6 @@ public class Screens {
 
     }
 
-
     public static void Screen3A(Customer customer, ArrayList<Cinema> cinemas) {
         choice = -1;
         if(pendingReservation == null)
@@ -113,8 +100,8 @@ public class Screens {
 
             do {
                 System.out.println("\nMovie Info");
-          //      int cinemaID = 0;
-          //      int timeslotID = 0;
+                int cinemaID = 0;
+                int timeslotID = 0;
                 Cinema cinema = null;
                 Timeslot timeslot = null;
 
@@ -122,37 +109,40 @@ public class Screens {
                     System.out.print("\nEnter Cinema ID (1 - " + cinemas.size() +"): ");  
                     
                     try {
-                    	String scinemaID = scanner.nextLine();
-                    	int cinemaID = Integer.parseInt(scinemaID);
-                    	cinema = Utility.getCinemaByID(cinemas, cinemaID);
-                        if (cinema == null)
-                            System.out.println("Invalid cinema id!");
-                    	} catch (NumberFormatException e) {
+                    	cinemaID = scanner.nextInt();
+                    	cinema = Utility.getCinemaByID(cinemas, cinemaID);   
+                        	if (cinema == null) {
+                        	System.out.println("Invalid cinema id!");
+                        	}
+                    	} catch (InputMismatchException e) {
                     	 System.out.println("Please enter a whole number.");
+                    	 cinemaID = scanner.nextInt();
                     	}
                     
                 } while (cinema == null);
+                
                 pendingReservation.setCinema(cinema);
+                
                 do {
                     System.out.print("\nEnter Timeslot entry (1 - " + cinema.getTimeslots().size() + "): ");
-                    String stimeslotID = scanner.nextLine();
                     try {
-                    	int timeslotID = Integer.parseInt(stimeslotID);
-                    	if (timeslotID != 0 && --timeslotID < cinema.getTimeslots().size()  ) {
-                            timeslot = Utility.getTimeSlotById(pendingReservation.getCinema().getTimeslots(),
-                                    cinema.getTimeslots().get(timeslotID).getTimeSlotID()
-                            );
-                        }
-                    	if (timeslot == null)
-                            System.out.println("Invalid timeslot id!");
-                    	} catch (NumberFormatException e) {
+                    	timeslotID = scanner.nextInt();
+                    		if (timeslotID != 0 && --timeslotID < cinema.getTimeslots().size()){
+                    			timeslot = Utility.getTimeSlotById(pendingReservation.getCinema().getTimeslots(),
+                                    cinema.getTimeslots().get(timeslotID).getTimeSlotID());
+                    		}
+                    		if (timeslot == null) {
+                           	 System.out.println("Invalid timeslot id!");
+                           }
+                    	} catch (InputMismatchException e) {
                     	 System.out.println("Please enter a whole number.");
                     	}
+                   
                 } while (timeslot == null);
+                
                 pendingReservation.setTimeslot(timeslot);
 
             } while (!pendingReservation.isValidReservation());
-
 
             while (choice != 0 && choice != WELCOME_CODE) {
                 choice = Screen3AMenu();
@@ -208,15 +198,12 @@ public class Screens {
             choice = Screen3BMenu();
             switch (choice) {
                 case 1:
-                    //to do
                     Screen3C(customer, reservation, seats, cinemas);
                     break;
                 case 2:
-                    //to do
                     Screen3B(customer, cinemas, reservation, seats);
                     break;
                 case 0:
-                    //to do
                     pendingReservation = null;
                     choice = WELCOME_CODE;
                     break;
@@ -261,15 +248,11 @@ public class Screens {
             System.out.println("\nYour choice: ");
             seat = input.nextInt();
             
-            if (numberOfSeatsDisplay.contains(seat)) {
+            if (numberOfSeatsDisplay.contains(seat) || (seat > totalNumberOfSeats)) {
                 System.out.println("\nOops! Seat Taken! Try again.");
             }else{
             	numberOfSeatsDisplay.add(seat);
             	addedCount++;
-            }
-            
-            if (seat > totalNumberOfSeats) {
-                System.out.println("\nSeat number does not exist. Try again.");
             }
         }
        
@@ -356,7 +339,6 @@ public class Screens {
         System.out.println("Total no. of people: " + reservation.getTotalPeople());
         System.out.println("Total amount: P" + reservation.getTotalAmount());
         System.out.println("Seat: " + numberOfSeatsDisplay); 
-//        numberOfSeatsDisplay.clear();
         
         while (choice != 0 && choice != WELCOME_CODE) {
 
@@ -388,7 +370,6 @@ public class Screens {
         }
     }
 
-
     public static byte Screen4Menu() {
 
         System.out.println("\nPress 1 to Confirm");
@@ -415,7 +396,6 @@ public class Screens {
 
     }
 
-
     public static byte ScreenCMenu() {
 
         System.out.println("Press 1 to go back to menu");
@@ -428,19 +408,5 @@ public class Screens {
             return -1;
         }
     }
-
-//	public static void main(String[] args) {
-//		//for testing only
-//		Customer cust = new Customer(2, "Isa Test");
-//		Movie movie1 = new Movie(1,"Harry Potter", "You", "Adventure", "R");
-//		Cinema cine = new Cinema(1, movie1, 40, "SHOWING");
-//		ArrayList<Cinema> cines = new ArrayList<Cinema>();
-//		cines.add(cine);
-//		Timeslot ts = new Timeslot(2,"3:30PM", 1, 1);
-//		
-//		Reservation res = new Reservation(ts, cine, 14, 0, 2, 0, 300);
-//		
-//		Screens.Screen4(cust, cines, res);
-//	}	
 
 }
