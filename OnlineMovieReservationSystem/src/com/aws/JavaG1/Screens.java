@@ -103,28 +103,31 @@ public class Screens {
                 int timeslotID = 0;
                 Cinema cinema = null;
                 Timeslot timeslot = null;
-
+                
+                System.out.print("\nEnter Cinema ID (1 - " + cinemas.size() +"): "); 
                 do {
-                    System.out.print("\nEnter Cinema ID (1 - " + cinemas.size() +"): ");  
-                    
-                    try {
-                    	cinemaID = scanner.nextInt();
-                    	cinema = Utility.getCinemaByID(cinemas, cinemaID);   
-                        	if (cinema == null) {
-                        	System.out.println("Invalid cinema id!");
-                        	}
-                    	}catch (InputMismatchException e) {
-                    		scanner.next();
-                    		System.out.println("Please enter a whole number.");
-                    	}
+                    while(cinemaID == 0) {
+                    	try {
+                        	cinemaID = scanner.nextInt();
+                        	cinema = Utility.getCinemaByID(cinemas, cinemaID);   
+                            if (cinema == null) {
+                            	System.out.println("Invalid cinema id!");
+                            }
+ 
+                        	}catch (InputMismatchException e) {
+                        		scanner.next();
+                        		System.out.println("Please enter a whole number.");
+                        	}	
+                    }
                     
                 } while (cinema == null);
                 
                 pendingReservation.setCinema(cinema);
                 
+                System.out.print("\nEnter Timeslot entry (1 - " + cinema.getTimeslots().size() + "): ");
                 do {
-                    System.out.print("\nEnter Timeslot entry (1 - " + cinema.getTimeslots().size() + "): ");
-                    try {
+                    while(timeslotID == 0) {
+                    	try {
                     		timeslotID = scanner.nextInt();
                     		if (timeslotID != 0 && --timeslotID < cinema.getTimeslots().size()){
                     			timeslot = Utility.getTimeSlotById(pendingReservation.getCinema().getTimeslots(),
@@ -137,6 +140,7 @@ public class Screens {
                     		scanner.next();
                     		System.out.println("Please enter a whole number.");
                     	}
+                    }
                    
                 } while (timeslot == null);
                 
