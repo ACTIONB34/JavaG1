@@ -16,9 +16,10 @@ public class Screens {
     public static String Screen1A() {
         String name = "";
         do {
-            System.out.println("===================================");
-            System.out.print("\nONLINE MOVIE RESERVATION\n\n"
-                    + "Please enter your name: ");
+            System.out.println("=============================================================");
+            System.out.print("| * * *O N L I N E   M O V I E   R E S E R V A T I O N* * * |\n");
+            System.out.println("=============================================================");
+            System.out.print("\nPlease enter your name: ");
 
             name = scanner.nextLine();
             if (!Utility.isValidName(name))
@@ -110,56 +111,67 @@ public class Screens {
         if(pendingReservation == null)
            pendingReservation = new Reservation();
 
-
-        do {
-            System.out.println("\nMovie Info");
-            int cinemaID = 0;
-            int timeslotID = 0;
-            Cinema cinema = null;
-            Timeslot timeslot = null;
-
             do {
-                System.out.print("\nEnter Cinema ID (1 - " + cinemas.size() +"): ");
-                cinemaID = scanner.nextInt();
-                cinema = Utility.getCinemaByID(cinemas, cinemaID);
-                if (cinema == null)
-                    System.out.println("Invalid cinema id!");
-            } while (cinema == null);
-            pendingReservation.setCinema(cinema);
-            do {
-                System.out.print("\nEnter Timeslot entry (1 - " + cinema.getTimeslots().size() + "): ");
-                timeslotID = scanner.nextInt();
-                if (timeslotID != 0 && --timeslotID < cinema.getTimeslots().size()  ) {
-                    timeslot = Utility.getTimeSlotById(pendingReservation.getCinema().getTimeslots(),
-                            cinema.getTimeslots().get(timeslotID).getTimeSlotID()
-                    );
+                System.out.println("\nMovie Info");
+          //      int cinemaID = 0;
+          //      int timeslotID = 0;
+                Cinema cinema = null;
+                Timeslot timeslot = null;
+
+                do {
+                    System.out.print("\nEnter Cinema ID (1 - " + cinemas.size() +"): ");  
+                    
+                    try {
+                    	String scinemaID = scanner.nextLine();
+                    	int cinemaID = Integer.parseInt(scinemaID);
+                    	cinema = Utility.getCinemaByID(cinemas, cinemaID);
+                        if (cinema == null)
+                            System.out.println("Invalid cinema id!");
+                    	} catch (NumberFormatException e) {
+                    	 System.out.println("Please enter a whole number.");
+                    	}
+                    
+                } while (cinema == null);
+                pendingReservation.setCinema(cinema);
+                do {
+                    System.out.print("\nEnter Timeslot entry (1 - " + cinema.getTimeslots().size() + "): ");
+                    String stimeslotID = scanner.nextLine();
+                    try {
+                    	int timeslotID = Integer.parseInt(stimeslotID);
+                    	if (timeslotID != 0 && --timeslotID < cinema.getTimeslots().size()  ) {
+                            timeslot = Utility.getTimeSlotById(pendingReservation.getCinema().getTimeslots(),
+                                    cinema.getTimeslots().get(timeslotID).getTimeSlotID()
+                            );
+                        }
+                    	if (timeslot == null)
+                            System.out.println("Invalid timeslot id!");
+                    	} catch (NumberFormatException e) {
+                    	 System.out.println("Please enter a whole number.");
+                    	}
+                } while (timeslot == null);
+                pendingReservation.setTimeslot(timeslot);
+
+            } while (!pendingReservation.isValidReservation());
+
+
+            while (choice != 0 && choice != WELCOME_CODE) {
+                choice = Screen3AMenu();
+                switch (choice) {
+                    case 1:
+                        Screen3B(customer, cinemas, pendingReservation, null);
+                        break;
+                    case 2:
+                        Screen3A(customer, cinemas);
+                        break;
+                    case 0:
+                        choice = WELCOME_CODE;
+                        pendingReservation = null;
+                        break;
+                    default:
+                        System.out.println("Invalid Choice");
+                        break;
                 }
-                if (timeslot == null)
-                    System.out.println("Invalid timeslot id!");
-            } while (timeslot == null);
-            pendingReservation.setTimeslot(timeslot);
-
-        } while (!pendingReservation.isValidReservation());
-
-
-        while (choice != 0 && choice != WELCOME_CODE) {
-            choice = Screen3AMenu();
-            switch (choice) {
-                case 1:
-                    Screen3B(customer, cinemas, pendingReservation, null);
-                    break;
-                case 2:
-                    Screen3A(customer, cinemas);
-                    break;
-                case 0:
-                    choice = WELCOME_CODE;
-                    pendingReservation = null;
-                    break;
-                default:
-                    System.out.println("Invalid Choice");
-                    break;
-            }
-        }
+            }	 
     }
 
     private static byte Screen3AMenu() {
