@@ -192,10 +192,6 @@ public class Screens {
             while(noChild == 0) {
             	try {
             		noChild = scanner.nextInt();
-            		while(noChild < 0) {
-            			System.out.print("\nPlease input a positive number: ");
-            			noChild = scanner.nextInt();
-            		}
             		reservation.setNoOfChildrens(noChild);
             	}catch(InputMismatchException e) {
             		scanner.next();
@@ -208,10 +204,6 @@ public class Screens {
             while(noAdult == 0) {
             	try {
                 	noAdult = scanner.nextInt();
-                	while(noAdult < 0) {
-            			System.out.print("\nPlease input a positive number: ");
-            			noAdult = scanner.nextInt();
-            		}
                 	reservation.setNoOfAdults(noAdult);
                 }catch(InputMismatchException f) {
                 	scanner.next();
@@ -224,10 +216,6 @@ public class Screens {
             while(noSenior == 0) {
             	try {
             		noSenior = scanner.nextInt();
-            		while(noSenior < 0) {
-            			System.out.print("\nPlease input a positive number: ");
-            			noSenior = scanner.nextInt();
-            		}
             		reservation.setNoOfSeniors(noSenior);  
             	}catch(InputMismatchException g) {
             		scanner.next();
@@ -238,7 +226,6 @@ public class Screens {
            if (reservation.isCinemaFull()) {
         	   System.out.println("Cinema is Full, please lessen the no of attendees.");
            }
-           
         } while (reservation.isCinemaFull());
 
         while (choice != 0 && choice != WELCOME_CODE) {
@@ -295,9 +282,15 @@ public class Screens {
             System.out.println("\nYour choice: ");
             seat = input.nextInt();
             
-            if (numberOfSeatsDisplay.contains(seat) || (seat > totalNumberOfSeats)) {
+            if (numberOfSeatsDisplay.contains(seat)) {
                 System.out.println("\nOops! Seat Taken! Try again.");
-            }else{
+            } else if(seat > totalNumberOfSeats) {
+            	System.out.println("Oops! Seat does not exist! Try again.");
+            } else if (seat < 0) {
+            	System.out.println("Oops! Negative number! Try again.");
+        	}else if(seat == 0) {
+        		System.out.println("Oops! Try again.");
+        	}else{
             	numberOfSeatsDisplay.add(seat);
             	addedCount++;
             }
