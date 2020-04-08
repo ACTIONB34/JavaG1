@@ -192,6 +192,10 @@ public class Screens {
             while(noChild == 0) {
             	try {
             		noChild = scanner.nextInt();
+            		while(noChild < 0) {
+            			System.out.print("\nPlease input a positive number: ");
+            			noChild = scanner.nextInt();
+            		}
             		reservation.setNoOfChildrens(noChild);
             	}catch(InputMismatchException e) {
             		scanner.next();
@@ -204,6 +208,10 @@ public class Screens {
             while(noAdult == 0) {
             	try {
                 	noAdult = scanner.nextInt();
+                	while(noAdult < 0) {
+            			System.out.print("\nPlease input a positive number: ");
+            			noAdult = scanner.nextInt();
+            		}
                 	reservation.setNoOfAdults(noAdult);
                 }catch(InputMismatchException f) {
                 	scanner.next();
@@ -216,6 +224,10 @@ public class Screens {
             while(noSenior == 0) {
             	try {
             		noSenior = scanner.nextInt();
+            		while(noSenior < 0) {
+            			System.out.print("\nPlease input a positive number: ");
+            			noSenior = scanner.nextInt();
+            		}
             		reservation.setNoOfSeniors(noSenior);  
             	}catch(InputMismatchException g) {
             		scanner.next();
