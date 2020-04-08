@@ -137,6 +137,8 @@ public class Screens {
                     	} catch (InputMismatchException e) {
                     		scanner.next();
                     		System.out.println("Please enter a whole number.");
+                    	} catch(ArrayIndexOutOfBoundsException h) {
+                    		System.out.println("Invalid timeslot id!\nPlease enter a number between (1 - " + cinema.getTimeslots().size() + "): ");
                     	}
                   
                 } while (timeslot == null);
